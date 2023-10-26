@@ -1,89 +1,53 @@
-<%# <div class="cards" data-controller="hide-cards"> %>
-<%# unless @users[-1] == user %>
-
-      <div data-user="<%= user.id %>" class="users-container">
-        <div class="card" data-hide-cards-target="cards">
-          <%# <div id="img-artist">
-            <img src="https://extra-images.akamaized.net/image/0a/o/2018/12/25/0a5af3a0210b5d3e98f7ea85b67a2fb3_md.jpg" alt="Favourite Artist">
-          </div> %>
-          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <% user.photos.each_with_index do |photo, index| %>
-                <div class="user-image-wrapper carousel-item <%= "active" if index == 0 %>">
-                  <%= cl_image_tag photo.key, class: "d-block" %>
-                </div>
-              <% end %>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-
-          <div class="profile-name">
-            <%= user.name %>
-          </div>
-
-          <div class="swipe-btns">
-            <div class="swipe-left">
-              <form action="/users/<%= user.id %>/dislike" method="post">
-                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                <button type="submit">
-                  <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
-                  <lord-icon
-                      src="https://cdn.lordicon.com/hrqwmuhr.json"
-                      trigger="click"
-                      colors="primary:#121331,secondary:#blue"
-                      style="width:70px;height:70px">
-                  </lord-icon>
-                </button>
-              </form>
-            </div>
-            <div class="swipe-right">
-              <form action="/users/<%= user.id %>/like" method="post">
-                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                <button type="submit">
-                <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
-                  <lord-icon
-                      src="https://cdn.lordicon.com/rjzlnunf.json"
-                      trigger="click"
-                      colors="primary:#121331,secondary:#e8308c"
-                      <%# state="morph-two-hearts" %>
-                      style="width:70px;height:70px">
-                  </lord-icon>
-                  <%# <i class="fa-regular fa-heart" id="swipe-left-button" style="position: relative; z-index: 999"></i> %>
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-          <div class="padding">
-              <h2 class="prompt">A little about me...</h2>
-              <div class="card-section">
-                <%= user.description %>
-            </div>
-            <h4 class="prompt"> <i class="fa-solid fa-headphones" style="color: #f44141; font-size: 30px;"></i>                  Currently on repeat:</h4>
-            <div class="card-section">
-              <%= user.on_repeat %>
-            </div>
-            <h4 class="prompt"><i class="fa-solid fa-music" style="color: #34d4eb; font-size: 30px;"></i>                 If my life had a theme song...</h4>
-            <div class="card-section">
-              <%= user.all_time_favorite %>
-            </div>
-
-            <h4 class="prompt">🎤          My go to karaoke song</h4>
-            <div class="card-section">
-              <%= user.go_to_karaoke %>
-            </div>
-          </div>
-        </div>
-        </div>
-
-
-
-   <%= render 'shared/footer' %>
+<div class="background__wrapper">
+  <div class="background">
+    <svg>
+      <filter id="turbulence" x="0" y="0" width="100%" height="100%">
+        <feTurbulence id="fluid" numOctaves="1" seed="1" baseFrequency="0.001 0.001" type="fractalNoise"></feTurbulence>
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="155" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+        <animate xlink:href="#fluid" attributeName="baseFrequency" dur="30s" values="0.001 0.001;0.004 0.006;0.001 0.003;0.005 0.003;0.003 0.004;0.001 0.001" keySplines="
+                      .52 .02 .62 .99;
+                      .52 .02 .62 .99;
+                      .52 .02 .62 .99;
+                      .52 .02 .62 .99;
+                      .52 .02 .62 .99" keyTimes="
+                    0;0.2;0.4;0.6;0.8;1" calcMode="spline" repeatCount="indefinite" />
+      </filter>
+    </svg>
+  </div>
+  <h1 style="font-family: Montserrat;
+    position: absolute;
+    top: 5%;
+    text-align: center;
+    left: 25%;
+    font-weight: 900;
+    color: white;">P O S S I B L E<BR>M A T C H</h1>
+  <%# <div data-user="<%= user.id" class="users-container"> %>
+  <div class="card" data-hide-cards-target="cards">
+    <div class="profile-name">
+      <ul><li><%= user.name %></li></ul>
+    </div>
+    <div>
+      <%= image_tag("play_bar.png", alt: "Play bar", class: "play-bar") %>
+      <div class="flex-container">
+        <%= image_tag("swipe_left.png", alt: "Swipe left", class: "flex-items swipe-tools") %>
+        <%= image_tag("swipe_right.png", alt: "Swipe right", class: "flex-items swipe-tools") %>
+      </div>
+        <%= image_tag("play_bar.png", alt: "Play bar", class: "play-bar") %>
+    </div>
+  </div>
+  <div class="photo">
+    <div class="user-image-wrapper">
+      <%= cl_image_tag user.photos.first.key, class: "d-block" if user.photos.present? %>
+    </div>
+  </div>
+  <div>
+    <h6 style="font-family: Montserrat;
+    position: absolute;
+    top: 82%;
+    text-align: center;
+    left: 29%;
+    font-weight: 900;
+    color: white;">S C R O L L&nbsp;&nbsp;&nbsp;D O W N</h6>
+    <%= image_tag("scroll_down.png", alt: "Scroll down", class: "scroll-down") %>
+  </div>
+</div>
