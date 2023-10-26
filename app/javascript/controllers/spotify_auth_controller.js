@@ -63,7 +63,7 @@ export default class extends Controller {
 
     // Your redirect uri
     // let redirect_uri = "https://lfc-sandbox-c15f95ad1922.herokuapp.com/profile";
-    let redirect_uri = "http://www.jamwithme.site/profile";
+    let redirect_uri = "https://j-a-m-1f39b9aba9a4.herokuapp.com/profile";
 
     localStorage.setItem("client_id", client_id);
     localStorage.setItem("client_secret", client_secret);
@@ -291,7 +291,7 @@ export default class extends Controller {
         // Handle error
       });
 
-      let redirectLink = "http://www.jamwithme.site/profile"
+      let redirectLink = "https://j-a-m-1f39b9aba9a4.herokuapp.com/profile"
 
       const currentUrl = window.location.href;
       console.log(currentUrl)
