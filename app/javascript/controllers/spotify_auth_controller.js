@@ -65,8 +65,8 @@ export default class extends Controller {
     // let redirect_uri = "https://lfc-sandbox-c15f95ad1922.herokuapp.com/profile";
     let redirect_uri = "https://j-a-m-1f39b9aba9a4.herokuapp.com/profile";
 
-    localStorage.setItem("client_id", client_id);
-    localStorage.setItem("client_secret", client_secret);
+    localStorage.setItem("SPOTIFY_CLIENT_ID", client_id);
+    localStorage.setItem("SPOTIFY_CLIENT_SECRET", client_secret);
     localStorage.setItem("redirect_url", redirect_uri);
 
     // Application requests authorization
