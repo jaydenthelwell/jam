@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="card-header" style="font-size: 30px;">
+    Add a new post
+  </div>
+
+  <div class="card-body">
+    <%= simple_form_for [current_user, @social] do |f| %>
+      <%= f.input :photo, as: :file,
+                  required: true
+                  %>
+      <%= f.submit "Post", class: "btn-create" %>
+    <% end %>
+  </div>
+</div>

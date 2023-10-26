@@ -1,0 +1,67 @@
+.bg {
+  background-image: url(social_post.jpeg);
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.carousel-item .name-cont {
+  position: absolute;
+  font-size: 18px;
+  top: 3%;
+  left: 25px;
+  z-index: 10;
+  color: rgb(0, 0, 0);
+  font-family: 'raleway';
+  text-shadow: 2px 2px #d372ff;
+  .recipient-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  }
+}
+
+.image {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 3%;
+  left: 10%;
+  z-index: 10;
+}
+
+.exit {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 5%;
+  font-size: 40px;
+  left: 90%;
+  z-index: 10;
+  color: white;
+  opacity: 0.7;
+}
+.fa-trash {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 90%;
+  font-size: 30px;
+  left: 10%;
+  z-index: 10;
+  color: white;
+  opacity: 0.7;
+}
+
+.post-button {
+  position: absolute;
+  margin-top: 10px;
+    text-decoration: none;
+    font-family: 'raleway';
+    font-size: 20px;
+    color: black;
+    background: #d372ff;;
+    box-shadow: 6px 6px 0 black;
+  transform: skewX(-15deg);
+  transform: translate(-50%, -50%);
+  top: 90%;
+  left: 50%;
+  z-index: 10;
+}

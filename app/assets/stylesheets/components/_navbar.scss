@@ -1,0 +1,32 @@
+.navbar-lewagon {
+  justify-content: space-between;
+  background: white;
+}
+
+.navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+}
+
+.navbar-lewagon .navbar-brand img {
+  width: 40px;
+}
+
+
+#card-in {
+  padding: 8px 8px;
+  border-style: solid;
+  border-color: #4a00ff;
+  border-right-style: none;
+  border-left-style: none;
+  margin-top: 30px;
+}
+
+
+.name-of {
+  text-decoration: none;
+  color: black;
+}
+
+p {
+  font-family: 'raleway', 'sans-serif';
+}

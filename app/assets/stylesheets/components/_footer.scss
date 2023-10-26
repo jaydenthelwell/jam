@@ -1,0 +1,18 @@
+.footer-main {
+  width: 100vw;
+  height: 70px;
+  background-color: black;
+  // position: sticky;
+  position: fixed;
+  bottom: 0px;
+  justify-content: space-around;
+  align-items: center;
+  .fa-solid {
+    font-size: 28px;
+    color:black;
+  }
+}
+
+.f-logo {
+  height: 35px;
+}

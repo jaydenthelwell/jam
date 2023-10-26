@@ -1,0 +1,124 @@
+.chatroom {
+  background: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+
+  .back-btn {
+    font-size: 30px;
+    padding-left: 10px;
+  }
+
+  .chatroom-profile {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .chatbar {
+    width: 100%;
+    height: 80px;
+    margin: 0 auto;
+    background-color: black;
+  }
+
+  .chat-user {
+    width: 75%;
+  }
+  .name {
+    font-size: 24px;
+    color: #ffffff;
+  }
+
+  .matched-p {
+    padding-left: 15px;
+    text-decoration: none;
+
+  img {
+    border-radius: 50%;
+    //  padding-top: 7.5px;
+    //  padding-bottom: 7.5px;
+  }
+  }
+
+  h1 {
+    border-bottom: 1px solid $gray-200;
+    margin-bottom: 0;
+    padding: 1rem;
+    font-family: "lobster", cursive;
+  }
+
+  .messages {
+    height: 100%;
+    overflow: scroll;
+    padding: 1rem;
+  }
+
+  .margin-send {
+    margin-bottom: 0 !important;
+  }
+
+  .simple_form {
+    background: rgb(208, 208, 208);
+  }
+
+  #new_message {
+    border-top: 1px solid $gray-200;
+    padding: 1rem;
+
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+
+}
+
+.btn-icon-message {
+  border: none;
+  background-color: black;
+  i {
+    color: #ffffff;
+  };
+}
+
+.chatrooms-container {
+  height: calc(100vh - 70px);
+  margin: 30px;
+
+  .card {
+    border-color: rgb(211, 114, 255);
+    border-left-style: none;
+    border-right-style: none;
+  }
+  .last-message {
+    padding-top: 12px;
+    font-family: "raleway";
+
+  }
+
+
+  .recipient-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  .my-matches {
+    // height: 100vh;
+    font-family: "raleway";
+
+  }
+}
+
+.recipient-info {
+  // padding-left: 21px;
+  a {
+    font-size: 22px;
+    padding-left: 5px;
+    text-decoration: none !important;
+    color: #000;
+  }
+
+}

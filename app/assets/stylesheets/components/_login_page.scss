@@ -1,0 +1,40 @@
+.background-login {
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  width: 150%;
+  height: 150%;
+  background-image: url("https://i.imgur.com/KeTQDre.png");
+  background-size: cover;
+  background-position: center;
+  filter: url("#turbulence");
+  z-index: -1;
+}
+
+.login-card {
+  border-radius: 30px;
+  width: 20%;
+  height: 50%;
+  top: 0%;
+}
+
+.login-button-new {
+  color: rgb(0, 0, 0);
+  background: #A6B2E8;
+  border-radius: 10px;
+}
+
+.auth-links {
+  padding: 40px;
+}
+
+@media only screen and (max-width: 850px) {
+  .login-card {
+    width: 65%;
+    height: 50%;
+  }
+
+  .auth-links {
+    padding: 20px;
+  }
+}

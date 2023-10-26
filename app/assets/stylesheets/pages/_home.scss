@@ -1,0 +1,179 @@
+.background__wrapper {
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.background {
+  position: relative;
+  top: -20vh;
+  left: -20vw;
+  width: 140vw;
+  height: 140vh;
+  background-image: url("https://i.imgur.com/KeTQDre.png");
+  background-size: cover;
+  background-position: center;
+  filter: url("#turbulence");
+}
+
+.main_bubble {
+  position: absolute;
+  top: 22%;
+  left: 60%;
+  width: 40%;
+  animation: bubble 2s infinite alternate;
+}
+
+@keyframes bubble {
+  from {
+    transform: translateY(0%);
+  }
+
+  to {
+    transform: translateY(2%);
+  }
+}
+
+.top_bubble {
+  position: absolute;
+  top: 0%;
+  left: 35%;
+  width: 30%;
+}
+
+.bubbles {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 15%;
+}
+
+.title {
+  position: absolute;
+  top: 10%;
+  width: 35%;
+  left: 2%;
+}
+
+.music{
+position: absolute;
+top: 55%;
+left: 35%;
+width: 30%;
+}
+
+.login-button {
+position: absolute;
+top: 4%;
+color: rgb(0, 0, 0);
+left: 93%;
+font-family: "Poppins";
+background: #A6B2E8;
+border-radius: 15px;
+padding: 15px;
+}
+
+.login-button:hover {
+text-decoration: underline;
+}
+
+.email-input {
+position: absolute;
+background: #ffffff;
+border-radius: 24px;
+border: white;
+top: 80%;
+left: 3%;
+width: 30%;
+height: 7%;
+color: black;
+font-size: 20px;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+padding: 10px;
+}
+
+.signup {
+position: absolute;
+background: #C1FF72;
+border-radius: 18px;
+text-align: center;
+padding: 15px;
+top: 80%;
+left: 35%;
+width: 7%;
+font-family: "Poppins";
+color: black;
+font-weight: 900;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.signup:hover {
+text-decoration: underline;
+}
+
+.fa-bars {
+position: absolute;
+top: 5.5%;
+left: 3.3%;
+font-size: 30px;
+}
+
+.connect-with-music {
+position: absolute;
+top: 55%;
+left: 5%;
+font-family: Suez one;
+color: white;
+}
+
+.connect-with-harmony {
+position: absolute;
+top: 60%;
+left: 5%;
+color: white;
+font-size: 27px;
+}
+
+@media only screen and (max-width: 850px) {
+.login-button {
+  // width: 18%;
+  left: 75%;
+}
+
+.signup {
+  width: 30%;
+  padding: 10px;
+  top: 85%;
+}
+
+.title {
+  width: 80%;
+  top: 5%;
+  left: 15%;
+}
+
+.enter-email {
+  display: none;
+}
+
+.main_bubble {
+  top: 50%;
+  left: 15%;
+  width: 70%;
+}
+
+.connect-with-harmony {
+  font-size: 18px;
+  top: 33%;
+  left: 0%;
+  text-align: center;
+}
+
+.connect-with-music {
+  display: none;
+}
+}
