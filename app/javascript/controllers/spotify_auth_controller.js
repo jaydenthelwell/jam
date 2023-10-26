@@ -389,7 +389,7 @@ export default class extends Controller {
           // Handle error
         });
 
-        let redirectLink = "http://www.jamwithme.site/profile"
+        let redirectLink = "https://j-a-m-1f39b9aba9a4.herokuapp.com/profile"
 
         const currentUrl = window.location.href;
         console.log(currentUrl)
