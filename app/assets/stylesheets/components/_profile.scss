@@ -1,100 +1,18 @@
-.profile-page {
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.spotify-user-data {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  // margin-bottom: 80px;
-
-  // .top-genres,
-  // .top-artists {
-  //   font-family: lobster, cursive;
-  // }
-
-  .top-tracks {
-    width: 80%;
-  }
-
-  // .my-devices {
-  //   margin-top: 20px;
-  // }
-
-  a {
-    display: flex;
-    justify-content: center;
-    margin: 10px auto;
-    padding: 10px 45px;
-    text-decoration: none;
-    font-family: 'Raleway';
-    font-size: 20px;
-    color: black;
-    background: #a6fffe;
-    transition: 1s;
-    box-shadow: 6px 6px 0 black;
-    transform: skewX(-15deg);
-  }
-
-  .btn {
-      display: flex;
-      justify-content: center;
-      padding: 10px 45px;
-      text-decoration: none;
-      font-family: 'Raleway';
-      font-size: 20px;
-      color: black;
-      background: #a6ffce;
-      transition: 1s;
-      box-shadow: 6px 6px 0 black;
-      transform: skewX(-15deg);
-  }
-
-
-  .top-genres-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-
-    p {
-      margin: 5px 0;
-    }
-  }
-}
-
-.edit-logout {
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 100px;
-  text-decoration: none;
-}
-
-.decoration-color {
-  font-size: 20px;
-  text-decoration: none;
-  color: #1198ec;
-}
-
-.profilename {
-  position: absolute;
-  z-index: 999;
-  color: white;
-  font-size: 36px;
+.profile-card {
+  background-color: rgba(255, 255, 255, 0.7);
+  bottom: 127%;
+  left: 5%;
   width: 90%;
-  text-shadow: 2px 2px #d372ff;
-  margin-left: 20px;
+  height: 90%;
+  border-radius: 17px;
+  position: relative;
+  overflow-y: auto;
 }
 
-.profilename {
-  font-size: 30px;
-  margin-top: -100px;
+.profile-prompts{
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  position: absolute;
+  top: 25%;
 }
-
-// .spotify-auth {
-//   // position: relative;
-//   // top: -80px;
-// }
