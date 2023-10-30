@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+New+Tai+Lue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
@@ -35,6 +35,22 @@
   </head>
 
   <body>
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+    <script>
+      $(document).ready(function() {
+        var scrollDownText = $("#scroll-down-text");
+
+        $(window).on("scroll", function() {
+          if ($(this).scrollTop() > 100) {
+            // After scrolling down a certain amount (e.g., 100 pixels), hide the "scroll down" text
+            scrollDownText.hide();
+          } else {
+            // If the user scrolls back up, show the "scroll down" text
+            scrollDownText.show();
+          }
+        });
+      });
+    </script>
     <div data-controller="message-notifications">
     </div>
     <%= yield %>

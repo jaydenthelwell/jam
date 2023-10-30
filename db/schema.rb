@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_09_07_103013) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_103013) do
   end
 
   create_table "chatrooms", force: :cascade do |t|
-    t.bigint "swipe_id", null: false
+    t.integer "swipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["swipe_id"], name: "index_chatrooms_on_swipe_id"
@@ -51,8 +48,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_103013) do
 
   create_table "messages", force: :cascade do |t|
     t.string "content"
-    t.bigint "chatroom_id", null: false
-    t.bigint "user_id", null: false
+    t.integer "chatroom_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
@@ -60,29 +57,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_103013) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.bigint "social_id", null: false
+    t.integer "social_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["social_id"], name: "index_photos_on_social_id"
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "socials", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_socials_on_user_id"
   end
 
   create_table "swipes", force: :cascade do |t|
-    t.bigint "swiper_id"
-    t.bigint "swipee_id"
+    t.integer "swiper_id"
+    t.integer "swipee_id"
     t.boolean "like"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -93,7 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_103013) do
 
   create_table "top_genres", force: :cascade do |t|
     t.string "genre"
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_top_genres_on_user_id"
@@ -101,7 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_103013) do
 
   create_table "top_tracks", force: :cascade do |t|
     t.string "track"
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "spotify_ref"

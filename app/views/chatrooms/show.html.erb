@@ -1,26 +1,29 @@
-
-  <% if @chatroom.swipe.swiper_id = current_user || @chatroom.swipe.swipee_id = current_user %>
-    <div class="chatroom"
+<% if @chatroom.swipe.swiper_id = current_user || @chatroom.swipe.swipee_id = current_user %>
+  <div class="chatroom"
     data-controller="chatroom-subscription"
     data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id%>"
     data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
 
     <div class="d-flex chatbar back-btn align-items-center">
       <span><%= link_to chatrooms_path do%>
-        <i class="fa-solid fa-chevron-left" style="color: #ffffff;"></i>
+        <i class="fa-solid fa-chevron-left back-icon" style="color: #000000;"></i>
       <% end %>
       </span>
       <div class="chat-user">
-        <span>
+        <%# <span>
           <%= link_to profile_path(@other_user.id), class: 'matched-p' do %>
-            <%= cl_image_tag(@other_user.photos[0].key, width: 50, height: 50, crop: :thumb, gravity: :face) %>
-          <% end %>
-        </span>
+            <%# <%= cl_image_tag(@other_user.photos[0].key, width: 50, height: 50, crop: :thumb, gravity: :face) %>
+          <%# <% end %>
+        <%# </span> %>
         <span class="name"> <%= @other_user.name %>
         </span>
       </div>
     </div>
-
+    <div class="chat-profile">
+      <%= link_to "Chat", chatroom_path(@chatroom), class: ("a-colour" if current_page?(chatroom_path(@chatroom))) %>
+      <%= link_to "Profile", profile_path(@other_user.id), class: ("a-colour" if current_page?(profile_path(@other_user.id))) %>
+    </div>
+    <div class="bottom-border"></div>
     <div class="messages" data-chatroom-subscription-target= "messages">
       <% @chatroom.messages.each do |message| %>
         <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
@@ -36,13 +39,13 @@
       <%= f.input :content,
         label: false,
         placeholder: "Message",
+        class: "message-bar",
         wrapper_html: { class: "flex-grow-1 margin-send" }
       %>
-      <%= button_tag type: 'submit', class: 'btn-icon-message' do %>
-        <i class="fa-solid fa-paper-plane"></i>
-      <% end %>
+        <%= button_tag type: 'submit', class: 'btn-icon-message' do %>
+          <i class="fa-solid fa-paper-plane"></i>
+        <% end %>
       <% end %>
     </div>
     <% else %>
 <% end %>
-

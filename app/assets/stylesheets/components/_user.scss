@@ -1,29 +1,43 @@
 .card {
   background-color: rgba(255, 255, 255, 0.7);
-  bottom: 125%;
-  left: 10%;
-  width: 80%;
-  height: 65%;
+  bottom: 127%;
+  left: 5%;
+  width: 90%;
+  height: 32%;
   border-radius: 17px;
   position: relative;
-  max-height: 100vh;
   overflow-y: auto;
 }
 
-// .h6 {
-//   text-align: left;
-// }
+.scroll {
+
+}
+
+button {
+  background: transparent;
+  border: none;
+}
+
+.background__wrapper_user {
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 200vh;
+  z-index: 0;
+}
 
 .user-image-wrapper {
-  height: 450px;
+  height: 350px;
   width: 100%;
   margin-bottom: 10px;
 }
 
-.photo{
+.photo {
   position: absolute;
   width: 70%;
-  top: 23%;
+  top: 12%;
   left: 15%;
 }
 
@@ -32,7 +46,8 @@
   flex-direction: row;
   justify-content: space-evenly;
   position: absolute;
-  top: 87%;
+  top: 88%;
+  z-index: 1;
 }
 
 .play-bar{
@@ -43,44 +58,36 @@
 }
 
 .swipe-tools {
-  width: 12%;
+  width: 20%;
 }
 
 .user-image-wrapper img {
-  height: 75%;
+  height: 100%;
   width: 100%;
   object-position: top;
   object-fit: cover;
 }
 
+.card-extended {
+  // position: absolute;
+  border-radius: 30px;
+}
+
 .card-section {
-  background-color: #ffffff;
-  padding: 15px;
-  margin: 15px 0;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0e0e0;
+  background-color: white;
+  width: 95%;
+  margin: 8px;
+  height: 110px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  padding: 10px;
+  border: #45518D;
+  border-style: solid;
+  border-width: 0.3em;
 }
-
-.prompt + .card-section {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 5px solid #6757ff;
-  font-size: 25px;
-  font-family: 'raleway', sans-serif;
-}
-
-  // .card-section {
-  //   border: 1px solid #e0e0e0; /* Add a light border around the card sections */
-  // }
-
-  //   .prompt + .card-section {
-  //   margin-top: 20px;
-  //   padding-top: 20px;
-  //   border-top: 1px solid #e0e0e0;
-  //   font-size: 25px;
-  //   font-family: 'raleway', sans-serif;
-  // }
 
 #img-artist img {
   z-index: 10;
@@ -94,26 +101,34 @@
   left: 10px;
 }
 
-.padding {
-  // background-color: #6bcce4;
-  padding: 20px;
-  padding-bottom: 90px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-  // margin-bottom: 60px;
-}
+// .prompt {
 
-.profile-content {
+// }
+
+.prompts-container {
+  background-color: rgba(255, 255, 255, 0.7);
+  bottom: 120%;
+  left: 6%;
+  width: 90%;
+  padding: 15px;
+  height: 100%;
+  border-radius: 17px;
   position: relative;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
-.prompt {
-  font-family: "lobster", cursive;
-  font-size: 22px;
-  margin-left: 20px;
+.user-prompts {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+
 }
+
+// .profile-content {
+//   position: relative;
+// }
+
 
 .profile-name {
   position: absolute;
@@ -127,7 +142,7 @@
 
 .scroll-down {
   position: absolute;
-  top: 86%;
+  top: 43%;
   width: 10%;
   left: 45%;}
 
