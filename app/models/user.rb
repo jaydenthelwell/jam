@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+          :recoverable, :rememberable, :validatable
 
   has_many :swiper_relationships, foreign_key: :swiper_id, class_name: 'Swipe', dependent: :destroy
   has_many :swiper, through: :swiper_relationships, source: :swiper
@@ -18,7 +18,6 @@ class User < ApplicationRecord
   has_many :top_tracks, dependent: :destroy
   has_one :profile, dependent: :destroy
 
-  # For cloudinary to work
   has_many_attached :photos
 
   def dislike(user_id)
