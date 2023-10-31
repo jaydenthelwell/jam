@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
   #^^^^^^^^^^^^^^ ADDED BY JURGEST, MIGHT CAUSE ERROOOOORSSSSSSSSSSS ************************************** ^^^^^^^^^^
