@@ -121,8 +121,12 @@
                 <h5 class="flex-items">Update My Genres</h5>
                 <div class="btn my-2 flex-items my-spotify" data-action="click->spotify-auth#getTopGenres">Update</div>
                   <div class="profile-top-genres-list mt-2 d-none">
-                    <% current_user.top_genres.each do |genre| %>
-                      <ul><li><%= genre.genre %></li></ul>
+                    <% if current_user.top_genres.any? %>
+                      <ul>
+                      <% current_user.top_genres.each do |genre| %>
+                        <li><%= genre.genre %></li>
+                        <% end %>
+                      </ul>
                     <% end %>
                   </div>
                 </div>
