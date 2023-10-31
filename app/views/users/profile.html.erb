@@ -91,16 +91,17 @@
           </div>
         </div>
         <div class="flex-items card-extended">
-
+          <h4 class="prompt">Top Genres</h4>
           <div class="profile-top-genres-list genres-list">
             <% if current_user.top_genres.any? %>
-            <h4 class="prompt">Top Genres</h4>
-            <ul>
-              <% current_user.top_genres.each do |genre| %>
-                <li><%= genre.genre.capitalize %></li>
-              <% end %>
-            </ul>
-          <% end %>
+              <ul>
+                <% current_user.top_genres.each do |genre| %>
+                  <li><%= genre.genre.capitalize %></li>
+                <% end %>
+              </ul>
+            <% else %>
+              <div><p>None</p></div>
+            <% end %>
           </div>
         </div>
         <%# <div class="account-options">
