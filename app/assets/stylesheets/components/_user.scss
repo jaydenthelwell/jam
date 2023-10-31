@@ -9,6 +9,25 @@
   overflow-y: auto;
 }
 
+.profile-image-wrapper {
+  height: 350px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.profile-image-wrapper img{
+  height: 105%;
+  width: 105%;
+  margin-left: -13px;
+  object-fit: cover;
+}
+
+.prompt {
+  font-family: "Martel Sans";
+  margin-left: 15px;
+  margin-top: 22px;
+}
+
 button {
   background: transparent;
   border: none;
@@ -27,7 +46,6 @@ button {
 .user-image-wrapper {
   height: 350px;
   width: 100%;
-  margin-bottom: 10px;
 }
 
 .photo {
@@ -42,14 +60,14 @@ button {
   flex-direction: row;
   justify-content: space-evenly;
   position: absolute;
-  top: 88%;
+  top: 91%;
   z-index: 1;
 }
 
 .play-bar{
   width: 90%;
   position: absolute;
-  top: 80%;
+  top: 83%;
   left: 5%;
 }
 
@@ -58,9 +76,10 @@ button {
 }
 
 .user-image-wrapper img {
-  height: 100%;
-  width: 100%;
-  object-position: top;
+  height: 90%;
+  width: 90%;
+  margin-left: 18px;
+  // object-position: top;
   object-fit: cover;
 }
 
@@ -71,18 +90,23 @@ button {
 
 .card-section {
   background-color: white;
-  width: 95%;
+  width: 85%;
   margin: 8px;
-  height: 110px;
+  min-height: 110px;
   border-radius: 15px;
   display: flex;
+  left: 38px;
   justify-content: flex-start;
   align-content: center;
   align-items: center;
   padding: 10px;
   border: #45518D;
+  font-family: "B612";
   border-style: solid;
   border-width: 0.3em;
+  transform: translatex(15px);
+  margin-bottom: 30px;
+  margin-top: 25px;
 }
 
 #img-artist img {
@@ -112,7 +136,6 @@ button {
 
 .user-prompts {
   display: flex;
-  gap: 30px;
   flex-direction: column;
 
 }

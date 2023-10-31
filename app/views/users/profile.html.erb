@@ -1,93 +1,143 @@
-<div class="background__wrapper_user">
-  <div class="background">
-    <svg>
-      <filter id="turbulence" x="0" y="0" width="100%" height="100%">
-        <feTurbulence id="fluid" numOctaves="1" seed="1" baseFrequency="0.001 0.001" type="fractalNoise"></feTurbulence>
-        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="155" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
-        <animate xlink:href="#fluid" attributeName="baseFrequency" dur="30s" values="0.001 0.001;0.004 0.006;0.001 0.003;0.005 0.003;0.003 0.004;0.001 0.001" keySplines="
-                      .52 .02 .62 .99;
-                      .52 .02 .62 .99;
-                      .52 .02 .62 .99;
-                      .52 .02 .62 .99;
-                      .52 .02 .62 .99" keyTimes="
-                    0;0.2;0.4;0.6;0.8;1" calcMode="spline" repeatCount="indefinite" />
-      </filter>
-    </svg>
-  </div>
-  <h1 style="font-family: Montserrat;
-    position: absolute;
-    top: 2%;
-    text-align: center;
-    left: 25%;
-    font-weight: 900;
-    color: white;">P R O F I L E</h1>
-  <%# <div data-user="<%= current_user.id" class="users-container"> %>
-  <div class="profile-card" data-hide-cards-target="cards">
-    <div class="profile-name">
-      <%= current_user.name %>
+<div class="background__wrapper_profile">
+  <%# <div class="container"> %>
+    <div class="background-profile">
+      <svg>
+        <filter id="turbulence" x="0" y="0" width="100%" height="100%">
+          <feTurbulence id="fluid" numOctaves="1" seed="1" baseFrequency="0.001 0.001" type="fractalNoise"></feTurbulence>
+          <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="155" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+          <animate xlink:href="#fluid" attributeName="baseFrequency" dur="30s" values="0.001 0.001;0.004 0.006;0.001 0.003;0.005 0.003;0.003 0.004;0.001 0.001" keySplines="
+                        .52 .02 .62 .99;
+                        .52 .02 .62 .99;
+                        .52 .02 .62 .99;
+                        .52 .02 .62 .99;
+                        .52 .02 .62 .99" keyTimes="
+                      0;0.2;0.4;0.6;0.8;1" calcMode="spline" repeatCount="indefinite" />
+        </filter>
+      </svg>
     </div>
-    <div>
-      <%= image_tag("play_bar.png", alt: "Play bar", class: "profile-play-bar") %>
+    <%# <div data-user="<%= current_user.id" class="users-container"> %>
+    <div class="profile-card" data-hide-cards-target="cards">
+      <h1 style="font-family: Montserrat;
+      position: absolute;
+      top: 1%;
+      text-align: center;
+      left: 10%;
+      font-weight: 900;
+      color: black;">M A N A G E &nbsp; Y O U R <BR> A C C O U N T</h1>
+      <%# <div class="profilename">
+        Name: <%= current_user.name %>
+      <%# </div> %>
+      <div>
+        <%= link_to edit_user_path(current_user) do %>
+          <i class="fas fa-edit edit" style="color: #000000;"></i>
+        <% end %>
+      </div>
+      <div class="profile-photo">
+        <div class="profile-image-wrapper">
+          <%= cl_image_tag current_user.photos.first.key, class: "d-block" if current_user.photos.present? %>
+        </div>
+      </div>
+      <div class="profile-prompts">
+        <div class="flex-items card-extended">
+          <h2 class="prompt">A little about me...</h2>
+          <div class=" card-section">
+            <%= current_user.description %>
+          </div>
+          <div>
+            <% if current_user.photos.length > 1 %>
+              <div class="user-image-wrapper">
+                <%= cl_image_tag current_user.photos[1].key, class: "d-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="flex-items card-extended">
+          <h4 class="prompt">Currently on repeat:</h4>
+          <div class="flex-items card-section">
+            <%= current_user.on_repeat %>
+          </div>
+          <div>
+            <% if current_user.photos.length > 2 %>
+              <div class="user-image-wrapper">
+                <%= cl_image_tag current_user.photos[2].key, class: "d-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="flex-items card-extended">
+          <h4 class="prompt">If my life had a theme song...</h4>
+          <div class="flex-items card-section">
+            <%= current_user.all_time_favorite %>
+          </div>
+          <div>
+            <% if current_user.photos.length > 3 %>
+              <div class="user-image-wrapper">
+                <%= cl_image_tag current_user.photos[3].key, class: "d-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="flex-items card-extended">
+          <h4 class="prompt">My go to karaoke song</h4>
+          <div class="flex-items card-section">
+            <%= current_user.go_to_karaoke %>
+          </div>
+          <div>
+            <% if current_user.photos.length > 4 %>
+              <div class="user-image-wrapper">
+                <%= cl_image_tag current_user.photos[4].key, class: "d-block" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="flex-items card-extended">
+          <h4 class="prompt">Top Genres</h4>
+          <div class="card-section genres-list">
+            <% current_user.top_genres.each do |genre| %>
+              <p><%= genre.genre %></p>
+            <% end %>
+          </div>
+        </div>
+        <div class="account-options">
+          <%= link_to "Reconnect Spotify", "top_genres/new", class: "account-option flex-items" %>
+          <%= link_to "Log out", destroy_user_session_path, class: "account-option flex-items", data: {turbo_method: :delete} %>
+        </div>
+        <section class="spotify-auth mt-2" data-controller="spotify-auth">
+          <div
+            class="spotify-env"
+            data-client-id="<%= ENV["SPOTIFY_CLIENT_ID"] %>"
+            data-client-secret="<%= ENV["SPOTIFY_CLIENT_SECRET"] %>">
+          </div>
+          <div class="spotify-connect-auth" data-spotify-auth-target="auth">
+            <h5 class="flex-items">Connect My Account to Spotify</h5>
+            <div
+            class="my-spotify btn my-2 flex-items"
+            data-action="click->spotify-auth#linkToSpotify">Connect to Spotify
+            </div>
+          </div>
+          <div data-spotify-auth-target="genres"></div>
+            <div class="spotify-user-data spotify">
+              <div class="spotify-connect-auth top-genres mt-2">
+                <h5 class="flex-items">Update My Genres</h5>
+                <div class="btn my-2 flex-items my-spotify" data-action="click->spotify-auth#getTopGenres">Update</div>
+                  <div class="top-genres-list mt-2 d-none">
+                    <% current_user.top_genres.each do |genre| %>
+                      <p><%= genre.genre %></p>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="spotify-data top-artists mt-3">
+                  <h5 class="flex-items">View your top artists</h5>
+                  <div class="my-spotify flex-items" data-action="click->spotify-auth#getTopArtists">My Top 5 Artists</div>
+                  <h5 class="flex-items">View your top tracks</h5>
+                  <div class="my-spotify flex-items" data-action="click->spotify-auth#getTopTracks">My Top 5 Tracks</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
-    <div class="profile-photo">
-      <div class="user-image-wrapper">
-        <%= cl_image_tag current_user.photos.first.key, class: "d-block" if current_user.photos.present? %>
-      </div>
-    </div>
-    <div class="profile-prompts">
-      <div class="flex-items card-extended">
-        <h2 class="prompt">A little about me...</h2>
-        <div class=" card-section">
-          <%= current_user.description %>
-        </div>
-        <div>
-          <% if current_user.photos.length > 1 %>
-            <div class="user-image-wrapper">
-              <%= cl_image_tag current_user.photos[1].key, class: "d-block" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="flex-items card-extended">
-        <h4 class="prompt">Currently on repeat:</h4>
-        <div class="flex-items card-section">
-          <%= current_user.on_repeat %>
-        </div>
-        <div>
-          <% if current_user.photos.length > 2 %>
-            <div class="user-image-wrapper">
-              <%= cl_image_tag current_user.photos[2].key, class: "d-block" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="flex-items card-extended">
-        <h4 class="prompt">If my life had a theme song...</h4>
-        <div class="flex-items card-section">
-          <%= current_user.all_time_favorite %>
-        </div>
-        <div>
-          <% if current_user.photos.length > 3 %>
-            <div class="user-image-wrapper">
-              <%= cl_image_tag current_user.photos[3].key, class: "d-block" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="flex-items card-extended">
-        <h4 class="prompt">My go to karaoke song</h4>
-        <div class="flex-items card-section">
-          <%= current_user.go_to_karaoke %>
-        </div>
-        <div>
-          <% if current_user.photos.length > 4 %>
-            <div class="user-image-wrapper">
-              <%= cl_image_tag current_user.photos[4].key, class: "d-block" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%# </div> %>
 </div>
 <%= render 'shared/footer' %>

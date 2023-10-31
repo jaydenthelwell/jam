@@ -24,26 +24,26 @@
   <%# <div data-user="<%= current_user.id" class="users-container"> %>
   <div class="profile-card" data-hide-cards-target="cards">
     <div class="profile-name">
-      <%= current_user.name %>
+      <%= @profile.user.name %>
     </div>
     <div>
       <%= image_tag("play_bar.png", alt: "Play bar", class: "profile-play-bar") %>
     </div>
     <div class="profile-photo">
       <div class="user-image-wrapper">
-        <%= cl_image_tag current_user.photos.first.key, class: "d-block" if current_user.photos.present? %>
+        <%= cl_image_tag @profile.user.photos.first.key, class: "d-block" if @profile.user.photos.present? %>
       </div>
     </div>
     <div class="profile-prompts">
       <div class="flex-items card-extended">
         <h2 class="prompt">A little about me...</h2>
         <div class=" card-section">
-          <%= current_user.description %>
+          <%= @profile.user.description %>
         </div>
         <div>
-          <% if current_user.photos.length > 1 %>
+          <% if @profile.user.photos.length > 1 %>
             <div class="user-image-wrapper">
-              <%= cl_image_tag current_user.photos[1].key, class: "d-block" %>
+              <%= cl_image_tag @profile.user.photos[1].key, class: "d-block" %>
             </div>
           <% end %>
         </div>
@@ -51,12 +51,12 @@
       <div class="flex-items card-extended">
         <h4 class="prompt">Currently on repeat:</h4>
         <div class="flex-items card-section">
-          <%= current_user.on_repeat %>
+          <%= @profile.user.on_repeat %>
         </div>
         <div>
-          <% if current_user.photos.length > 2 %>
+          <% if @profile.user.photos.length > 2 %>
             <div class="user-image-wrapper">
-              <%= cl_image_tag current_user.photos[2].key, class: "d-block" %>
+              <%= cl_image_tag @profile.user.photos[2].key, class: "d-block" %>
             </div>
           <% end %>
         </div>
@@ -64,12 +64,12 @@
       <div class="flex-items card-extended">
         <h4 class="prompt">If my life had a theme song...</h4>
         <div class="flex-items card-section">
-          <%= current_user.all_time_favorite %>
+          <%= @profile.user.all_time_favorite %>
         </div>
         <div>
-          <% if current_user.photos.length > 3 %>
+          <% if @profile.user.photos.length > 3 %>
             <div class="user-image-wrapper">
-              <%= cl_image_tag current_user.photos[3].key, class: "d-block" %>
+              <%= cl_image_tag @profile.user.photos[3].key, class: "d-block" %>
             </div>
           <% end %>
         </div>
@@ -77,12 +77,12 @@
       <div class="flex-items card-extended">
         <h4 class="prompt">My go to karaoke song</h4>
         <div class="flex-items card-section">
-          <%= current_user.go_to_karaoke %>
+          <%= @profile.user.go_to_karaoke %>
         </div>
         <div>
-          <% if current_user.photos.length > 4 %>
+          <% if @profile.user.photos.length > 4 %>
             <div class="user-image-wrapper">
-              <%= cl_image_tag current_user.photos[4].key, class: "d-block" %>
+              <%= cl_image_tag @profile.user.photos[4].key, class: "d-block" %>
             </div>
           <% end %>
         </div>
