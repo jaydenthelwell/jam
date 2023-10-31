@@ -14,5 +14,20 @@
   gap: 30px;
   flex-direction: column;
   position: absolute;
-  top: 25%;
+  top: 34%;
+  padding: 15px;
+}
+
+.profile-photo {
+  position: absolute;
+  width: 70%;
+  top: 4%;
+  left: 15%;
+}
+
+.profile-play-bar {
+  width: 80%;
+  position: absolute;
+  top: 28%;
+  left: 10%;
 }

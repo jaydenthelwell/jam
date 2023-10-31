@@ -79,11 +79,17 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+# production:
+#   <<: *default
+#   database: jam_production
+#   username: jam
+#   password: <%= ENV["JAM_DATABASE_PASSWORD"] %>
+
 production:
-  <<: *default
-  database: jam_production
-  username: jam
-  password: <%= ENV["JAM_DATABASE_PASSWORD"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: <%= ENV['DATABASE_URL'] %>
 
 development:
   adapter: sqlite3
@@ -91,15 +97,8 @@ development:
   pool: 5
   timeout: 5000
 
-
 test:
   adapter: sqlite3
   database: db/test.sqlite3
   pool: 5
   timeout: 5000
-
-production:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  database: <%= ENV['DATABASE_URL'] %>
