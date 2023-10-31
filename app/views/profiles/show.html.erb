@@ -1,43 +1,32 @@
-<div class="background__wrapper_user">
-  <div class="background">
-    <svg>
-      <filter id="turbulence" x="0" y="0" width="100%" height="100%">
-        <feTurbulence id="fluid" numOctaves="1" seed="1" baseFrequency="0.001 0.001" type="fractalNoise"></feTurbulence>
-        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="155" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
-        <animate xlink:href="#fluid" attributeName="baseFrequency" dur="30s" values="0.001 0.001;0.004 0.006;0.001 0.003;0.005 0.003;0.003 0.004;0.001 0.001" keySplines="
-                      .52 .02 .62 .99;
-                      .52 .02 .62 .99;
-                      .52 .02 .62 .99;
-                      .52 .02 .62 .99;
-                      .52 .02 .62 .99" keyTimes="
-                    0;0.2;0.4;0.6;0.8;1" calcMode="spline" repeatCount="indefinite" />
-      </filter>
-    </svg>
+<div class="profile">
+  <div class="d-flex chatbar back-btn align-items-center">
+    <span><%= link_to chatrooms_path do%>
+      <i class="fa-solid fa-chevron-left back-icon" style="color: #000000;"></i>
+    <% end %>
+    </span>
+    <div class="chat-user">
+      <span class="name"> <%= @profile.user.name %>
+      </span>
+    </div>
   </div>
-  <h1 style="font-family: Montserrat;
-    position: absolute;
-    top: 2%;
-    text-align: center;
-    left: 25%;
-    font-weight: 900;
-    color: white;">P R O F I L E</h1>
-  <%# <div data-user="<%= current_user.id" class="users-container"> %>
-  <div class="profile-card" data-hide-cards-target="cards">
-    <div class="profile-name">
-      <%= @profile.user.name %>
-    </div>
+  <div class="chat-profile">
+    <%= link_to "Chat", chatrooms_path, class: ("flex-items a-colour" if current_page?(chatroom_path)) %>
+    <%= link_to "Profile", profile_path(@profile.user.id), class: ("flex-items a-colour" if current_page?(profile_path(@profile.user.id))) %>
+  </div>
+  <div class="bottom-border"></div>
+  <div class="users-profile-card" data-hide-cards-target="cards">
     <div>
-      <%= image_tag("play_bar.png", alt: "Play bar", class: "profile-play-bar") %>
+      <%= image_tag("play_bar.png", alt: "Play bar", class: "user-profile-play-bar") %>
     </div>
-    <div class="profile-photo">
+    <div class="users-profile-photo">
       <div class="user-image-wrapper">
         <%= cl_image_tag @profile.user.photos.first.key, class: "d-block" if @profile.user.photos.present? %>
       </div>
     </div>
-    <div class="profile-prompts">
+    <div class="user-profile-prompts">
       <div class="flex-items card-extended">
-        <h2 class="prompt">A little about me...</h2>
-        <div class=" card-section">
+        <h4 class="prompt">A little about me...</h4>
+        <div class="card-section">
           <%= @profile.user.description %>
         </div>
         <div>
@@ -88,9 +77,9 @@
         </div>
         <div class="flex-items card-extended">
           <h6 class="prompt">Top Genres</h6>
-          <div class="card-section">
+          <div class="profile-top-genres-list genres-list">
             <% @profile.user.top_genres.each do |genre| %>
-              <p><%= genre.genre %></p>
+              <ul><li><%= genre.genre.capitalize %></li></ul>
             <% end %>
           </div>
         </div>
@@ -103,8 +92,7 @@
             <% @profile.user.top_tracks.each do |track| %>
             <p>
               <div class="d-flex">
-                <div data-action="click->spotify-auth#playTrack" data-track-id="<%= track.spotify_ref %>" class="btn btn-primary"><%= track.track %>
-                </div>
+                <div data-action="click->spotify-auth#playTrack" data-track-id="<%= track.spotify_ref %>" class="btn btn-primary"><%= track.track %></div>
                 <div data-action="click->spotify-auth#pauseTrack" class="btn btn-danger mx-3">Stop</div>
               </div>
             </p>

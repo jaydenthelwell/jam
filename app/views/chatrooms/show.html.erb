@@ -10,11 +10,6 @@
       <% end %>
       </span>
       <div class="chat-user">
-        <%# <span>
-          <%= link_to profile_path(@other_user.id), class: 'matched-p' do %>
-            <%# <%= cl_image_tag(@other_user.photos[0].key, width: 50, height: 50, crop: :thumb, gravity: :face) %>
-          <%# <% end %>
-        <%# </span> %>
         <span class="name"> <%= @other_user.name %>
         </span>
       </div>
@@ -46,6 +41,6 @@
           <i class="fa-solid fa-paper-plane"></i>
         <% end %>
       <% end %>
-    </div>
+  </div>
     <% else %>
 <% end %>

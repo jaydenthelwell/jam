@@ -8,6 +8,14 @@
   z-index: 0;
 }
 
+.other-users-profile {
+  background: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .background-profile {
   position: relative;
   top: -35px;
@@ -43,6 +51,38 @@
   bottom: 103%;
   width: 100%;
   bottom: 136%;
+  height: 97%;
+  // border-radius: 17px;
+  position: relative;
+  overflow-y: auto;
+}
+
+.user-profile-play-bar {
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 10%;
+}
+
+.user-profile-prompts {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 60%;
+  padding: 14px;
+}
+
+.users-profile-photo {
+  position: absolute;
+  width: 94%;
+  top: 0;
+  left: 4%;
+}
+
+.users-profile-card {
+  background-color: white;
+  width: 100%;
+  bottom: 0;
   height: 97%;
   // border-radius: 17px;
   position: relative;
