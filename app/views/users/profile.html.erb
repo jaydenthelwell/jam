@@ -92,16 +92,16 @@
         </div>
         <div class="flex-items card-extended">
           <h4 class="prompt">Top Genres</h4>
-          <div class="card-section genres-list">
+          <div class="profile-top-genres-list genres-list">
             <% current_user.top_genres.each do |genre| %>
-              <p><%= genre.genre %></p>
+              <ul><li><%= genre.genre.capitalize %></li></ul>
             <% end %>
           </div>
         </div>
-        <div class="account-options">
-          <%= link_to "Reconnect Spotify", "top_genres/new", class: "account-option flex-items" %>
-          <%= link_to "Log out", destroy_user_session_path, class: "account-option flex-items", data: {turbo_method: :delete} %>
-        </div>
+        <%# <div class="account-options">
+          <%# <%= link_to "Reconnect Spotify", "top_genres/new", class: "account-option flex-items" %>
+          <%# <%= link_to "Log out", destroy_user_session_path, class: "account-option flex-items", data: {turbo_method: :delete} %>
+        <%# </div> %>
         <section class="spotify-auth mt-2" data-controller="spotify-auth">
           <div
             class="spotify-env"
@@ -120,9 +120,9 @@
               <div class="spotify-connect-auth top-genres mt-2">
                 <h5 class="flex-items">Update My Genres</h5>
                 <div class="btn my-2 flex-items my-spotify" data-action="click->spotify-auth#getTopGenres">Update</div>
-                  <div class="top-genres-list mt-2 d-none">
+                  <div class="profile-top-genres-list mt-2 d-none">
                     <% current_user.top_genres.each do |genre| %>
-                      <p><%= genre.genre %></p>
+                      <ul><li><%= genre.genre %></li></ul>
                     <% end %>
                   </div>
                 </div>

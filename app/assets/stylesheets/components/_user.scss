@@ -16,7 +16,7 @@
 }
 
 .profile-image-wrapper img{
-  height: 105%;
+  height: 100%;
   width: 105%;
   margin-left: -13px;
   object-fit: cover;
@@ -48,10 +48,17 @@ button {
   width: 100%;
 }
 
+.location {
+  font-size: 14px;
+  padding-left: 32px;
+  margin-top: -15px;
+  opacity: 0.6;
+}
+
 .photo {
   position: absolute;
   width: 70%;
-  top: 12%;
+  top: 13%;
   left: 15%;
 }
 

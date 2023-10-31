@@ -24,7 +24,8 @@
   <%# <div data-user="<%= user.id" class="users-container"> %>
   <div class="card" data-hide-cards-target="cards">
     <div class="other-user-name">
-      <ul><li><%= user.name %></li></ul>
+      <ul><li><%= user.name.capitalize %></li></ul>
+      <p class="location"><%= user.location.capitalize %></p>
     </div>
     <div>
       <%= image_tag("play_bar.png", alt: "Play bar", class: "play-bar") %>
