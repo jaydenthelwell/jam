@@ -24,10 +24,8 @@
         <li><%= link_to user_profile_path do %>
           Profile
         <% end %></li>
-        <li><%= link_to destroy_user_session_path, method: :delete do %>
-          Logout
-        <% end %></li>
-      <% else %>
+        <li><%= link_to "Log out", destroy_user_session_path, class: "account-option flex-items", data: {turbo_method: :delete} %></li>
+        <% else %>
         <li><%= link_to new_user_session_path do %>
           Login
         <% end %></li>

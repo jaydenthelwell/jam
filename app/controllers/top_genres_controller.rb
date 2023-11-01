@@ -15,7 +15,7 @@ class TopGenresController < ApplicationController
     @top_genre.save!
 
     redirect_to profile_path(current_user)
-    # raise
+    raise
   end
 
   def destroy_all
