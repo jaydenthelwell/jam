@@ -208,7 +208,7 @@ export default class extends Controller {
 
     let access_token = localStorage.getItem("access_token");
 
-    fetch("https://api.spotify.com/v1/me/top/artists", {
+    fetch("https://api.spotify.com/v1/me/top/artists?offset=0&limit=5", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + access_token,
