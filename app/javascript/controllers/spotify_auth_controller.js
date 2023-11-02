@@ -194,7 +194,7 @@ export default class extends Controller {
 
         const topArtists = document.querySelector(".top-artists");
 
-        for (let i = 0; i < Math.min(data.items.length, 5); i++) {
+        for (let i = 0; i < Math.max(data.items.length, 5); i++) {
           const artist = data.items[i];
           topArtists.insertAdjacentHTML(
             "beforeend",
