@@ -58,8 +58,7 @@ export default class extends Controller {
     let client_id = document.querySelector(".spotify-env").dataset.clientId;
 
     // Your secret
-    let client_secret =
-      document.querySelector(".spotify-env").dataset.clientSecret;
+    let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
 
     // Your redirect uri
     // let redirect_uri = "https://lfc-sandbox-c15f95ad1922.herokuapp.com/profile";
@@ -80,7 +79,7 @@ export default class extends Controller {
     });
 
     let spotifyUrl =
-      "https://accounts.spotify.com/authorize?" + params.toString();
+      "https://accounts.spotify.com/authorize?${query}" + params.toString();
 
     // Direct the Spotify API Authorization Page
     window.location.href = spotifyUrl;
