@@ -193,16 +193,13 @@ export default class extends Controller {
         console.log(data);
 
         const topArtists = document.querySelector(".top-artists");
-
-        topArtists.innerHTML = "";
-
-        for (let i = 0; i < Math.min(data.items.length, 5); i++) {
-          const artist = data.items[i];
+        topArtists.innerHTML = ""
+        data.items.forEach((artist) => {
           topArtists.insertAdjacentHTML(
             "beforeend",
             `<p><a href="${artist.external_urls.spotify}" target="_blank">${artist.name}</a></p>`
           );
-        }
+        });
       });
   }
 
@@ -346,7 +343,7 @@ export default class extends Controller {
 
           topTracks.innerHTML = "";
 
-        data.items.forEach((track) => {
+          data.items.forEach((track) => {
           tracks = tracks.concat(track.name);
           spotify_ref = spotify_ref.concat(track.id);
 
