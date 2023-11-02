@@ -194,12 +194,13 @@ export default class extends Controller {
 
         const topArtists = document.querySelector(".top-artists");
 
-        data.items.forEach((artist) => {
+        for (let i = 0; i < Math.min(data.items.length, 5); i++) {
+          const artist = data.items[i];
           topArtists.insertAdjacentHTML(
             "beforeend",
             `<p><a href="${artist.external_urls.spotify}" target="_blank">${artist.name}</a></p>`
           );
-        });
+        }
       });
   }
 
