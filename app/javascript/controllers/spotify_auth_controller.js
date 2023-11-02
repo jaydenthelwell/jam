@@ -192,8 +192,8 @@ export default class extends Controller {
       .then((data) => {
         console.log(data);
 
-        const topArtists = document.querySelector(".top-artists");
-        topArtists.innerHTML = ""
+        const topArtists = document.querySelector(".top-artists-container");
+
         data.items.forEach((artist) => {
           topArtists.insertAdjacentHTML(
             "beforeend",
@@ -341,9 +341,7 @@ export default class extends Controller {
             console.error("Error creating track instance:", error);
           });
 
-          topTracks.innerHTML = "";
-
-          data.items.forEach((track) => {
+        data.items.forEach((track) => {
           tracks = tracks.concat(track.name);
           spotify_ref = spotify_ref.concat(track.id);
 
