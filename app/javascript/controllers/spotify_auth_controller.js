@@ -172,7 +172,7 @@ export default class extends Controller {
       refresh_token = data.refresh_token;
       localStorage.setItem("refresh_token", refresh_token);
     }
-   this.getTopArtists
+  this.getTopArtists
     // this.connect();
   }
 
