@@ -344,6 +344,8 @@ export default class extends Controller {
             console.error("Error creating track instance:", error);
           });
 
+          topTracks.innerHTML = "";
+
         data.items.forEach((track) => {
           tracks = tracks.concat(track.name);
           spotify_ref = spotify_ref.concat(track.id);
