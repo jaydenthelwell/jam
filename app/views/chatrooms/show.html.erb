@@ -15,8 +15,8 @@
       </div>
     </div>
     <div class="chat-profile">
-      <%= link_to "Chat", chatroom_path(@chatroom), class: ("a-colour" if current_page?(chatroom_path(@chatroom))) %>
-      <%= link_to "Profile", profile_path(@other_user.id), class: ("a-colour" if current_page?(profile_path(@other_user.id))) %>
+      <%= link_to "Chat", "#", class: ("a-colour") %>
+      <%= link_to "Profile", profile_path(@other_user.profile) %>
     </div>
     <div class="bottom-border"></div>
     <div class="messages" data-chatroom-subscription-target= "messages">

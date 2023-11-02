@@ -155,8 +155,8 @@
 </div>
       <div
         class="spotify-env"
-        data-client-id="<%= ENV["SPOTIFY_CLIENT_ID"] %>"
-        data-client-secret="<%= ENV["SPOTIFY_CLIENT_SECRET"] %>"
+        data-client-id="<%= ENV["client_id"] %>"
+        data-client-secret="<%= ENV["client_secret"] %>"
         <%# data-spotify-auth-client-id-value="testing" %>
       ></div>
 <div class="d-flex" style="flex-direction: column; position: relative; margin-bottom: 50px;">
@@ -198,7 +198,11 @@
         <div data-toggle-genre-target="genreForm" class="d-none" style="font-family:raleway;">
           <%# <strong><h5 class="mt-4" style="">Select your top 5 genres to get the magic matchmaking started instead</h5></strong> %>
           <%= simple_form_for(@top_genre) do |f| %>
-            <%= f.input :genre, collection: all_genres, input_html: {multiple: true, data: {controller: "tom-select", tom_select_options_value: { maxItems: 5 } }} %>
+            <%= f.input :genre, collection: all_genres, input_html: { multiple: false, data: { controller: "tom-select", tom_select_options_value: { maxItems: 1 } } } %>
+            <%= f.input :genre, collection: all_genres, input_html: { multiple: false, data: { controller: "tom-select", tom_select_options_value: { maxItems: 1 } } } %>
+            <%= f.input :genre, collection: all_genres, input_html: { multiple: false, data: { controller: "tom-select", tom_select_options_value: { maxItems: 1 } } } %>
+            <%= f.input :genre, collection: all_genres, input_html: { multiple: false, data: { controller: "tom-select", tom_select_options_value: { maxItems: 1 } } } %>
+            <%= f.input :genre, collection: all_genres, input_html: { multiple: false, data: { controller: "tom-select", tom_select_options_value: { maxItems: 1 } } } %>
             <%= f.submit "Create profile", class: "btn btn-dark" %>
           <% end %>
         </div>

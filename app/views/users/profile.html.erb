@@ -94,11 +94,13 @@
           <h4 class="prompt">Top Genres</h4>
           <div class="profile-top-genres-list genres-list">
             <% if current_user.top_genres.any? %>
-              <ul>
+                <ul>
                 <% current_user.top_genres.each do |genre| %>
-                  <li><%= genre.genre.capitalize %></li>
+                <% unless genre.genre.blank? %>
+                    <li><%= genre.genre.capitalize %></li>
+                  <% end %>
                 <% end %>
-              </ul>
+                </ul>
             <% else %>
               <div><p>Please connect your spotify account to Jam in order to see your top genres.
                 If you dont have Spotify, add your top genres.
@@ -113,8 +115,8 @@
         <section class="spotify-auth mt-2" data-controller="spotify-auth">
           <div
             class="spotify-env"
-            data-client-id="<%= ENV["SPOTIFY_CLIENT_ID"] %>"
-            data-client-secret="<%= ENV["SPOTIFY_CLIENT_SECRET"] %>">
+            data-client-id="<%= ENV["client_id"] %>"
+            data-client-secret="<%= ENV["client_secret"] %>">
           </div>
           <div class="spotify-connect-auth" data-spotify-auth-target="auth">
             <h5 class="flex-items">Connect My Account to Spotify</h5>

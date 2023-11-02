@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
+    session[:previous_url] = request.referer
   end
 
   private
@@ -11,7 +12,6 @@ class ProfilesController < ApplicationController
   def profile_params
     params.require(:profile).permit(:name, :description)
   end
-
   # def correct_user
   #   @profile = Profile.find_by(user_id: params[:user_id])
   #   redirect_to(root_path) unless current_user?(@profile)

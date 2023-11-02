@@ -10,8 +10,8 @@
     </div>
   </div>
   <div class="chat-profile">
-    <%= link_to "Chat", chatrooms_path, class: ("flex-items a-colour" if current_page?(chatroom_path)) %>
-    <%= link_to "Profile", profile_path(@profile.user.id), class: ("flex-items a-colour" if current_page?(profile_path(@profile.user.id))) %>
+    <%= link_to "Chat", session[:previous_url] || :back %>
+    <%= link_to "Profile", "#", class: ("a-colour") %>
   </div>
   <div class="bottom-border"></div>
   <div class="users-profile-card" data-hide-cards-target="cards">
@@ -79,7 +79,9 @@
           <h6 class="prompt">Top Genres</h6>
           <div class="profile-top-genres-list genres-list">
             <% @profile.user.top_genres.each do |genre| %>
+            <% unless genre.genre.blank? %>
               <ul><li><%= genre.genre.capitalize %></li></ul>
+              <% end %>
             <% end %>
           </div>
         </div>
