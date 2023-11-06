@@ -79,7 +79,7 @@ export default class extends Controller {
     });
 
     let spotifyUrl =
-      "https://accounts.spotify.com/authorize?${query}" + params.toString();
+      "https://accounts.spotify.com/authorize?" + params.toString();
 
     // Direct the Spotify API Authorization Page
     window.location.href = spotifyUrl;
