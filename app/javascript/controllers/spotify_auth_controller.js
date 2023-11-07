@@ -55,7 +55,7 @@ export default class extends Controller {
     e.preventDefault(e);
 
     // Your client id
-    let client_id = document.querySelector(".spotify-env").dataset.clientId;
+    let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     console.log("client_id:", client_id);
     // Your secret
     let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
