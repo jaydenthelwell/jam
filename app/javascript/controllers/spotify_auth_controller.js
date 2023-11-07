@@ -56,7 +56,7 @@ export default class extends Controller {
 
     // Your client id
     let client_id = document.querySelector(".spotify-env").dataset.clientId;
-
+    console.log("client_id:", client_id);
     // Your secret
     let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
 
@@ -71,9 +71,8 @@ export default class extends Controller {
     let scope =
       "user-top-read user-follow-read user-read-playback-state user-modify-playback-state";
     let params = new URLSearchParams({
-      response_type: "code",
       client_id: client_id, // Include the client_id
-      scope: scope,
+      response_type: "code",
       redirect_uri: redirect_uri,
     });
 
