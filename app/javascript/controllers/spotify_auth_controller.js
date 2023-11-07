@@ -117,7 +117,7 @@ export default class extends Controller {
   // ! (5) Prepare the Fetch Request Body to Spotify Authorization for Getting the Access Token
   #fetchAccessToken(code) {
     let client_id = document.querySelector(".spotify-env").dataset.clientId;
-    let client_secret = localStorage.getItem("client_secret");
+    let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
     let redirect_url = localStorage.getItem("redirect_url");
 
     let body = "grant_type=authorization_code";
@@ -132,7 +132,7 @@ export default class extends Controller {
   // ! (6) Make the Fetch Request to Get Spotify Bearer Access Token
   #callAuthorizationApi(body) {
     let client_id = document.querySelector(".spotify-env").dataset.clientId;
-    let client_secret = localStorage.getItem("client_secret");
+    let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
 
     const TOKEN = "https://accounts.spotify.com/api/token";
 
