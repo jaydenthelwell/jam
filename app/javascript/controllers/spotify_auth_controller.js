@@ -71,8 +71,9 @@ export default class extends Controller {
     let scope =
       "user-top-read user-follow-read user-read-playback-state user-modify-playback-state";
     let params = new URLSearchParams({
-      client_id: client_id, // Include the client_id
       response_type: "code",
+      client_id: client_id,
+      scope: scope,
       redirect_uri: redirect_uri,
     });
 
