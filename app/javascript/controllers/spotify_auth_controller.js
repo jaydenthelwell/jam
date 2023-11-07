@@ -61,7 +61,6 @@ export default class extends Controller {
     let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
 
     // Your redirect uri
-    // let redirect_uri = "https://lfc-sandbox-c15f95ad1922.herokuapp.com/profile";
     let redirect_uri = "https://j-a-m-1f39b9aba9a4.herokuapp.com/profile";
 
     localStorage.setItem("client_id", client_id);
@@ -73,7 +72,7 @@ export default class extends Controller {
       "user-top-read user-follow-read user-read-playback-state user-modify-playback-state";
     let params = new URLSearchParams({
       response_type: "code",
-      client_id: client_id,
+      client_id: client_id, // Include the client_id
       scope: scope,
       redirect_uri: redirect_uri,
     });
@@ -84,6 +83,7 @@ export default class extends Controller {
     // Direct the Spotify API Authorization Page
     window.location.href = spotifyUrl;
   }
+
 
   // ! (3) After Being Redirecting back to Our App from Spotify Authorization Page, Use the Code to Fetch Access Token
   #handleRedirect() {
