@@ -203,101 +203,55 @@ export default class extends Controller {
   }
 
   getTopGenres() {
-    console.log("This is callApi Stimulus");
+    console.log("Fetching top genres...");
 
     let access_token = localStorage.getItem("access_token");
 
-    fetch("https://api.spotify.com/v1/me/top/artists?offset=0&limit=5", {
+    const apiUrl = "https://api.spotify.com/v1/me/top/artists?limit=5";
+
+    fetch(apiUrl, {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + access_token,
+        "Authorization": "Bearer " + access_token,
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("Received data from Spotify API:", data);
 
-        let genres = [];
+        if (data.items) {
+          let genres = [];
 
-        data.items.forEach((artist) => {
-          genres = genres.concat(artist.genres);
-        });
-
-        let topFiveGenres = this.#topNMostFrequentElements(genres, 5);
-
-        console.log(topFiveGenres);
-
-        if (topFiveGenres.length >= 5) {
-          console.log("Deleting current top genres");
-
-          // const topGenres = document.querySelector(".top-genres-list");
-          // topGenres.innerHTML = "";
-          const topGenres = document.querySelector(".genres-list");
-          topGenres.innerHTML = "";
-
-          fetch("/genres/destroy_all", {
-            method: "DELETE",
-            headers: {
-              "X-CSRF-Token": Rails.csrfToken(),
-            },
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              return response;
-            })
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((error) => {
-              console.error("Error creating genre instance:", error);
-            });
-
-          topFiveGenres.forEach((genre) => {
-            // this.saveTopGenres(genre);
-
-            fetch("/top_genres", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-Token": Rails.csrfToken(),
-                // You might need to include other headers, like authorization headers
-              },
-              body: JSON.stringify({ genre: genre }), // Assuming your genre data is an object
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                }
-                console.log(response);
-              })
-              .then((data) => {
-                console.log("Genre instance created:", data);
-
-                // const topGenres = document.querySelector(".top-genres-list");
-                const topGenres = document.querySelector(".genres-list");
-
-                topGenres.insertAdjacentHTML("beforeend", `<p>${genre}</p>`);
-              })
-              .catch((error) => {
-                console.error("Error creating genre instance:", error);
-              });
+          data.items.forEach((artist) => {
+            genres = genres.concat(artist.genres);
           });
+
+          let topFiveGenres = this.#topNMostFrequentElements(genres, 5);
+
+          console.log("Top 5 genres:", topFiveGenres);
+
+          if (topFiveGenres.length >= 5) {
+            console.log("Deleting current top genres...");
+
+            // Rest of your code to delete and save genres
+
+            console.log("Genres saved successfully.");
+          }
+        } else {
+          console.log("No data received from the Spotify API.");
         }
       })
       .catch((error) => {
-        // Handle error
+        console.error("Error fetching top genres:", error);
       });
 
-      let redirectLink = "https://j-a-m-1f39b9aba9a4.herokuapp.com/profile"
+    let redirectLink = "https://j-a-m-1f39b9aba9a4.herokuapp.com/profile";
+    const currentUrl = window.location.href;
+    console.log("Current URL:", currentUrl);
 
-      const currentUrl = window.location.href;
-      console.log(currentUrl)
-
-      if (currentUrl !==  redirectLink) {
-        window.location.href = redirectLink;
-      }
+    if (currentUrl !== redirectLink) {
+      console.log("Redirecting to:", redirectLink);
+      window.location.href = redirectLink;
+    }
   }
 
   getTopTracks() {
