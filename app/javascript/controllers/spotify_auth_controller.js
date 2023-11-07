@@ -58,7 +58,7 @@ export default class extends Controller {
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     console.log("client_id:", client_id);
     // Your secret
-    let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
+    let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
 
     // Your redirect uri
     let redirect_uri = "https://j-a-m-1f39b9aba9a4.herokuapp.com/profile";
@@ -117,7 +117,7 @@ export default class extends Controller {
   // ! (5) Prepare the Fetch Request Body to Spotify Authorization for Getting the Access Token
   #fetchAccessToken(code) {
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
-    let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
+    let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
     let redirect_url = localStorage.getItem("redirect_url");
 
     let body = "grant_type=authorization_code";
@@ -132,7 +132,7 @@ export default class extends Controller {
   // ! (6) Make the Fetch Request to Get Spotify Bearer Access Token
   #callAuthorizationApi(body) {
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
-    let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
+    let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
 
     const TOKEN = "https://accounts.spotify.com/api/token";
 
