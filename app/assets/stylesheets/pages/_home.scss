@@ -1,3 +1,32 @@
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 50px;
+  font-size: 20px;
+  background-color: #000000;
+  border: 1px solid #000000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  color: white;
+}
+
+.popup p {
+  margin: 0;
+}
+
+@media only screen and (min-width: 600px) {
+  .background__wrapper {
+    display: none;
+  }
+
+  #mobilePopup {
+      display: block;
+  }
+}
+
 .background__wrapper {
   overflow: hidden;
   position: relative;
@@ -168,12 +197,19 @@ font-size: 23px;
 
 .connect-with-harmony {
   font-size: 18px;
-  top: 33%;
-  left: 0%;
+  top: 36%;
+  left: 9%;
   text-align: center;
 }
 
 .connect-with-music {
   display: none;
 }
+}
+@media only screen and (max-height: 740px) {
+  .main_bubble {
+    top: 49%;
+    left: 21%;
+    width: 60%;
+  }
 }

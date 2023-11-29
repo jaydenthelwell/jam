@@ -37,24 +37,11 @@
   </head>
 
   <body>
-    <%# <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script> %>
-    <%# <script>
-      $(document).ready(function() {
-        var scrollDownText = $("#scroll-down-text");
-
-        $(window).on("scroll", function() {
-          if ($(this).scrollTop() > 100) {
-            // After scrolling down a certain amount (e.g., 100 pixels), hide the "scroll down" text
-            scrollDownText.hide();
-          } else {
-            // If the user scrolls back up, show the "scroll down" text
-            scrollDownText.show();
-          }
-        });
-      });
-    </script> %>
-    <div data-controller="message-notifications">
+    <div class="popup" id="mobilePopup">
+        <p>This is a mobile app. Please open it on your mobile device.</p>
     </div>
+    <%# <script src="script.js"></script> %>
+    <div data-controller="message-notifications"></div>
     <%= yield %>
   </body>
 </html>
