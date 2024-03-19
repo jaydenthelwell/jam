@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   resources :profiles, only: [:show, :edit, :update]
 
-
   get "profile", to: "users#profile", as: :user_profile
 
   resources :users, only: [:index, :update] do
