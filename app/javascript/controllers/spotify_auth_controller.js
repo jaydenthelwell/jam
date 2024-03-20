@@ -43,12 +43,10 @@ export default class extends Controller {
   linkToSpotify(e) {
     e.preventDefault();
     console.log("This is linkToSpotify");
-
-    // Request authorization from Spotify
     this.#requestAuthorization();
   }
 
-  // Function to request authorization from Spotify
+  // Send the App Id, App Secret, and the scope to the Spotify API Endpoint to get the Authorization Code
   #requestAuthorization() {
     console.log("This is requestAuthorization");
 
@@ -74,24 +72,18 @@ export default class extends Controller {
     let spotifyUrl =
       "https://accounts.spotify.com/authorize?" + params.toString();
 
-    // Direct the user to the Spotify authorization page
+    // Direct the Spotify API Authorization Page
     window.location.href = spotifyUrl;
   }
 
-  // ! (3) After Being Redirecting back to Our App from Spotify Authorization Page, Use the Code to Fetch Access Token
+  // Handle the redirection back from Spotify after authorization
   #handleRedirect() {
     let code = this.#getCode();
-
     this.#fetchAccessToken(code);
-
-    // Your redirect uri
-    // let redirect_uri = "https://lfc-sandbox-c15f95ad1922.herokuapp.com/profile";
-    // let redirect_uri = "http://localhost:3000/profile";
-
     let redirect_uri = localStorage.getItem("redirect_url");
-
     window.history.pushState("", "", redirect_uri);
   }
+
 
   // ! (4) Function to Get the Spotify Authorization Code from URL
   #getCode() {

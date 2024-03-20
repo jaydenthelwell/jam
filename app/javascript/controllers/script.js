@@ -4,5 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
   if (screenWidth > 768) {
       var popup = document.getElementById("mobilePopup");
       popup.style.display = "block";
+      popup.style.backgroundColor = "white";
   }
 });

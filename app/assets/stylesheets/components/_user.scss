@@ -10,15 +10,25 @@
 }
 
 .profile-image-wrapper {
+  width: 80%;
+}
+
+.user-images {
   height: 350px;
   width: 100%;
   margin-bottom: 10px;
 }
-
-.profile-image-wrapper img{
+.user-images img{
   height: 100%;
   width: 105%;
   margin-left: -13px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.profile-image-wrapper img{
+  height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
