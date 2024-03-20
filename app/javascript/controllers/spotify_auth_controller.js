@@ -52,6 +52,7 @@ export default class extends Controller {
 
     // Your client id
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
+    let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
     console.log("client_id:", client_id);
     console.log("client_secret:", client_secret);
 
