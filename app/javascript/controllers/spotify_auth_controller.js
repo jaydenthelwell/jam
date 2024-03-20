@@ -40,32 +40,26 @@ export default class extends Controller {
     // localStorage.removeItem("refresh_token");
   }
 
-  // ! (1) An Event Listener for Connecting Spotify API
   linkToSpotify(e) {
-    e.preventDefault()
+    e.preventDefault();
     console.log("This is linkToSpotify");
 
-    this.#requestAuthorization(e);
+    // Request authorization from Spotify
+    this.#requestAuthorization();
   }
 
-  // ! (2) Send the App Id, App Secret, and the scope the Spotify API Endpoint to get the Authorization Code
-  #requestAuthorization(e) {
+  // Function to request authorization from Spotify
+  #requestAuthorization() {
     console.log("This is requestAuthorization");
-
-    e.preventDefault(e);
 
     // Your client id
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     console.log("client_id:", client_id);
-    // Your secret
-    let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
 
     // Your redirect uri
     let redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
 
     localStorage.setItem("client_id", client_id);
-    localStorage.setItem("client_secret", client_secret);
-    localStorage.setItem("redirect_url", redirect_uri);
 
     // Application requests authorization
     let scope =
@@ -80,10 +74,9 @@ export default class extends Controller {
     let spotifyUrl =
       "https://accounts.spotify.com/authorize?" + params.toString();
 
-    // Direct the Spotify API Authorization Page
+    // Direct the user to the Spotify authorization page
     window.location.href = spotifyUrl;
   }
-
 
   // ! (3) After Being Redirecting back to Our App from Spotify Authorization Page, Use the Code to Fetch Access Token
   #handleRedirect() {
