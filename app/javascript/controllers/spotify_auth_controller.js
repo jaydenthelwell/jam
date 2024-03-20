@@ -53,6 +53,7 @@ export default class extends Controller {
     // Your client id
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     console.log("client_id:", client_id);
+    console.log("client_secret:", client_secret);
 
     // Your redirect uri
     let redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
@@ -78,6 +79,7 @@ export default class extends Controller {
 
   // Handle the redirection back from Spotify after authorization
   #handleRedirect() {
+    console.log("This is handle redirect")
     let code = this.#getCode();
     this.#fetchAccessToken(code);
     let redirect_uri = localStorage.getItem("redirect_url");

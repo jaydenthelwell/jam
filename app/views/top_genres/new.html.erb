@@ -136,7 +136,8 @@
   "world-music"
 ]
 %>
-<script src="https://cdn.lordicon.com/bhenfmcm.js"></script>    <section class="mt-5" data-controller="spotify-auth">
+<script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+<section class="mt-5" data-controller="spotify-auth">
   <style>
   .lord-icon {
     width: 70px;
@@ -153,29 +154,29 @@
       style="width:200px;height:200px;">
   </lord-icon>
 </div>
-      <div
-        class="spotify-env"
-        data-client-id="<%= ENV["client_id"] %>"
-        data-client-secret="<%= ENV["client_secret"] %>"
-        <%# data-spotify-auth-client-id-value="testing" %>
-      ></div>
+<div
+  class="spotify-env"
+  data-client-id="<%= ENV["client_id"] %>"
+  data-client-secret="<%= ENV["client_secret"] %>"
+  <%# data-spotify-auth-client-id-value="testing" %>
+></div>
 <div class="d-flex" style="flex-direction: column; position: relative; margin-bottom: 50px;">
   <div style="border-top: 2px solid black; width: 100%; position: absolute; top: -10px;"></div>
   <h3 class="mb-4" style="margin-top:30px; font-weight:900;">Connect via Spotify</h3>
-  <h5 class="mb-2" style="font-family:raleway; font-weight:900;">We'll take your favorite and find people that share a similar taste.</h5>
+  <h5 class="mb-2" style="font-family:raleway; font-weight:900;">We'll take your favourites and find people that share a similar taste.</h5>
   <div style="border-bottom: 2px solid black; width: 100%; position: absolute; bottom: -10px;"></div>
 </div>
 
-      <div data-spotify-auth-target="auth">
-          <div
-            class="d-flex btn btn-success my-2" style="
-            justify-content: center;
-            margin: 30px;
-            border-radius: 30px;"
-            data-action="click->spotify-auth#linkToSpotify"
-            <%# click->spotify-auth#submitForm MAYBE ADD TO THE ABOVE LISTENERS REMEMBER TO UNCOMMENT IN THE SPOTIFY-AUTH AS WELL %>
-          ><img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_White.png" alt="Spotify connect" style="width:150px;border-radius:5px;"></div>
-      </div>
+<div data-spotify-auth-target="auth">
+    <div
+      class="d-flex btn btn-success my-2" style="
+      justify-content: center;
+      margin: 30px;
+      border-radius: 30px;"
+      data-action="click->spotify-auth#linkToSpotify"
+      <%# click->spotify-auth#submitForm MAYBE ADD TO THE ABOVE LISTENERS REMEMBER TO UNCOMMENT IN THE SPOTIFY-AUTH AS WELL %>
+    ><img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_White.png" alt="Spotify connect" style="width:150px;border-radius:5px;"></div>
+</div>
 
       <div class="top-genres mt-5 d-none" data-spotify-auth-target="genres">
         <h5>My Top 5 Genres</h5>
