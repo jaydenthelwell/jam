@@ -80,13 +80,14 @@ export default class extends Controller {
 
   // Handle the redirection back from Spotify after authorization
   #handleRedirect() {
-    console.log("This is handle redirect")
+    console.log("This is handle redirect");
     let code = this.#getCode();
     this.#fetchAccessToken(code);
-    let redirect_uri = localStorage.getItem("redirect_url");
+    let redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
+    localStorage.setItem("redirect_uri", redirect_uri);
+    redirect_uri = localStorage.getItem("redirect_uri");
     window.history.pushState("", "", redirect_uri);
   }
-
 
   // ! (4) Function to Get the Spotify Authorization Code from URL
   #getCode() {
