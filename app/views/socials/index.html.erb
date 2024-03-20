@@ -7,14 +7,12 @@
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" class="active" aria-current="true" aria-label="Slide <%= index + 1 %>"></button>
         <% end %>
       </div>
-
       <div class="carousel-inner">
         <div>
           <%= link_to chatrooms_path do %>
             <i class="fa-solid fa-xmark exit"></i>
           <% end %>
         </div>
-
         <% @all_socials.each_with_index do |social, index| %>
           <% if social.photo.attached? %>
             <% if index == 0 %>
@@ -36,7 +34,6 @@
           <% end %>
         <% end %>
       </div>
-
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
@@ -45,11 +42,11 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
-<div>
-  <%= link_to new_user_social_path(current_user) do %>
-    <button class="post-button">Add a pic</button>
-  <% end %>
-</div>
+      <div>
+        <%= link_to new_user_social_path(current_user) do %>
+          <button class="post-button">Add a pic</button>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
