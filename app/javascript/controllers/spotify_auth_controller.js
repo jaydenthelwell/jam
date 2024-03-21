@@ -167,11 +167,10 @@ export default class extends Controller {
   #handleAuthorizationResponse(data) {
     let access_token;
     let refresh_token;
-    console.log("This is handling authorization response");
+
     if (data.access_token != undefined) {
       access_token = data.access_token;
       localStorage.setItem("access_token", access_token);
-      console.log("Access Token:", access_token);
     }
 
     if (data.refresh_token != undefined) {
