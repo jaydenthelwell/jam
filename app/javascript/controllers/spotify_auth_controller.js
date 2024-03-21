@@ -90,7 +90,7 @@ export default class extends Controller {
 
     // Your redirect uri
     // let redirect_uri = "https://lfc-sandbox-c15f95ad1922.herokuapp.com/profile";
-    // let redirect_uri = "http://localhost:3000/profile";
+    // let redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
 
     let redirect_uri = localStorage.getItem("redirect_uri");
 
@@ -115,7 +115,6 @@ export default class extends Controller {
 
   // ! (5) Prepare the Fetch Request Body to Spotify Authorization for Getting the Access Token
   #fetchAccessToken(code) {
-    console.log("Fetch token");
 
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
@@ -126,6 +125,7 @@ export default class extends Controller {
     body += "&redirect_uri=" + encodeURI(redirect_uri);
     body += "&client_id=" + client_id;
     body += "&client_secret=" + client_secret;
+    console.log("Fetch token");
 
     this.#callAuthorizationApi(body);
   }
@@ -161,7 +161,6 @@ export default class extends Controller {
 
   // ! (7) Save the Access Token and Refresh Once Successfully Getting the Fetch Response from Spotify
   #handleAuthorizationResponse(data) {
-    console.log("Handling authorization");
     let access_token;
     let refresh_token;
 
@@ -172,6 +171,7 @@ export default class extends Controller {
 
     if (data.refresh_token != undefined) {
       refresh_token = data.refresh_token;
+      console.log("Handling authorization");
       localStorage.setItem("refresh_token", refresh_token);
     }
   this.getTopArtists
