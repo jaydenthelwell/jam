@@ -7,6 +7,9 @@ export default class extends Controller {
   static targets = ['auth', 'genres']
 
   connect() {
+
+    this.getTopGenres();
+    this.getTopArtists();
     console.log("This is from Connect Spotify Stimulus");
 
     let access_token = localStorage.getItem("access_token");
