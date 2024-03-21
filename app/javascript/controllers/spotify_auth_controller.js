@@ -286,10 +286,13 @@ export default class extends Controller {
       topTracks.innerHTML = ""; // Clear previous content
 
       data.items.forEach((track) => {
-        topTracks.insertAdjacentHTML(
-          "beforeend",
-          `<p><a href="${track.external_urls.spotify}" target="_blank">${track.name}</a></p>`
-        );
+        const trackElement = document.createElement("p");
+        trackElement.innerHTML = `<a href="${track.external_urls.spotify}" target="_blank">${track.name}</a>`;
+
+        // Add event listener to play the track when clicked
+        trackElement.addEventListener("click", () => this.playTrack(track.id));
+
+        topTracks.appendChild(trackElement);
       });
     })
     .catch((error) => {
@@ -306,16 +309,14 @@ export default class extends Controller {
     }
   }
 
-  playTrack(e) {
+  playTrack(trackId) {
     console.log("This is playTrack Stimulus");
-
-    const trackId = e.currentTarget.dataset.trackId;
-    console.log(trackId);
 
     let access_token = localStorage.getItem("access_token");
 
     this.fetchValidDeviceId(access_token, trackId);
   }
+
 
   pauseTrack() {
     console.log("This is pauseTrack Stimulus");
@@ -468,24 +469,24 @@ export default class extends Controller {
     }
   }
 
-    #topNMostFrequentElements(array, n) {
-      const frequencyMap = new Map();
+  #topNMostFrequentElements(array, n) {
+    const frequencyMap = new Map();
 
-      // Count the frequency of each element
-      array.forEach((element) => {
-        frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
-      });
+    // Count the frequency of each element
+    array.forEach((element) => {
+      frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
+    });
 
-      // Sort elements by frequency in descending order
-      const sortedElements = Array.from(frequencyMap.entries()).sort(
-        (a, b) => b[1] - a[1]
-      );
+    // Sort elements by frequency in descending order
+    const sortedElements = Array.from(frequencyMap.entries()).sort(
+      (a, b) => b[1] - a[1]
+    );
 
-      // Get the top N most frequent elements
-      const topN = sortedElements.slice(0, n).map((entry) => entry[0]);
+    // Get the top N most frequent elements
+    const topN = sortedElements.slice(0, n).map((entry) => entry[0]);
 
-      return topN;
-    }
+    return topN;
+  }
 
   // submitForm() {
   //   const form = document.querySelector('form[data-controller="spotify-auth"]');
