@@ -213,6 +213,7 @@ export default class extends Controller {
     console.log("Fetching top genres...");
 
     let access_token = localStorage.getItem("access_token");
+    console.log("Access Token:", access_token);
 
     fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
       headers: {
@@ -271,6 +272,7 @@ export default class extends Controller {
     console.log("This is getTopTracks Stimulus");
 
     let access_token = localStorage.getItem("access_token");
+    console.log("Access Token:", access_token);
 
     fetch("https://api.spotify.com/v1/me/top/tracks?limit=5", {
       headers: {
@@ -313,7 +315,7 @@ export default class extends Controller {
     console.log(trackId);
 
     let access_token = localStorage.getItem("access_token");
-
+    console.log("Access Token:", access_token);
     this.fetchValidDeviceId(access_token, trackId);
   }
 
@@ -321,6 +323,7 @@ export default class extends Controller {
     console.log("This is pauseTrack Stimulus");
 
     let access_token = localStorage.getItem("access_token");
+    console.log("Access Token:", access_token);
     let deviceId = localStorage.getItem("device");
     console.log(deviceId);
 
