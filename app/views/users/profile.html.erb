@@ -128,25 +128,25 @@
             <div class="spotify-user-data spotify">
               <div class="spotify-connect-auth top-genres mt-2">
                 <div class="spotify-data mt-3">
-                  <h5 class="flex-items spotify-data-titles">My Top Artists</h5>
+                  <h4 class="flex-items spotify-data-titles">My Top Artists</h4>
                   <div class="my-spotify top-artists flex-items" data-action="click->spotify-auth#getTopArtists">
                     <div class="top-artists-container top-music-container">
                     </div>
                   </div>
-                  <h5 class="flex-items spotify-data-titles">My Top Tracks</h5>
+                  <h4 class="flex-items spotify-data-titles">My Top Tracks</h4>
                   <div class="my-spotify top-tracks flex-items" data-action="click->spotify-auth#getTopTracks">
                     <div class="top-tracks-container top-music-container">
                     </div>
                   </div>
                 </div>
                 <div>
-                  <h5 class="flex-items spotify-data-titles">Can't see your spotify data?</h5>
+                  <h4 class="flex-items spotify-data-titles">Can't see your spotify data?</h4>
                   <div
                   class="my-spotify btn my-2 flex-items"
                   data-action="click->spotify-auth#linkToSpotify">You may need to reconnect to spotify, click here.
                   </div>
                 </div>
-                <h5 class="flex-items spotify-data-titles">Update My Genres</h5>
+                <h4 class="flex-items spotify-data-titles">Update My Genres</h4>
                 <div class="btn my-2 flex-items my-spotify" data-action="click->spotify-auth#getTopGenres">Consider updating your genres to give others an up-to-date glimpse of what you're currently listening to. This will enhance the accuracy of the music matching process, making it more effective in connecting you with like-minded individuals who share your musical preferences.</div>
                   <div class="profile-top-genres-list mt-2 d-none">
                     <% current_user.top_genres.each do |genre| %>
