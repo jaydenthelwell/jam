@@ -16,8 +16,8 @@ export default class extends Controller {
     let access_token = localStorage.getItem("access_token");
 
     if (access_token !== null) {
-      // console.log("Spotify Account Authozised")
-      // console.log(this.authTarget)
+      console.log("Spotify Account Authozised")
+      console.log(this.authTarget)
 
       console.log(this.genresTarget)
       // this.genresTarget.classList.remove("d-none")
