@@ -114,32 +114,34 @@
   display: flex;
   gap: 15px;
   flex-direction: column;
-  align-items: center;
+  margin-left: 1rem;
 }
 
 .profile-top-genres-list {
-  background-color: white;
-  width: 85%;
-  margin: 8px;
-  min-height: 110px;
-  border-radius: 15px;
-  left: 38px;
-  padding: 10px;
+  /* background-color: white; */
+  /* width: 85%; */
+  /* margin: 8px; */
+  /* min-height: 110px; */
+  /* border-radius: 15px; */
+  /* padding: 10px; */
   font-family: "B612";
-  transform: translatex(15px);
+  /* transform: translatex(15px); */
   margin-bottom: 30px;
 }
+
+
 
 .account-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 2rem;
 }
 
 .spotify-connect-auth {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin-left: 1rem;
 }
 
 .edit {
@@ -149,15 +151,15 @@
 }
 
 .my-spotify {
-  background: #4cff61;
+  /* background: #4cff61; */
   color: black;
   font-size: 15px;
   font-family: montserrat;
   border-radius: 40px;
   text-align: center;
-  width: 60%;
-  padding: 30px;
-  border: solid;
+  /* width: 60%; */
+  /* padding: 30px; */
+  /* border: solid; */
 }
 
 .profile-prompts{
