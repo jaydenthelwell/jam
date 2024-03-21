@@ -233,11 +233,19 @@ export default class extends Controller {
           console.log("Top 5 genres:", topFiveGenres);
 
           if (topFiveGenres.length >= 5) {
-            console.log("Deleting current top genres...");
+            console.log("Updating top genres in HTML...");
 
-            // Rest of your code to delete and save genres
+            // Update HTML to display the top genres
+            let topGenresContainer = document.querySelector(".top-genres-container");
+            topGenresContainer.innerHTML = ""; // Clear previous content
 
-            console.log("Genres saved successfully.");
+            topFiveGenres.forEach((genre) => {
+              let genreElement = document.createElement("div");
+              genreElement.textContent = genre;
+              topGenresContainer.appendChild(genreElement);
+            });
+
+            console.log("Genres updated successfully.");
           }
         } else {
           console.log("No data received from the Spotify API.");
@@ -256,6 +264,7 @@ export default class extends Controller {
       window.location.href = redirectLink;
     }
   }
+
 
   getTopTracks() {
     console.log("This is getTopTracks Stimulus");
