@@ -94,11 +94,6 @@
           <%= link_to "Reconnect Spotify", "top_genres/new", class: "account-option flex-items" %>
         </div>
         <section class="spotify-auth mt-2" data-controller="spotify-auth">
-          <div
-            class="spotify-env"
-            data-client-id="<%= ENV["client_id"] %>"
-            data-client-secret="<%= ENV["client_secret"] %>">
-          </div>
           <div class="spotify-connect-auth" data-spotify-auth-target="auth">
             <div class="flex-items card-extended">
               <h4 class="prompt">Top Genres</h4>
@@ -124,9 +119,26 @@
               </div>
             </div>
           </div>
+          <div
+            class="spotify-env"
+            data-client-id="<%= ENV["client_id"] %>"
+            data-client-secret="<%= ENV["client_secret"] %>">
+          </div>
           <div data-spotify-auth-target="genres"></div>
             <div class="spotify-user-data spotify">
               <div class="spotify-connect-auth top-genres mt-2">
+                <div class="spotify-data mt-3">
+                  <h5 class="flex-items">My top artists</h5>
+                  <div class="my-spotify top-artists flex-items" data-action="click->spotify-auth#getTopArtists">
+                    <div class="top-artists-container">
+                    </div>
+                  </div>
+                  <h5 class="flex-items">My top tracks</h5>
+                  <div class="my-spotify top-tracks flex-items" data-action="click->spotify-auth#getTopTracks">
+                    <div class="top-tracks-container">
+                    </div>
+                  </div>
+                </div>
                 <div>
                   <h5 class="flex-items">Connect My Account to Spotify</h5>
                   <div
@@ -140,18 +152,6 @@
                     <% current_user.top_genres.each do |genre| %>
                       <ul><li><%= genre.genre %></li></ul>
                     <% end %>
-                  </div>
-                </div>
-                <div class="spotify-data mt-3">
-                  <h5 class="flex-items">View your top artists</h5>
-                  <div class="my-spotify top-artists flex-items" data-action="click->spotify-auth#getTopArtists">
-                    <div class="top-artists-container">
-                    </div>
-                  </div>
-                  <h5 class="flex-items">View your top tracks</h5>
-                  <div class="my-spotify top-tracks flex-items" data-action="click->spotify-auth#getTopTracks">
-                    <div class="top-tracks-container">
-                    </div>
                   </div>
                 </div>
               </div>
