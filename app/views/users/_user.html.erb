@@ -14,12 +14,13 @@
       </filter>
     </svg>
   </div>
-  <div class="d-flex justify-content-center">
-    <h1 style="font-family: Montserrat;
-      text-align: center;">P O S S I B L E<BR>M A T C H</h1>
-  </div>
   <%# <div data-user="<%= user.id" class="users-container"> %>
   <div class="card" data-hide-cards-target="cards">
+    <div class="d-flex justify-content-center">
+      <h1 class="mt-5" style="font-family: Montserrat;
+        text-align: center;
+        position: absolute;">P O S S I B L E<BR>M A T C H</h1>
+    </div>
     <div class="other-user-name">
       <ul><li><%= user.name.capitalize %></li></ul>
       <p class="location"><%= user.location.capitalize %></p>
@@ -115,71 +116,7 @@
           <% end %>
         </div>
       </div>
-      <section class="spotify-auth mt-2" data-controller="spotify-auth">
-        <div class="spotify-connect-auth" data-spotify-auth-target="auth">
-          <div class="flex-items card-extended">
-            <h4 class="spotify-data-titles">My Top Genres</h4>
-            <div class="profile-top-genres-list genres-list">
-              <% if user.top_genres.any? %>
-                  <ul>
-                  <% user.top_genres.each do |genre| %>
-                  <% unless genre.genre.blank? %>
-                      <li><%= genre.genre.capitalize %></li>
-                    <% end %>
-                  <% end %>
-                  </ul>
-              <% elsif %>
-                <div class="my-spotify top-genres flex-items" data-action="click->spotify-auth#getTopGenres">
-                  <div class="top-genres-container top-music-container">
-                  </div>
-                </div>
-              <% else %>
-                <div><p>Please connect your spotify account to Jam in order to see your top genres.
-                  If you dont have Spotify, add your top genres.
-                </p></div>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <div
-          class="spotify-env"
-          data-client-id="<%= ENV["client_id"] %>"
-          data-client-secret="<%= ENV["client_secret"] %>">
-        </div>
-        <div data-spotify-auth-target="genres"></div>
-          <div class="spotify-user-data spotify">
-            <div class="spotify-connect-auth top-genres mt-2">
-              <div class="spotify-data mt-3">
-                <h4 class="flex-items spotify-data-titles">My Top Artists</h4>
-                <div class="my-spotify top-artists flex-items" data-action="click->spotify-auth#getTopArtists">
-                  <div class="top-artists-container top-music-container">
-                  </div>
-                </div>
-              <h4 class="flex-items spotify-data-titles">My Top Tracks</h4>
-              <div class="my-spotify top-tracks flex-items" data-action="click->spotify-auth#getTopTracks">
-                <div class="top-tracks-container top-music-container">
-                </div>
-              </div>
-              </div>
-              <div>
-                <h4 class="flex-items spotify-data-titles">Can't see your spotify data?</h4>
-                <div
-                class="my-spotify btn my-2 flex-items"
-                data-action="click->spotify-auth#linkToSpotify">You may need to reconnect to spotify, click here.
-                </div>
-              </div>
-              <h4 class="flex-items spotify-data-titles">Update My Genres</h4>
-              <div class="btn my-2 flex-items my-spotify" data-action="click->spotify-auth#getTopGenres">Consider updating your genres to give others an up-to-date glimpse of what you're currently listening to. This will enhance the accuracy of the music matching process, making it more effective in connecting you with like-minded individuals who share your musical preferences.</div>
-                <div class="profile-top-genres-list mt-2 d-none">
-                  <% user.top_genres.each do |genre| %>
-                    <ul><li><%= genre.genre %></li></ul>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
     </div>
   </div>
 </div>
