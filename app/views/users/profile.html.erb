@@ -128,25 +128,25 @@
             <div class="spotify-user-data spotify">
               <div class="spotify-connect-auth top-genres mt-2">
                 <div class="spotify-data mt-3">
-                  <h5 class="flex-items">My Top Artists</h5>
+                  <h5 class="flex-items prompt">My Top Artists</h5>
                   <div class="my-spotify top-artists flex-items" data-action="click->spotify-auth#getTopArtists">
                     <div class="top-artists-container">
                     </div>
                   </div>
-                  <h5 class="flex-items">My Top Tracks</h5>
+                  <h5 class="flex-items prompt">My Top Tracks</h5>
                   <div class="my-spotify top-tracks flex-items" data-action="click->spotify-auth#getTopTracks">
                     <div class="top-tracks-container">
                     </div>
                   </div>
                 </div>
                 <div>
-                  <h5 class="flex-items">Can't see your spotify data?</h5>
+                  <h5 class="flex-items prompt">Can't see your spotify data?</h5>
                   <div
                   class="my-spotify btn my-2 flex-items"
                   data-action="click->spotify-auth#linkToSpotify">You may need to reconnect to spotify, click here.
                   </div>
                 </div>
-                <h5 class="flex-items">Update My Genres</h5>
+                <h5 class="flex-items prompt">Update My Genres</h5>
                 <div class="btn my-2 flex-items my-spotify" data-action="click->spotify-auth#getTopGenres">Update</div>
                   <div class="profile-top-genres-list mt-2 d-none">
                     <% current_user.top_genres.each do |genre| %>
