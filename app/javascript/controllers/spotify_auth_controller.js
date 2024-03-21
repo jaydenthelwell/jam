@@ -183,7 +183,6 @@ export default class extends Controller {
     // this.connect();
   }
 
-  // ! (8) Use Access Token to Get the User's Top Artists
   getTopArtists() {
     console.log("This is getTopArtists Stimulus");
 
@@ -195,19 +194,19 @@ export default class extends Controller {
         Authorization: "Bearer " + access_token,
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
 
-        const topArtists = document.querySelector(".top-artists-container");
+      const topArtists = document.querySelector(".top-artists-container");
 
-        data.items.forEach((artist) => {
-          topArtists.insertAdjacentHTML(
-            "beforeend",
-            `<p><a href="${artist.external_urls.spotify}" target="_blank">${artist.name}</a></p>`
-          );
-        });
+      data.items.forEach((artist) => {
+        topArtists.insertAdjacentHTML(
+          "beforeend",
+          `<p><a href="${artist.external_urls.spotify}" target="_blank">${artist.name}</a></p>`
+        );
       });
+    });
   }
 
   getTopGenres() {
@@ -215,50 +214,48 @@ export default class extends Controller {
 
     let access_token = localStorage.getItem("access_token");
 
-    const apiUrl = "https://api.spotify.com/v1/me/top/artists?limit=5";
-
-    fetch(apiUrl, {
+    fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
       headers: {
-        "Authorization": "Bearer " + access_token,
+        Authorization: "Bearer " + access_token,
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Received data from Spotify API:", data);
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Received data from Spotify API:", data);
 
-        if (data.items) {
-          let genres = [];
+      if (data.items) {
+        let genres = [];
 
-          data.items.forEach((artist) => {
-            genres = genres.concat(artist.genres);
+        data.items.forEach((artist) => {
+          genres = genres.concat(artist.genres);
+        });
+
+        let topFiveGenres = this.#topNMostFrequentElements(genres, 5);
+
+        console.log("Top 5 genres:", topFiveGenres);
+
+        if (topFiveGenres.length >= 5) {
+          console.log("Updating top genres in HTML...");
+
+          // Update HTML to display the top genres
+          let topGenresContainer = document.querySelector(".top-genres-container");
+          topGenresContainer.innerHTML = ""; // Clear previous content
+
+          topFiveGenres.forEach((genre) => {
+            let genreElement = document.createElement("div");
+            genreElement.textContent = genre;
+            topGenresContainer.appendChild(genreElement);
           });
 
-          let topFiveGenres = this.#topNMostFrequentElements(genres, 5);
-
-          console.log("Top 5 genres:", topFiveGenres);
-
-          if (topFiveGenres.length >= 5) {
-            console.log("Updating top genres in HTML...");
-
-            // Update HTML to display the top genres
-            let topGenresContainer = document.querySelector(".top-genres-container");
-            topGenresContainer.innerHTML = ""; // Clear previous content
-
-            topFiveGenres.forEach((genre) => {
-              let genreElement = document.createElement("div");
-              genreElement.textContent = genre;
-              topGenresContainer.appendChild(genreElement);
-            });
-
-            console.log("Genres updated successfully.");
-          }
-        } else {
-          console.log("No data received from the Spotify API.");
+          console.log("Genres updated successfully.");
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching top genres:", error);
-      });
+      } else {
+        console.log("No data received from the Spotify API.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching top genres:", error);
+    });
 
     let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
     const currentUrl = window.location.href;
@@ -270,103 +267,43 @@ export default class extends Controller {
     }
   }
 
-
   getTopTracks() {
     console.log("This is getTopTracks Stimulus");
 
     let access_token = localStorage.getItem("access_token");
 
     fetch("https://api.spotify.com/v1/me/top/tracks?limit=5", {
-      // method: method,
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + access_token,
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        console.log("Top 5 Tracks:", topFiveTracks);
-        let tracks = [];
-        let spotify_ref = []
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Received top tracks data:", data);
 
-        const topTracks = document.querySelector(".top-tracks");
+      const topTracks = document.querySelector(".top-tracks-container");
+      topTracks.innerHTML = ""; // Clear previous content
 
-        fetch("/tracks/destroy_all", {
-          method: "DELETE",
-          headers: {
-            "X-CSRF-Token": Rails.csrfToken(),
-          },
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response;
-          })
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((error) => {
-            console.error("Error creating track instance:", error);
-          });
+      data.items.forEach((track) => {
+        topTracks.insertAdjacentHTML(
+          "beforeend",
+          `<p><a href="${track.external_urls.spotify}" target="_blank">${track.name}</a></p>`
+        );
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching top tracks:", error);
+    });
 
-        data.items.forEach((track) => {
-          tracks = tracks.concat(track.name);
-          spotify_ref = spotify_ref.concat(track.id);
+    let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
+    const currentUrl = window.location.href;
+    console.log("Current URL:", currentUrl);
 
-            topTracks.insertAdjacentHTML(
-              "beforeend",
-              `<p><div class="d-flex"><div data-action="click->spotify-auth#playTrack" data-track-id="${track.id}" class="btn btn-primary">${track.name}</div><div data-action="click->spotify-auth#pauseTrack" class="btn btn-danger mx-3">Stop</div></div></p>`
-            );
-
-          fetch("/top_tracks", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRF-Token": Rails.csrfToken(),
-              // You might need to include other headers, like authorization headers
-            },
-            body: JSON.stringify({ track: track.name, spotify_ref: track.id }), // Assuming your genre data is an object
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              console.log(response);
-            })
-            .then((data) => {
-              console.log("Genre instance created:", data);
-
-              // const topGenres = document.querySelector(".top-genres-list");
-              const topTracks = document.querySelector(".tracks-list");
-
-              topTracks.insertAdjacentHTML("beforeend", `<p>${track}</p>`);
-            })
-            .catch((error) => {
-              console.error("Error creating genre instance:", error);
-            });
-
-        });
-
-        console.log(tracks);
-        console.log(spotify_ref);
-
-        const topTracksDiv = document.querySelector(".tracks-list");
-        topTracksDiv.innerHTML = "";
-        })
-        .catch((error) => {
-          // Handle error
-        });
-
-        let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile"
-
-        const currentUrl = window.location.href;
-        console.log(currentUrl)
-
-        if (currentUrl !==  redirectLink) {
-          window.location.href = redirectLink;
-        }
+    if (currentUrl !== redirectLink) {
+      console.log("Redirecting to:", redirectLink);
+      window.location.href = redirectLink;
+    }
   }
 
   playTrack(e) {
