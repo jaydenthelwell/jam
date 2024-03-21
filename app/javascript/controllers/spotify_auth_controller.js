@@ -286,13 +286,10 @@ export default class extends Controller {
       topTracks.innerHTML = ""; // Clear previous content
 
       data.items.forEach((track) => {
-        const trackElement = document.createElement("p");
-        trackElement.innerHTML = `<a href="${track.external_urls.spotify}" target="_blank">${track.name}</a>`;
-
-        // Add event listener to play the track when clicked
-        trackElement.addEventListener("click", () => this.playTrack(track.id));
-
-        topTracks.appendChild(trackElement);
+        topTracks.insertAdjacentHTML(
+          "beforeend",
+          `<p><a href="${track.external_urls.spotify}" target="_blank">${track.name}</a></p>`
+        );
       });
     })
     .catch((error) => {
@@ -309,14 +306,16 @@ export default class extends Controller {
     }
   }
 
-  playTrack(trackId) {
+  playTrack(e) {
     console.log("This is playTrack Stimulus");
+
+    const trackId = e.currentTarget.dataset.trackId;
+    console.log(trackId);
 
     let access_token = localStorage.getItem("access_token");
 
     this.fetchValidDeviceId(access_token, trackId);
   }
-
 
   pauseTrack() {
     console.log("This is pauseTrack Stimulus");
