@@ -57,7 +57,7 @@ export default class extends Controller {
     console.log("client_secret:", client_secret);
 
     // Your redirect uri
-    let redirect_uri = "http://localhost:3000/profile";
+    let redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
 
     localStorage.setItem("client_id", client_id);
 
@@ -83,7 +83,7 @@ export default class extends Controller {
     console.log("This is handle redirect");
     let code = this.#getCode();
     this.#fetchAccessToken(code);
-    let redirect_uri = "http://localhost:3000/profile";
+    let redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
     localStorage.setItem("redirect_uri", redirect_uri);
     redirect_uri = localStorage.getItem("redirect_uri");
     window.history.pushState("", "", redirect_uri);
@@ -233,7 +233,7 @@ export default class extends Controller {
         console.error("Error fetching top genres:", error);
       });
 
-    let redirectLink = "http://localhost:3000/profile";
+    let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
     const currentUrl = window.location.href;
     console.log("Current URL:", currentUrl);
 
@@ -331,7 +331,7 @@ export default class extends Controller {
           // Handle error
         });
 
-        let redirectLink = "http://localhost:3000/profile"
+        let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile"
 
         const currentUrl = window.location.href;
         console.log(currentUrl)
