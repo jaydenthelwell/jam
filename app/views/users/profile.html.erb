@@ -17,16 +17,16 @@
     </div>
     <%# <div data-user="<%= current_user.id" class="users-container"> %>
     <div class="profile-card" data-hide-cards-target="cards">
-      <h1 style="font-family: Montserrat;
-      position: absolute;
-      top: 1%;
-      text-align: center;
-      left: 10%;
-      font-weight: 900;
-      color: black;">M A N A G E &nbsp; Y O U R <BR> A C C O U N T</h1>
-      <%# <div class="profilename">
+      <div class="d-flex justify-content-center">
+        <h1 style="font-family: Montserrat;
+          position: absolute;
+          text-align: center;
+          font-weight: 900;">M A N A G E &nbsp; Y O U R <BR> A C C O U N T</h1>
+      </div>
+      <div class="profilename">
         Name: <%= current_user.name %>
-      <%# </div> %>
+        Email: <%= current_user.email %>
+      </div>
       <div>
         <%= link_to edit_user_path(current_user) do %>
           <i class="fas fa-edit edit" style="color: #000000;"></i>
