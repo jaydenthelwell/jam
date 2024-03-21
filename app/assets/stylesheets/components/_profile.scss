@@ -112,7 +112,6 @@
   display: flex;
   gap: 15px;
   flex-direction: column;
-  margin-left: 1rem;
 }
 
 .profile-top-genres-list {
@@ -133,7 +132,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 2rem;
+  margin-left: 1rem;
 }
 
 .spotify-connect-auth {
@@ -154,7 +153,6 @@
   font-size: 15px;
   font-family: montserrat;
   border-radius: 40px;
-  text-align: center;
   /* width: 60%; */
   /* padding: 30px; */
   /* border: solid; */
