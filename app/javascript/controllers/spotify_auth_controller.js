@@ -23,6 +23,7 @@ export default class extends Controller {
       // this.genresTarget.classList.remove("d-none")
     } else {
       // this.authTarget.classList.remove("d-none")
+      console.log("Spotify Account Not Authozised")
     }
 
     // Check if there's any params in the URL, if yes, will call #handleRedirect() to clean up the URL
