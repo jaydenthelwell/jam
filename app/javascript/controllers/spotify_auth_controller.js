@@ -99,6 +99,8 @@ export default class extends Controller {
 
   // ! (4) Function to Get the Spotify Authorization Code from URL
   #getCode() {
+    console.log("This is get code");
+
     let code = null;
 
     const queryString = window.location.search;
@@ -113,6 +115,8 @@ export default class extends Controller {
 
   // ! (5) Prepare the Fetch Request Body to Spotify Authorization for Getting the Access Token
   #fetchAccessToken(code) {
+    console.log("Fetch token");
+
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
     let redirect_uri = localStorage.getItem("redirect_uri");
@@ -128,6 +132,7 @@ export default class extends Controller {
 
   // ! (6) Make the Fetch Request to Get Spotify Bearer Access Token
   #callAuthorizationApi(body) {
+    console.log("Calling authorization api");
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
 
@@ -156,6 +161,7 @@ export default class extends Controller {
 
   // ! (7) Save the Access Token and Refresh Once Successfully Getting the Fetch Response from Spotify
   #handleAuthorizationResponse(data) {
+    console.log("Handling authorization");
     let access_token;
     let refresh_token;
 
