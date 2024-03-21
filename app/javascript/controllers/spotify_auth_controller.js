@@ -185,8 +185,8 @@ export default class extends Controller {
   // ! (8) Use Access Token to Get the User's Top Artists
   getTopArtists() {
     console.log("This is getTopArtists Stimulus");
-
     let access_token = localStorage.getItem("access_token");
+    console.log("Access Token:", access_token);
 
     fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
       headers: {
@@ -283,7 +283,7 @@ export default class extends Controller {
       console.log("Received top tracks data:", data);
 
       const topTracks = document.querySelector(".top-tracks-container");
-      topTracks.innerHTML = ""; // Clear previous content
+      topTracks.innerHTML = "";
 
       data.items.forEach((track) => {
         topTracks.insertAdjacentHTML(
