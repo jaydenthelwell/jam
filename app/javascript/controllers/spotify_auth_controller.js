@@ -10,6 +10,8 @@ export default class extends Controller {
 
     this.getTopGenres();
     this.getTopArtists();
+    this.getTopTracks();
+
     console.log("This is from Connect Spotify Stimulus");
 
     let access_token = localStorage.getItem("access_token");
@@ -284,7 +286,7 @@ export default class extends Controller {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-
+        console.log("Top 5 Tracks:", topFiveTracks);
         let tracks = [];
         let spotify_ref = []
 
