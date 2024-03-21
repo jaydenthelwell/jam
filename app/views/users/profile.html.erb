@@ -112,9 +112,10 @@
                   <% end %>
                   </ul>
               <% else %>
-                <div><p>Please connect your spotify account to Jam in order to see your top genres.
-                  If you dont have Spotify, add your top genres.
-                </p></div>
+                <div class="my-spotify top-artists flex-items" data-action="click->spotify-auth#getTopArtists">My Top 5 Artists
+                  <div class="top-artists-container">
+                  </div>
+                </div>
               <% end %>
             </div>
           </div>
