@@ -9,6 +9,10 @@ export default class extends Controller {
   connect() {
     console.log("This is from Connect Spotify Stimulus");
 
+    this.getTopGenres();
+    this.getTopArtists();
+    this.getTopTracks();
+
     let access_token = localStorage.getItem("access_token");
 
     if (access_token !== null) {
