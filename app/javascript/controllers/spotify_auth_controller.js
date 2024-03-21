@@ -164,22 +164,71 @@ export default class extends Controller {
   }
 
   // ! (7) Save the Access Token and Refresh Once Successfully Getting the Fetch Response from Spotify
+  // #handleAuthorizationResponse(data) {
+  //   let access_token;
+  //   let refresh_token;
+
+  //   if (data.access_token != undefined) {
+  //     access_token = data.access_token;
+  //     localStorage.setItem("access_token", access_token);
+  //   }
+
+  //   if (data.refresh_token != undefined) {
+  //     refresh_token = data.refresh_token;
+  //     console.log("Handling authorization");
+  //     localStorage.setItem("refresh_token", refresh_token);
+  //   }
+  // this.getTopArtists
+  //   // this.connect();
+  // }
+
   #handleAuthorizationResponse(data) {
     let access_token;
     let refresh_token;
 
-    if (data.access_token != undefined) {
+    if (data.access_token !== undefined) {
       access_token = data.access_token;
       localStorage.setItem("access_token", access_token);
     }
 
-    if (data.refresh_token != undefined) {
+    if (data.refresh_token !== undefined) {
       refresh_token = data.refresh_token;
       console.log("Handling authorization");
       localStorage.setItem("refresh_token", refresh_token);
     }
-  this.getTopArtists
-    // this.connect();
+
+    // Call a function to refresh the access token if necessary
+    this.refreshAccessToken();
+  }
+
+  refreshAccessToken() {
+    const refresh_token = localStorage.getItem("refresh_token");
+    if (refresh_token) {
+      // Make a request to your server to exchange the refresh token for a new access token
+      fetch('/refresh_token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          refresh_token: refresh_token
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.access_token) {
+          localStorage.setItem("access_token", data.access_token);
+          console.log("Access token refreshed successfully.");
+        } else {
+          console.error("Failed to refresh access token.");
+        }
+      })
+      .catch(error => {
+        console.error("Error refreshing access token:", error);
+      });
+    } else {
+      console.error("Refresh token not found in local storage.");
+    }
   }
 
   // ! (8) Use Access Token to Get the User's Top Artists
