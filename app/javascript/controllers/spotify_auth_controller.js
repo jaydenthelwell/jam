@@ -181,6 +181,7 @@ export default class extends Controller {
   }
 
   refreshAccessToken() {
+    console.error("Handling reefresh access token...");
     const refreshToken = localStorage.getItem("refresh_token");
 
     if (!refreshToken) {
