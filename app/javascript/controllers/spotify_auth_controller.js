@@ -276,11 +276,8 @@ export default class extends Controller {
     })
     .then((response) => {
       if (!response.ok) {
-        // If response status is 401, it indicates that the token is expired or invalid
-        if (response.status === 401) {
-          // Refresh the access token
+        if (response.status === 401 || response.status === 403) {
           return this.refreshAccessToken().then(() => {
-            // Retry the fetch request with the new access token
             return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
               headers: {
                 "Content-Type": "application/json",
@@ -326,7 +323,7 @@ export default class extends Controller {
     .then((response) => {
       if (!response.ok) {
         // If response status is 401, it indicates that the token is expired or invalid
-        if (response.status === 401) {
+        if (response.status === 401 || response.status === 403) {
           // Refresh the access token
           return this.refreshAccessToken().then(() => {
             // Retry the fetch request with the new access token
@@ -396,7 +393,7 @@ export default class extends Controller {
     .then((response) => {
       if (!response.ok) {
         // If response status is 401, it indicates that the token is expired or invalid
-        if (response.status === 401) {
+        if (response.status === 401 || response.status === 403) {
           // Refresh the access token
           return this.refreshAccessToken().then(() => {
             // Retry the fetch request with the new access token
