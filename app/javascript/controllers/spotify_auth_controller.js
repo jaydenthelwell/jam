@@ -260,38 +260,15 @@ export default class extends Controller {
     return error;
   }
 
+
+
   getTopArtists() {
-    let artistsLoaded = false;
-
-    if (artistsLoaded) return;
-
     console.log("This is getTopArtists Stimulus");
 
     let access_token = localStorage.getItem("access_token");
     console.log("Access Token:", access_token);
 
-    this.fetchTopArtists(access_token)
-      .then(data => {
-        console.log(data);
-
-        const topArtists = document.querySelector(".top-artists-container");
-
-        data.items.forEach((artist) => {
-          topArtists.insertAdjacentHTML(
-            "beforeend",
-            `<p><a href="${artist.external_urls.spotify}" target="_blank">${artist.name}</a></p>`
-          );
-        });
-
-        artistsLoaded = true;
-      })
-      .catch((error) => {
-        console.error("Error in getTopArtists:", error);
-      });
-  }
-
-  fetchTopArtists(access_token) {
-    return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
+    fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + access_token,
@@ -299,18 +276,39 @@ export default class extends Controller {
     })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error fetching top artists: " + response.statusText);
+        // If response status is 401, it indicates that the token is expired or invalid
+        if (response.status === 401) {
+          // Refresh the access token
+          return this.refreshAccessToken().then(() => {
+            // Retry the fetch request with the new access token
+            return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("access_token"),
+              },
+            });
+          });
+        } else {
+          throw new Error("Error fetching top artists: " + response.statusText);
+        }
       }
       return response.json();
     })
+    .then((data) => {
+      console.log(data);
+
+      const topArtists = document.querySelector(".top-artists-container");
+
+      data.items.forEach((artist) => {
+        topArtists.insertAdjacentHTML(
+          "beforeend",
+          `<p><a href="${artist.external_urls.spotify}" target="_blank">${artist.name}</a></p>`
+        );
+      });
+    })
     .catch((error) => {
-      if (error.message.includes("403 Forbidden")) {
-        console.log("Token expired or invalid, refreshing...");
-        return this.refreshAccessToken()
-          .then(newAccessToken => this.fetchTopArtists(newAccessToken));
-      } else {
-        throw error;
-      }
+      console.error("Error in getTopArtists:", error);
+        this.handleUnauthorizedError(error);
     });
   }
 
