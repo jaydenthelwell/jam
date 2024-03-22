@@ -151,7 +151,7 @@ export default class extends Controller {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
+        'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret)
       },
       body: new URLSearchParams({
         'grant_type': 'refresh_token',
@@ -322,11 +322,8 @@ export default class extends Controller {
     })
     .then((response) => {
       if (!response.ok) {
-        // If response status is 401, it indicates that the token is expired or invalid
         if (response.status === 401 || response.status === 403) {
-          // Refresh the access token
           return this.refreshAccessToken().then(() => {
-            // Retry the fetch request with the new access token
             return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
               headers: {
                 Authorization: "Bearer " + localStorage.getItem("access_token"),
@@ -356,9 +353,8 @@ export default class extends Controller {
         if (topFiveGenres.length >= 5) {
           console.log("Updating top genres in HTML...");
 
-          // Update HTML to display the top genres
           let topGenresContainer = document.querySelector(".top-genres-container");
-          topGenresContainer.innerHTML = ""; // Clear previous content
+          topGenresContainer.innerHTML = "";
 
           topFiveGenres.forEach((genre) => {
             let genreElement = document.createElement("div");
@@ -392,11 +388,8 @@ export default class extends Controller {
     })
     .then((response) => {
       if (!response.ok) {
-        // If response status is 401, it indicates that the token is expired or invalid
         if (response.status === 401 || response.status === 403) {
-          // Refresh the access token
           return this.refreshAccessToken().then(() => {
-            // Retry the fetch request with the new access token
             return fetch("https://api.spotify.com/v1/me/top/tracks?limit=5", {
               headers: {
                 "Content-Type": "application/json",
