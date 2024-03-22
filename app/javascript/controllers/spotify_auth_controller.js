@@ -14,7 +14,7 @@ export default class extends Controller {
 
     // Check if the user is already authorized
     let access_token = localStorage.getItem("access_token");
-    console.log("Access_token:", access_token)
+    console.log("Access Token:", access_token);
 
     if (access_token !== null) {
       console.log("Spotify Account Authorized");
