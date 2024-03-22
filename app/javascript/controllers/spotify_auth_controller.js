@@ -257,8 +257,8 @@ export default class extends Controller {
     }
   }
 
-  handleUnauthorizedError(response) {
-    if (response.status === 401) {
+  handleUnauthorizedError(error) {
+    if (error.status === 401) {
       // Token has expired or is invalid
       console.log("Access token expired or invalid, refreshing...");
 
@@ -266,16 +266,18 @@ export default class extends Controller {
       this.refreshAccessToken();
     }
 
-    // Return the response for further processing
-    return response;
+    // Return the error for further processing
+    return error;
   }
 
 
 
   getTopArtists() {
     console.log("This is getTopArtists Stimulus");
+
     let access_token = localStorage.getItem("access_token");
     console.log("Access Token:", access_token);
+
     fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
       headers: {
         "Content-Type": "application/json",
