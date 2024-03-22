@@ -183,6 +183,32 @@ export default class extends Controller {
     // this.connect();
   }
 
+  handleUnauthorizedError(response) {
+    if (response.status === 401) {
+      // Token has expired or is invalid
+      console.log("Access token expired or invalid, refreshing...");
+
+      // Call your method to refresh access token
+      this.refreshAccessToken();
+    }
+
+    // Return the response for further processing
+    return response;
+  }
+
+  // Method to refresh access token
+  refreshAccessToken() {
+    const refreshToken = localStorage.getItem("refresh_token");
+
+    if (!refreshToken) {
+      console.error("Refresh token not found in local storage.");
+      return;
+    }
+
+    // Call your method to request a new access token using the refresh token
+    this.#fetchAccessToken(refreshToken);
+  }
+
   // ! (8) Use Access Token to Get the User's Top Artists
   getTopArtists() {
     console.log("This is getTopArtists Stimulus");
