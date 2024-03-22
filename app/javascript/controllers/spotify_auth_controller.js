@@ -52,6 +52,7 @@ export default class extends Controller {
     // Your client id
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
+    let access_token =
     console.log("client_id:", client_id);
     console.log("client_secret:", client_secret);
 
@@ -147,29 +148,33 @@ export default class extends Controller {
 
         if (data.token_type === "Bearer") {
           this.#handleAuthorizationResponse(data);
+        } else {
+          console.error("Invalid token type:", data.token_type);
         }
       })
       .catch((error) => {
-          this.handleUnauthorizedError(error);
+        this.handleUnauthorizedError(error);
       });
-  }
+}
 
   #handleAuthorizationResponse(data) {
     let access_token;
     let refresh_token;
 
-    if (data.access_token != undefined) {
+    if (data.access_token !== undefined) {
       access_token = data.access_token;
       localStorage.setItem("access_token", access_token);
+    } else {
+      console.error("Access token not found in authorization response:", data);
+      return;
     }
 
-    if (data.refresh_token != undefined) {
+    if (data.refresh_token !== undefined) {
       refresh_token = data.refresh_token;
-      console.log("Handling authorization");
       localStorage.setItem("refresh_token", refresh_token);
+    } else {
+      console.error("Refresh token not found in authorization response:", data);
     }
-  this.getTopArtists
-    // this.connect();
   }
 
 
