@@ -130,17 +130,14 @@ export default class extends Controller {
       console.log('Access token:', data.access_token);
       console.log('Refresh token:', data.refresh_token);
 
-      // Store access token and refresh token in localStorage
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("refresh_token", data.refresh_token);
     })
     .catch(error => {
       console.error('There was a problem with the fetch operation:', error);
-      // Handle error
     });
   }
 
-  // Add a new method to handle token refreshing
   refreshAccessToken() {
     console.error("Handling refresh access token...");
     const refreshToken = localStorage.getItem("refresh_token");
@@ -150,7 +147,6 @@ export default class extends Controller {
       return;
     }
 
-    // Use the refresh token to obtain a new access token
     fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
@@ -170,16 +166,10 @@ export default class extends Controller {
     })
     .then(data => {
       console.log('Access token refreshed:', data.access_token);
-
-      // Update the access token in localStorage
       localStorage.setItem("access_token", data.access_token);
-
-      // Now you can perform any actions that require a valid access token
-      // For example, you can call methods to fetch data from the Spotify API
     })
     .catch(error => {
       console.error('There was a problem with the token refresh operation:', error);
-      // Handle error
     });
   }
 
@@ -321,8 +311,6 @@ export default class extends Controller {
     return error;
   }
 
-
-
   getTopArtists() {
     console.log("This is getTopArtists Stimulus");
 
@@ -337,7 +325,21 @@ export default class extends Controller {
     })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error fetching top artists: " + response.statusText);
+        // If response status is 401, it indicates that the token is expired or invalid
+        if (response.status === 401) {
+          // Refresh the access token
+          return this.refreshAccessToken().then(() => {
+            // Retry the fetch request with the new access token
+            return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("access_token"),
+              },
+            });
+          });
+        } else {
+          throw new Error("Error fetching top artists: " + response.statusText);
+        }
       }
       return response.json();
     })
