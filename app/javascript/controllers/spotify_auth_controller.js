@@ -12,8 +12,8 @@ export default class extends Controller {
     this.getTopArtists();
     this.getTopTracks();
 
-    // Check if the user is already authorized
     let access_token = localStorage.getItem("access_token");
+
     console.log("Access Token:", access_token);
 
     if (access_token !== null) {
@@ -103,9 +103,10 @@ export default class extends Controller {
   }
 
   #fetchAccessToken(code) {
-    const client_id = "your_client_id";
-    const client_secret = "your_client_secret";
-    const redirect_uri = "your_redirect_uri";
+
+    const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
+    const client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
+    const redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
     console.log("This is fetch access token")
 
     const body = new URLSearchParams();
@@ -128,8 +129,7 @@ export default class extends Controller {
       return response.json();
     })
     .then(data => {
-      console.log('Access token:',
-      );
+      console.log('Access token:', data.access_token);
       console.log('Refresh token:', data.refresh_token);
       // Store access token and refresh token in localStorage or perform further actions
     })
