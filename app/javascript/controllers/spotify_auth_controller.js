@@ -379,14 +379,14 @@ export default class extends Controller {
         this.handleUnauthorizedError(error);
     });
 
-    let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
-    const currentUrl = window.location.href;
-    console.log("Current URL:", currentUrl);
+    // let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
+    // const currentUrl = window.location.href;
+    // console.log("Current URL:", currentUrl);
 
-    if (currentUrl !== redirectLink) {
-      console.log("Redirecting to:", redirectLink);
-      window.location.href = redirectLink;
-    }
+    // if (currentUrl !== redirectLink) {
+    //   console.log("Redirecting to:", redirectLink);
+    //   window.location.href = redirectLink;
+    // }
   }
 
   getTopTracks() {
@@ -425,14 +425,14 @@ export default class extends Controller {
         this.handleUnauthorizedError(error);
     });
 
-    let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
-    const currentUrl = window.location.href;
-    console.log("Current URL:", currentUrl);
+    // let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
+    // const currentUrl = window.location.href;
+    // console.log("Current URL:", currentUrl);
 
-    if (currentUrl !== redirectLink) {
-      console.log("Redirecting to:", redirectLink);
-      window.location.href = redirectLink;
-    }
+    // if (currentUrl !== redirectLink) {
+    //   console.log("Redirecting to:", redirectLink);
+    //   window.location.href = redirectLink;
+    // }
   }
 
   async fetchValidDeviceId(access_token, trackId) {
