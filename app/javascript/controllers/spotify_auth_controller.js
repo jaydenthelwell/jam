@@ -157,25 +157,29 @@ export default class extends Controller {
       });
 }
 
-  #handleAuthorizationResponse(data) {
-    let access_token;
-    let refresh_token;
+#handleAuthorizationResponse(data) {
+  let access_token;
+  let refresh_token;
 
-    if (data.access_token !== undefined) {
-      access_token = data.access_token;
-      localStorage.setItem("access_token", access_token);
-    } else {
-      console.error("Access token not found in authorization response:", data);
-      return;
-    }
+  console.log("Received authorization response data:", data);
 
-    if (data.refresh_token !== undefined) {
-      refresh_token = data.refresh_token;
-      localStorage.setItem("refresh_token", refresh_token);
-    } else {
-      console.error("Refresh token not found in authorization response:", data);
-    }
+  if (data.access_token !== undefined) {
+    access_token = data.access_token;
+    console.log("Access token received:", access_token);
+    localStorage.setItem("access_token", access_token);
+  } else {
+    console.error("Access token not found in authorization response:", data);
+    return;
   }
+
+  if (data.refresh_token !== undefined) {
+    refresh_token = data.refresh_token;
+    console.log("Refresh token received:", refresh_token);
+    localStorage.setItem("refresh_token", refresh_token);
+  } else {
+    console.error("Refresh token not found in authorization response:", data);
+  }
+}
 
 
 
@@ -370,14 +374,14 @@ export default class extends Controller {
         this.handleUnauthorizedError(error);
     });
 
-    // let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
+    let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
     const currentUrl = window.location.href;
     console.log("Current URL:", currentUrl);
 
-    // if (currentUrl !== redirectLink) {
-    //   console.log("Redirecting to:", redirectLink);
-    //   window.location.href = redirectLink;
-    // }
+    if (currentUrl !== redirectLink) {
+      console.log("Redirecting to:", redirectLink);
+      window.location.href = redirectLink;
+    }
   }
 
   getTopTracks() {
