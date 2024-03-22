@@ -76,8 +76,6 @@ export default class extends Controller {
     let spotifyUrl =
       "https://accounts.spotify.com/authorize?" + params.toString();
 
-    // Call handleUnauthorizedError if it exists
-
     // Direct the Spotify API Authorization Page
     window.location.href = spotifyUrl;
   }
@@ -305,10 +303,7 @@ export default class extends Controller {
     })
     .catch((error) => {
       console.error("Error in getTopArtists:", error);
-      // Optionally, call handleUnauthorizedError if it exists
-      if (this.handleUnauthorizedError) {
         this.handleUnauthorizedError(error);
-      }
     });
   }
 
@@ -364,10 +359,7 @@ export default class extends Controller {
     })
     .catch((error) => {
       console.error("Error fetching top genres:", error);
-      // Optionally, call handleUnauthorizedError if it exists
-      if (this.handleUnauthorizedError) {
         this.handleUnauthorizedError(error);
-      }
     });
 
     let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
@@ -413,10 +405,7 @@ export default class extends Controller {
     })
     .catch((error) => {
       console.error("Error fetching top tracks:", error);
-      // Optionally, call handleUnauthorizedError if it exists
-      if (this.handleUnauthorizedError) {
         this.handleUnauthorizedError(error);
-      }
     });
 
     let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
