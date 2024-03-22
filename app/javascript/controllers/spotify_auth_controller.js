@@ -173,57 +173,6 @@ export default class extends Controller {
     });
   }
 
-
-  //   #callAuthorizationApi(body) {
-  //     console.log("Calling authorization api");
-  //     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
-  //     let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
-
-  //     const TOKEN = "https://accounts.spotify.com/api/token";
-
-  //     fetch(TOKEN, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/x-www-form-urlencoded",
-  //         Authorization: "Basic " + btoa(client_id + ":" + client_secret),
-  //       },
-  //       body: body,
-  //     })
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log(data);
-
-  //         if (data.token_type === "Bearer") {
-  //           this.#handleAuthorizationResponse(data);
-  //         } else {
-  //           console.error("Invalid token type:", data.token_type);
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         this.handleUnauthorizedError(error);
-  //       });
-  // }
-
-  // #handleAuthorizationResponse(data) {
-  //   console.log("Received authorization response data:", data);
-
-  //   if (data.access_token && data.access_token !== null) {
-  //     console.log("Access token received:", data.access_token);
-  //     localStorage.setItem("access_token", data.access_token);
-  //   } else {
-  //     console.error("Access token not found in authorization response:", data);
-  //     return;
-  //   }
-
-  //   if (data.refresh_token && data.refresh_token !== null) {
-  //     console.log("Refresh token received:", data.refresh_token);
-  //     localStorage.setItem("refresh_token", data.refresh_token);
-  //   } else {
-  //     console.error("Refresh token not found in authorization response:", data);
-  //   }
-  // }
-
-
   linkToSpotify(e) {
     e.preventDefault();
     console.log("This is linkToSpotify");
@@ -374,7 +323,20 @@ export default class extends Controller {
     })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error fetching top genres: " + response.statusText);
+        // If response status is 401, it indicates that the token is expired or invalid
+        if (response.status === 401) {
+          // Refresh the access token
+          return this.refreshAccessToken().then(() => {
+            // Retry the fetch request with the new access token
+            return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("access_token"),
+              },
+            });
+          });
+        } else {
+          throw new Error("Error fetching top genres: " + response.statusText);
+        }
       }
       return response.json();
     })
@@ -415,15 +377,6 @@ export default class extends Controller {
       console.error("Error fetching top genres:", error);
         this.handleUnauthorizedError(error);
     });
-
-    // let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
-    // const currentUrl = window.location.href;
-    // console.log("Current URL:", currentUrl);
-
-    // if (currentUrl !== redirectLink) {
-    //   console.log("Redirecting to:", redirectLink);
-    //   window.location.href = redirectLink;
-    // }
   }
 
   getTopTracks() {
@@ -440,7 +393,21 @@ export default class extends Controller {
     })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Error fetching top tracks: " + response.statusText);
+        // If response status is 401, it indicates that the token is expired or invalid
+        if (response.status === 401) {
+          // Refresh the access token
+          return this.refreshAccessToken().then(() => {
+            // Retry the fetch request with the new access token
+            return fetch("https://api.spotify.com/v1/me/top/tracks?limit=5", {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("access_token"),
+              },
+            });
+          });
+        } else {
+          throw new Error("Error fetching top tracks: " + response.statusText);
+        }
       }
       return response.json();
     })
@@ -461,16 +428,8 @@ export default class extends Controller {
       console.error("Error fetching top tracks:", error);
         this.handleUnauthorizedError(error);
     });
-
-    // let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
-    // const currentUrl = window.location.href;
-    // console.log("Current URL:", currentUrl);
-
-    // if (currentUrl !== redirectLink) {
-    //   console.log("Redirecting to:", redirectLink);
-    //   window.location.href = redirectLink;
-    // }
   }
+
 
   async fetchValidDeviceId(access_token, trackId) {
     const playUrl = "https://api.spotify.com/v1/me/player";
