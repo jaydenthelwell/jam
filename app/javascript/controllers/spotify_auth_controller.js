@@ -14,8 +14,12 @@ export default class extends Controller {
 
     // Check if the user is already authorized
     let access_token = localStorage.getItem("access_token");
+    console.log("Access_token:", access_token)
+
     if (access_token !== null) {
       console.log("Spotify Account Authorized");
+
+
       // Additional actions if the account is authorized
     } else {
       console.log("Spotify Account Not Authorized");
@@ -124,7 +128,8 @@ export default class extends Controller {
       return response.json();
     })
     .then(data => {
-      console.log('Access token:', data.access_token);
+      console.log('Access token:',
+      );
       console.log('Refresh token:', data.refresh_token);
       // Store access token and refresh token in localStorage or perform further actions
     })
@@ -164,24 +169,24 @@ export default class extends Controller {
   //       });
   // }
 
-  #handleAuthorizationResponse(data) {
-    console.log("Received authorization response data:", data);
+  // #handleAuthorizationResponse(data) {
+  //   console.log("Received authorization response data:", data);
 
-    if (data.access_token && data.access_token !== null) {
-      console.log("Access token received:", data.access_token);
-      localStorage.setItem("access_token", data.access_token);
-    } else {
-      console.error("Access token not found in authorization response:", data);
-      return;
-    }
+  //   if (data.access_token && data.access_token !== null) {
+  //     console.log("Access token received:", data.access_token);
+  //     localStorage.setItem("access_token", data.access_token);
+  //   } else {
+  //     console.error("Access token not found in authorization response:", data);
+  //     return;
+  //   }
 
-    if (data.refresh_token && data.refresh_token !== null) {
-      console.log("Refresh token received:", data.refresh_token);
-      localStorage.setItem("refresh_token", data.refresh_token);
-    } else {
-      console.error("Refresh token not found in authorization response:", data);
-    }
-  }
+  //   if (data.refresh_token && data.refresh_token !== null) {
+  //     console.log("Refresh token received:", data.refresh_token);
+  //     localStorage.setItem("refresh_token", data.refresh_token);
+  //   } else {
+  //     console.error("Refresh token not found in authorization response:", data);
+  //   }
+  // }
 
 
   linkToSpotify(e) {
