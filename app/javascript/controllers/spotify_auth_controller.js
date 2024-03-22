@@ -103,11 +103,9 @@ export default class extends Controller {
   }
 
   #fetchAccessToken(code) {
-
     const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     const client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
     const redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
-    console.log("This is fetch access token")
 
     const body = new URLSearchParams();
     body.append('grant_type', 'authorization_code');
@@ -131,13 +129,60 @@ export default class extends Controller {
     .then(data => {
       console.log('Access token:', data.access_token);
       console.log('Refresh token:', data.refresh_token);
-      // Store access token and refresh token in localStorage or perform further actions
+
+      // Store access token and refresh token in localStorage
+      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
     })
     .catch(error => {
       console.error('There was a problem with the fetch operation:', error);
       // Handle error
     });
   }
+
+  // Add a new method to handle token refreshing
+  refreshAccessToken() {
+    console.error("Handling refresh access token...");
+    const refreshToken = localStorage.getItem("refresh_token");
+
+    if (!refreshToken) {
+      console.error("Refresh token not found in local storage.");
+      return;
+    }
+
+    // Use the refresh token to obtain a new access token
+    fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
+      },
+      body: new URLSearchParams({
+        'grant_type': 'refresh_token',
+        'refresh_token': refreshToken
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to refresh token');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Access token refreshed:', data.access_token);
+
+      // Update the access token in localStorage
+      localStorage.setItem("access_token", data.access_token);
+
+      // Now you can perform any actions that require a valid access token
+      // For example, you can call methods to fetch data from the Spotify API
+    })
+    .catch(error => {
+      console.error('There was a problem with the token refresh operation:', error);
+      // Handle error
+    });
+  }
+
 
   //   #callAuthorizationApi(body) {
   //     console.log("Calling authorization api");
@@ -195,17 +240,7 @@ export default class extends Controller {
     this.#requestAuthorization();
   }
 
-  refreshAccessToken() {
-    console.error("Handling refresh access token...");
-    const refreshToken = localStorage.getItem("refresh_token");
 
-    if (!refreshToken) {
-      console.error("Refresh token not found in local storage.");
-      return;
-    }
-
-    this.#fetchAccessToken(refreshToken);
-  }
 
   playTrack(e) {
     console.log("This is playTrack Stimulus");
