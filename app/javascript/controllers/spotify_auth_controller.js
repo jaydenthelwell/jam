@@ -141,6 +141,8 @@ export default class extends Controller {
   refreshAccessToken() {
     console.error("Handling refresh access token...");
     const refreshToken = localStorage.getItem("refresh_token");
+    const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
+    const client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
 
     if (!refreshToken) {
       console.error("Refresh token not found in local storage.");
@@ -266,6 +268,8 @@ export default class extends Controller {
     console.log("This is getTopArtists Stimulus");
 
     let access_token = localStorage.getItem("access_token");
+    const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
+    const client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
     console.log("Access Token:", access_token);
 
     fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
