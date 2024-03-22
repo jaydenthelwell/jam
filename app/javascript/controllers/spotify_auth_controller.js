@@ -45,7 +45,6 @@ export default class extends Controller {
     // localStorage.removeItem("refresh_token");
   }
 
-
   #requestAuthorization() {
     console.log("This is requestAuthorization");
 
@@ -158,24 +157,19 @@ export default class extends Controller {
 }
 
 #handleAuthorizationResponse(data) {
-  let access_token;
-  let refresh_token;
-
   console.log("Received authorization response data:", data);
 
-  if (data.access_token !== undefined) {
-    access_token = data.access_token;
-    console.log("Access token received:", access_token);
-    localStorage.setItem("access_token", access_token);
+  if (data.access_token !== undefined && data.access_token !== null) {
+    console.log("Access token received:", data.access_token);
+    localStorage.setItem("access_token", data.access_token);
   } else {
     console.error("Access token not found in authorization response:", data);
     return;
   }
 
-  if (data.refresh_token !== undefined) {
-    refresh_token = data.refresh_token;
-    console.log("Refresh token received:", refresh_token);
-    localStorage.setItem("refresh_token", refresh_token);
+  if (data.refresh_token !== undefined && data.refresh_token !== null) {
+    console.log("Refresh token received:", data.refresh_token);
+    localStorage.setItem("refresh_token", data.refresh_token);
   } else {
     console.error("Refresh token not found in authorization response:", data);
   }
