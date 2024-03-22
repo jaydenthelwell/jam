@@ -82,6 +82,11 @@ export default class extends Controller {
     let spotifyUrl =
       "https://accounts.spotify.com/authorize?" + params.toString();
 
+    // Call handleUnauthorizedError if it exists
+    if (this.handleUnauthorizedError) {
+      this.handleUnauthorizedError(response);
+    }
+
     // Direct the Spotify API Authorization Page
     window.location.href = spotifyUrl;
   }
@@ -160,7 +165,9 @@ export default class extends Controller {
         }
       })
       .catch((error) => {
-        // Handle error
+        if (this.handleUnauthorizedError) {
+          this.handleUnauthorizedError(error);
+        }
       });
   }
 
@@ -209,7 +216,6 @@ export default class extends Controller {
     this.#fetchAccessToken(refreshToken);
   }
 
-  // ! (8) Use Access Token to Get the User's Top Artists
   getTopArtists() {
     console.log("This is getTopArtists Stimulus");
     let access_token = localStorage.getItem("access_token");
@@ -221,7 +227,12 @@ export default class extends Controller {
         Authorization: "Bearer " + access_token,
       },
     })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching top artists: " + response.statusText);
+      }
+      return response.json();
+    })
     .then((data) => {
       console.log(data);
 
@@ -233,6 +244,13 @@ export default class extends Controller {
           `<p><a href="${artist.external_urls.spotify}" target="_blank">${artist.name}</a></p>`
         );
       });
+    })
+    .catch((error) => {
+      console.error("Error in getTopArtists:", error);
+      // Optionally, call handleUnauthorizedError if it exists
+      if (this.handleUnauthorizedError) {
+        this.handleUnauthorizedError(error);
+      }
     });
   }
 
@@ -247,7 +265,12 @@ export default class extends Controller {
         Authorization: "Bearer " + access_token,
       },
     })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching top genres: " + response.statusText);
+      }
+      return response.json();
+    })
     .then((data) => {
       console.log("Received data from Spotify API:", data);
 
@@ -283,6 +306,10 @@ export default class extends Controller {
     })
     .catch((error) => {
       console.error("Error fetching top genres:", error);
+      // Optionally, call handleUnauthorizedError if it exists
+      if (this.handleUnauthorizedError) {
+        this.handleUnauthorizedError(error);
+      }
     });
 
     let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
@@ -307,7 +334,12 @@ export default class extends Controller {
         Authorization: "Bearer " + access_token,
       },
     })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error fetching top tracks: " + response.statusText);
+      }
+      return response.json();
+    })
     .then((data) => {
       console.log("Received top tracks data:", data);
 
@@ -323,6 +355,10 @@ export default class extends Controller {
     })
     .catch((error) => {
       console.error("Error fetching top tracks:", error);
+      // Optionally, call handleUnauthorizedError if it exists
+      if (this.handleUnauthorizedError) {
+        this.handleUnauthorizedError(error);
+      }
     });
 
     let redirectLink = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
