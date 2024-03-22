@@ -19,6 +19,13 @@ export default class extends Controller {
     if (access_token !== null) {
       console.log("Spotify Account Authorized");
 
+      // Check if access token is expired
+      const access_token_expiry = localStorage.getItem("access_token_expiry");
+      const current_time = Math.floor(Date.now() / 1000);
+      if (!access_token_expiry || current_time >= access_token_expiry) {
+        console.log("Access token expired. Refreshing...");
+        this.refreshAccessToken();
+      }
 
       // Additional actions if the account is authorized
     } else {
@@ -141,6 +148,15 @@ export default class extends Controller {
   refreshAccessToken() {
     console.error("Handling refresh access token...");
     const refreshToken = localStorage.getItem("refresh_token");
+    const access_token_expiry = localStorage.getItem("access_token_expiry");
+    const current_time = Math.floor(Date.now() / 1000);
+
+    // Check if access token is expired
+    if (access_token_expiry && current_time < access_token_expiry) {
+      console.log("Access token is still valid. No need to refresh.");
+      return;
+    }
+
     const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     const client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
 
@@ -169,6 +185,8 @@ export default class extends Controller {
     .then(data => {
       console.log('Access token refreshed:', data.access_token);
       localStorage.setItem("access_token", data.access_token);
+      const new_expiry = current_time + data.expires_in;
+      localStorage.setItem("access_token_expiry", new_expiry);
     })
     .catch(error => {
       console.error('There was a problem with the token refresh operation:', error);
