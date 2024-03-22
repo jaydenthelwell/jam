@@ -276,7 +276,6 @@ export default class extends Controller {
     console.log("This is getTopArtists Stimulus");
     let access_token = localStorage.getItem("access_token");
     console.log("Access Token:", access_token);
-    this.retryFailedRequest(this.fetchTopArtists, access_token);
     fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
       headers: {
         "Content-Type": "application/json",
