@@ -99,50 +99,70 @@ export default class extends Controller {
   }
 
   #fetchAccessToken(code) {
+    const client_id = "your_client_id";
+    const client_secret = "your_client_secret";
+    const redirect_uri = "your_redirect_uri";
+    console.log("This is fetch access token")
 
-    let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
-    let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
-    let redirect_uri = localStorage.getItem("redirect_uri");
+    const body = new URLSearchParams();
+    body.append('grant_type', 'authorization_code');
+    body.append('code', code);
+    body.append('redirect_uri', redirect_uri);
 
-    let body = "grant_type=authorization_code";
-    body += "&code=" + code;
-    body += "&redirect_uri=" + encodeURI(redirect_uri);
-    body += "&client_id=" + client_id;
-    body += "&client_secret=" + client_secret;
-    console.log("Fetch token");
-
-    this.#callAuthorizationApi(body);
+    fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
+      },
+      body: body.toString()
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Access token:', data.access_token);
+      console.log('Refresh token:', data.refresh_token);
+      // Store access token and refresh token in localStorage or perform further actions
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+      // Handle error
+    });
   }
 
-    #callAuthorizationApi(body) {
-      console.log("Calling authorization api");
-      let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
-      let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
+  //   #callAuthorizationApi(body) {
+  //     console.log("Calling authorization api");
+  //     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
+  //     let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
 
-      const TOKEN = "https://accounts.spotify.com/api/token";
+  //     const TOKEN = "https://accounts.spotify.com/api/token";
 
-      fetch(TOKEN, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: "Basic " + btoa(client_id + ":" + client_secret),
-        },
-        body: body,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
+  //     fetch(TOKEN, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/x-www-form-urlencoded",
+  //         Authorization: "Basic " + btoa(client_id + ":" + client_secret),
+  //       },
+  //       body: body,
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
 
-          if (data.token_type === "Bearer") {
-            this.#handleAuthorizationResponse(data);
-          } else {
-            console.error("Invalid token type:", data.token_type);
-          }
-        })
-        .catch((error) => {
-          this.handleUnauthorizedError(error);
-        });
-  }
+  //         if (data.token_type === "Bearer") {
+  //           this.#handleAuthorizationResponse(data);
+  //         } else {
+  //           console.error("Invalid token type:", data.token_type);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         this.handleUnauthorizedError(error);
+  //       });
+  // }
 
   #handleAuthorizationResponse(data) {
     console.log("Received authorization response data:", data);
