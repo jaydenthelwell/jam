@@ -8,36 +8,24 @@ export default class extends Controller {
 
   connect() {
     console.log("This is from Connect Spotify Stimulus");
-
     this.getTopGenres();
     this.getTopArtists();
     this.getTopTracks();
 
+    // Check if the user is already authorized
     let access_token = localStorage.getItem("access_token");
-
     if (access_token !== null) {
-      console.log("Spotify Account Authozised")
-      console.log(this.authTarget)
-
-      console.log(this.genresTarget)
-      // this.genresTarget.classList.remove("d-none")
+      console.log("Spotify Account Authorized");
+      // Additional actions if the account is authorized
     } else {
-      console.log("Spotify Account Not Authozised")
-      // this.authTarget.classList.remove("d-none")
+      console.log("Spotify Account Not Authorized");
+      // Additional actions if the account is not authorized
     }
 
     // Check if there's any params in the URL, if yes, will call #handleRedirect() to clean up the URL
     if (window.location.search.length > 0) {
       this.#handleRedirect();
-    } else {
-      // let access_token = localStorage.getItem("access_token");
     }
-
-    // let client_id = document.querySelector(".spotify-env").dataset.clientId;
-    // let client_secret = document.querySelector(".spotify-env").dataset.clientSecret;
-
-    // localStorage.setItem("client_id", client_id);
-    // localStorage.setItem("client_secret", client_secret);
   }
 
   disconnect() {
@@ -126,55 +114,54 @@ export default class extends Controller {
     this.#callAuthorizationApi(body);
   }
 
-  #callAuthorizationApi(body) {
-    console.log("Calling authorization api");
-    let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
-    let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
+    #callAuthorizationApi(body) {
+      console.log("Calling authorization api");
+      let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
+      let client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
 
-    const TOKEN = "https://accounts.spotify.com/api/token";
+      const TOKEN = "https://accounts.spotify.com/api/token";
 
-    fetch(TOKEN, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: "Basic " + btoa(client_id + ":" + client_secret),
-      },
-      body: body,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-
-        if (data.token_type === "Bearer") {
-          this.#handleAuthorizationResponse(data);
-        } else {
-          console.error("Invalid token type:", data.token_type);
-        }
+      fetch(TOKEN, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Basic " + btoa(client_id + ":" + client_secret),
+        },
+        body: body,
       })
-      .catch((error) => {
-        this.handleUnauthorizedError(error);
-      });
-}
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
 
-#handleAuthorizationResponse(data) {
-  console.log("Received authorization response data:", data);
-
-  if (data.access_token !== undefined && data.access_token !== null) {
-    console.log("Access token received:", data.access_token);
-    localStorage.setItem("access_token", data.access_token);
-  } else {
-    console.error("Access token not found in authorization response:", data);
-    return;
+          if (data.token_type === "Bearer") {
+            this.#handleAuthorizationResponse(data);
+          } else {
+            console.error("Invalid token type:", data.token_type);
+          }
+        })
+        .catch((error) => {
+          this.handleUnauthorizedError(error);
+        });
   }
 
-  if (data.refresh_token !== undefined && data.refresh_token !== null) {
-    console.log("Refresh token received:", data.refresh_token);
-    localStorage.setItem("refresh_token", data.refresh_token);
-  } else {
-    console.error("Refresh token not found in authorization response:", data);
-  }
-}
+  #handleAuthorizationResponse(data) {
+    console.log("Received authorization response data:", data);
 
+    if (data.access_token && data.access_token !== null) {
+      console.log("Access token received:", data.access_token);
+      localStorage.setItem("access_token", data.access_token);
+    } else {
+      console.error("Access token not found in authorization response:", data);
+      return;
+    }
+
+    if (data.refresh_token && data.refresh_token !== null) {
+      console.log("Refresh token received:", data.refresh_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
+    } else {
+      console.error("Refresh token not found in authorization response:", data);
+    }
+  }
 
 
   linkToSpotify(e) {
@@ -184,7 +171,7 @@ export default class extends Controller {
   }
 
   refreshAccessToken() {
-    console.error("Handling reefresh access token...");
+    console.error("Handling refresh access token...");
     const refreshToken = localStorage.getItem("refresh_token");
 
     if (!refreshToken) {
@@ -192,7 +179,6 @@ export default class extends Controller {
       return;
     }
 
-    // Call your method to request a new access token using the refresh token
     this.#fetchAccessToken(refreshToken);
   }
 
