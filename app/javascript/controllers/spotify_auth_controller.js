@@ -45,13 +45,7 @@ export default class extends Controller {
     // localStorage.removeItem("refresh_token");
   }
 
-  linkToSpotify(e) {
-    e.preventDefault();
-    console.log("This is linkToSpotify");
-    this.#requestAuthorization();
-  }
 
-  // Send the App Id, App Secret, and the scope to the Spotify API Endpoint to get the Authorization Code
   #requestAuthorization() {
     console.log("This is requestAuthorization");
 
@@ -71,7 +65,7 @@ export default class extends Controller {
 
     // Application requests authorization
     let scope =
-      "user-top-read user-follow-read user-read-playback-state user-modify-playback-state";
+    "user-top-read user-follow-read user-read-playback-state user-modify-playback-state";
     let params = new URLSearchParams({
       response_type: "code",
       client_id: client_id,
@@ -83,15 +77,11 @@ export default class extends Controller {
       "https://accounts.spotify.com/authorize?" + params.toString();
 
     // Call handleUnauthorizedError if it exists
-    if (this.handleUnauthorizedError) {
-      this.handleUnauthorizedError(response);
-    }
 
     // Direct the Spotify API Authorization Page
     window.location.href = spotifyUrl;
   }
 
-  // Handle the redirection back from Spotify after authorization
   #handleRedirect() {
     console.log("This is handle redirect");
     let code = this.#getCode();
@@ -107,7 +97,6 @@ export default class extends Controller {
     window.history.pushState("", "", redirect_uri);
   }
 
-  // ! (4) Function to Get the Spotify Authorization Code from URL
   #getCode() {
     console.log("This is get code");
 
@@ -123,7 +112,6 @@ export default class extends Controller {
     return code;
   }
 
-  // ! (5) Prepare the Fetch Request Body to Spotify Authorization for Getting the Access Token
   #fetchAccessToken(code) {
 
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
@@ -140,7 +128,6 @@ export default class extends Controller {
     this.#callAuthorizationApi(body);
   }
 
-  // ! (6) Make the Fetch Request to Get Spotify Bearer Access Token
   #callAuthorizationApi(body) {
     console.log("Calling authorization api");
     let client_id = "3cb7538518ab456b9caf81d7a965a2c6";
@@ -165,13 +152,10 @@ export default class extends Controller {
         }
       })
       .catch((error) => {
-        if (this.handleUnauthorizedError) {
           this.handleUnauthorizedError(error);
-        }
       });
   }
 
-  // ! (7) Save the Access Token and Refresh Once Successfully Getting the Fetch Response from Spotify
   #handleAuthorizationResponse(data) {
     let access_token;
     let refresh_token;
@@ -190,6 +174,91 @@ export default class extends Controller {
     // this.connect();
   }
 
+
+
+  linkToSpotify(e) {
+    e.preventDefault();
+    console.log("This is linkToSpotify");
+    this.#requestAuthorization();
+  }
+
+  refreshAccessToken() {
+    const refreshToken = localStorage.getItem("refresh_token");
+
+    if (!refreshToken) {
+      console.error("Refresh token not found in local storage.");
+      return;
+    }
+
+    // Call your method to request a new access token using the refresh token
+    this.#fetchAccessToken(refreshToken);
+  }
+
+  playTrack(e) {
+    console.log("This is playTrack Stimulus");
+
+    const trackId = e.currentTarget.dataset.trackId;
+    console.log(trackId);
+
+    let access_token = localStorage.getItem("access_token");
+    console.log("Access Token:", access_token);
+    this.fetchValidDeviceId(access_token, trackId);
+  }
+
+  pauseTrack() {
+    console.log("This is pauseTrack Stimulus");
+
+    let access_token = localStorage.getItem("access_token");
+    console.log("Access Token:", access_token);
+    let deviceId = localStorage.getItem("device");
+    console.log(deviceId);
+
+    const pauseUrl = "https://api.spotify.com/v1/me/player/pause";
+    // const pauseUrl = `https://api.spotify.com/v1/me/player/pause/${deviceId}`;
+
+    fetch(pauseUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + access_token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => {
+        // Handle error
+      });
+  }
+
+  async saveTopGenres(genre) {
+    try {
+      const response = await fetch("/top_genres", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": Rails.csrfToken(),
+          // You might need to include other headers, like authorization headers
+        },
+        body: JSON.stringify({ genre: genre }), // Assuming your genre data is an object
+      })
+
+      if (!response.ok) {
+        throw new Error("Request failed with status: " + response.status);
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      console.log("Genre instance created:", data);
+
+      // const topGenres = document.querySelector(".top-genres-list");
+      const topGenres = document.querySelector(".genres-list");
+      topGenres.insertAdjacentHTML("beforeend", `<p>${genre}</p>`);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   handleUnauthorizedError(response) {
     if (response.status === 401) {
       // Token has expired or is invalid
@@ -203,24 +272,13 @@ export default class extends Controller {
     return response;
   }
 
-  // Method to refresh access token
-  refreshAccessToken() {
-    const refreshToken = localStorage.getItem("refresh_token");
 
-    if (!refreshToken) {
-      console.error("Refresh token not found in local storage.");
-      return;
-    }
-
-    // Call your method to request a new access token using the refresh token
-    this.#fetchAccessToken(refreshToken);
-  }
 
   getTopArtists() {
     console.log("This is getTopArtists Stimulus");
     let access_token = localStorage.getItem("access_token");
     console.log("Access Token:", access_token);
-
+    this.retryFailedRequest(this.fetchTopArtists, access_token);
     fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
       headers: {
         "Content-Type": "application/json",
@@ -371,42 +429,6 @@ export default class extends Controller {
     }
   }
 
-  playTrack(e) {
-    console.log("This is playTrack Stimulus");
-
-    const trackId = e.currentTarget.dataset.trackId;
-    console.log(trackId);
-
-    let access_token = localStorage.getItem("access_token");
-    console.log("Access Token:", access_token);
-    this.fetchValidDeviceId(access_token, trackId);
-  }
-
-  pauseTrack() {
-    console.log("This is pauseTrack Stimulus");
-
-    let access_token = localStorage.getItem("access_token");
-    console.log("Access Token:", access_token);
-    let deviceId = localStorage.getItem("device");
-    console.log(deviceId);
-
-    const pauseUrl = "https://api.spotify.com/v1/me/player/pause";
-    // const pauseUrl = `https://api.spotify.com/v1/me/player/pause/${deviceId}`;
-
-    fetch(pauseUrl, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + access_token,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => {
-        // Handle error
-      });
-  }
-
   async fetchValidDeviceId(access_token, trackId) {
     const playUrl = "https://api.spotify.com/v1/me/player";
     let body;
@@ -505,34 +527,8 @@ export default class extends Controller {
     }
   }
 
-  async saveTopGenres(genre) {
-    try {
-      const response = await fetch("/top_genres", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": Rails.csrfToken(),
-          // You might need to include other headers, like authorization headers
-        },
-        body: JSON.stringify({ genre: genre }), // Assuming your genre data is an object
-      })
 
-      if (!response.ok) {
-        throw new Error("Request failed with status: " + response.status);
-      }
 
-      const data = await response.json();
-      console.log(data);
-
-      console.log("Genre instance created:", data);
-
-      // const topGenres = document.querySelector(".top-genres-list");
-      const topGenres = document.querySelector(".genres-list");
-      topGenres.insertAdjacentHTML("beforeend", `<p>${genre}</p>`);
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   #topNMostFrequentElements(array, n) {
     const frequencyMap = new Map();
@@ -552,9 +548,4 @@ export default class extends Controller {
 
     return topN;
   }
-
-  // submitForm() {
-  //   const form = document.querySelector('form[data-controller="spotify-auth"]');
-  //   form.submit();
-  // }
 }
