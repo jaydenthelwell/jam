@@ -151,10 +151,9 @@ export default class extends Controller {
     const access_token_expiry = localStorage.getItem("access_token_expiry");
     const current_time = Math.floor(Date.now() / 1000);
 
-    // Check if access token is expired
     if (access_token_expiry && current_time < access_token_expiry) {
       console.log("Access token is still valid. No need to refresh.");
-      return;
+      return Promise.resolve();
     }
 
     const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
@@ -162,10 +161,10 @@ export default class extends Controller {
 
     if (!refreshToken) {
       console.error("Refresh token not found in local storage.");
-      return;
+      return Promise.reject(new Error("Refresh token not found"));
     }
 
-    fetch('https://accounts.spotify.com/api/token', {
+    return fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -190,6 +189,7 @@ export default class extends Controller {
     })
     .catch(error => {
       console.error('There was a problem with the token refresh operation:', error);
+      throw error;
     });
   }
 
