@@ -297,6 +297,8 @@ export default class extends Controller {
       },
     })
     .then((response) => {
+      console.log("Remaining requests:", response.headers.get('X-RateLimit-Remaining'));
+      console.log("Reset time:", new Date(parseInt(response.headers.get('X-RateLimit-Reset')) * 1000));
       if (!response.ok) {
         if (response.status === 401 || response.status === 403) {
           return this.refreshAccessToken().then(() => {
@@ -343,6 +345,8 @@ export default class extends Controller {
       },
     })
     .then((response) => {
+      console.log("Remaining requests:", response.headers.get('X-RateLimit-Remaining'));
+      console.log("Reset time:", new Date(parseInt(response.headers.get('X-RateLimit-Reset')) * 1000));
       if (!response.ok) {
         if (response.status === 401 || response.status === 403) {
           return this.refreshAccessToken().then(() => {
@@ -409,6 +413,8 @@ export default class extends Controller {
       },
     })
     .then((response) => {
+      console.log("Remaining requests:", response.headers.get('X-RateLimit-Remaining'));
+      console.log("Reset time:", new Date(parseInt(response.headers.get('X-RateLimit-Reset')) * 1000));
       if (!response.ok) {
         if (response.status === 401 || response.status === 403) {
           return this.refreshAccessToken().then(() => {
