@@ -63,8 +63,8 @@ export default class extends Controller {
     localStorage.setItem("redirect_uri", redirect_uri);
 
     // Application requests authorization
-    let scope =
-    "user-top-read user-follow-read user-read-playback-state user-modify-playback-state";
+    let scope = "user-top-read user-follow-read user-read-playback-state user-modify-playback-state user-library-read";
+
     let params = new URLSearchParams({
       response_type: "code",
       client_id: client_id,
