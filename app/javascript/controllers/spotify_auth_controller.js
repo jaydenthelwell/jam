@@ -280,7 +280,6 @@ export default class extends Controller {
 }
 
 
-
   getTopArtists() {
     console.log("This is getTopArtists Stimulus");
 
@@ -298,11 +297,11 @@ export default class extends Controller {
         if (response.status === 401 || response.status === 403) {
           return this.refreshAccessToken().then((newAccessToken) => {
             access_token = newAccessToken;
-            console.log(newAccessToken)
+            console.log(newAccessToken);
             return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("access_token"),
+                Authorization: "Bearer " + newAccessToken, // Use the new access token here
               },
             });
           });
@@ -326,7 +325,7 @@ export default class extends Controller {
     })
     .catch((error) => {
       console.error("Error in getTopArtists:", error);
-        this.handleUnauthorizedError(error);
+      this.handleUnauthorizedError(error);
     });
   }
 
@@ -414,11 +413,11 @@ export default class extends Controller {
         if (response.status === 401 || response.status === 403) {
           return this.refreshAccessToken().then((newAccessToken) => {
             access_token = newAccessToken;
-            console.log(newAccessToken)
+            console.log(newAccessToken);
             return fetch("https://api.spotify.com/v1/me/top/tracks?limit=5", {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("access_token"),
+                Authorization: "Bearer " + newAccessToken, // Use the new access token here
               },
             });
           });
@@ -443,9 +442,10 @@ export default class extends Controller {
     })
     .catch((error) => {
       console.error("Error fetching top tracks:", error);
-        this.handleUnauthorizedError(error);
+      this.handleUnauthorizedError(error);
     });
-  }
+}
+
 
 
   async fetchValidDeviceId(access_token, trackId) {
