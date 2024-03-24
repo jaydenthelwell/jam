@@ -153,7 +153,7 @@ export default class extends Controller {
 
     if (access_token_expiry && parseInt(access_token_expiry) < current_time) {
       console.log("Access token has expired. Need to refresh.");
-      return fetchAccessToken();
+      return fetchAccessToken(); // Call the function to fetch a new access token
     }
 
     const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
@@ -186,7 +186,7 @@ export default class extends Controller {
       localStorage.setItem("access_token", data.access_token);
       const new_expiry = current_time + data.expires_in;
       localStorage.setItem("access_token_expiry", new_expiry);
-      return data.access_token;
+      return data.access_token; // Return the new access token
     })
     .catch(error => {
       console.error('There was a problem with the token refresh operation:', error);
@@ -417,6 +417,9 @@ export default class extends Controller {
     });
   }
 
+
+
+
   async playTrack(e) {
     console.log("This is playTrack Stimulus");
 
@@ -489,7 +492,48 @@ export default class extends Controller {
         const smartPhoneId = smartPhoneDevice.id;
         console.log("Smartphone ID:", smartPhoneId);
         localStorage.setItem("device", smartPhoneId);
+        return smartPhoneId;
+      } else {
+        console.log("No valid smartphone device found.");
+        throw new Error("No valid smartphone device found.");
+      }
+    } catch (error) {
+      console.error("Error fetching device ID:", error);
+      throw error;
+    }
+  }
 
+
+  async fetchValidDeviceId(access_token, trackId) {
+    try {
+      const response = await fetch(
+        "https://api.spotify.com/v1/me/player/devices",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + access_token,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error fetching device ID: " + response.statusText);
+      }
+
+      const data = await response.json();
+      console.log("Spotify devices:", data);
+
+      // Find the smartphone device
+      const smartPhoneDevice = data.devices.find(
+        (device) => device.type === "Smartphone"
+      );
+
+      if (smartPhoneDevice) {
+        const smartPhoneId = smartPhoneDevice.id;
+        console.log("Smartphone ID:", smartPhoneId);
+        localStorage.setItem("device", smartPhoneId);
+
+        // Now that we have the device ID, let's play the track
         await this.playTrack(trackId, smartPhoneId, access_token);
 
         return smartPhoneId;
