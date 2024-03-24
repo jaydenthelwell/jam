@@ -416,7 +416,7 @@ export default class extends Controller {
     console.log("This is playTrack Stimulus");
 
     const trackId = e.currentTarget.dataset.trackId;
-    console.log(trackId);
+    console.log("TrackID: ", trackId);
 
     try {
         let access_token = localStorage.getItem("access_token");
