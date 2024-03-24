@@ -153,7 +153,7 @@ export default class extends Controller {
 
     if (access_token_expiry && parseInt(access_token_expiry) < current_time) {
       console.log("Access token has expired. Need to refresh.");
-      return this.refreshAccessToken();
+      return fetchAccessToken(); // Call the function to fetch a new access token
     }
 
     const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
@@ -186,12 +186,14 @@ export default class extends Controller {
       localStorage.setItem("access_token", data.access_token);
       const new_expiry = current_time + data.expires_in;
       localStorage.setItem("access_token_expiry", new_expiry);
+      return data.access_token; // Return the new access token
     })
     .catch(error => {
       console.error('There was a problem with the token refresh operation:', error);
       throw error;
     });
   }
+
 
   linkToSpotify(e) {
     e.preventDefault();
