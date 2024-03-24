@@ -268,17 +268,14 @@ export default class extends Controller {
 
   handleUnauthorizedError(error) {
     console.log("Handling unauthorized error...");
-    if (error.status === 401) {
-      // Token has expired or is invalid
-      console.log("Access token expired or invalid, refreshing...");
+    if (error.status === 401 || error.status === 403) {
+        console.log("Access token expired, invalid, or request forbidden, refreshing...");
 
-      // Call your method to refresh access token
-      this.refreshAccessToken();
+        this.refreshAccessToken();
     }
 
-    // Return the error for further processing
     return error;
-  }
+}
 
 
 
