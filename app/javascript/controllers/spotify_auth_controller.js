@@ -285,8 +285,6 @@ export default class extends Controller {
     console.log("This is getTopArtists Stimulus");
 
     let access_token = localStorage.getItem("access_token");
-    const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
-    const client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
     console.log("Access Token:", access_token);
 
     fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
@@ -298,7 +296,9 @@ export default class extends Controller {
     .then((response) => {
       if (!response.ok) {
         if (response.status === 401 || response.status === 403) {
-          return this.refreshAccessToken().then(() => {
+          return this.refreshAccessToken().then((newAccessToken) => {
+            access_token = newAccessToken;
+            console.log(newAccessToken)
             return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
               headers: {
                 "Content-Type": "application/json",
@@ -330,7 +330,7 @@ export default class extends Controller {
     });
   }
 
-    getTopGenres() {
+  getTopGenres() {
       console.log("Fetching top genres...");
 
       let access_token = localStorage.getItem("access_token");
@@ -344,8 +344,8 @@ export default class extends Controller {
       .then((response) => {
         if (!response.ok) {
           if (response.status === 401 || response.status === 403) {
-            return this.refreshAccessToken().then((newAccessToken) => { // Updated to pass new access token
-              access_token = newAccessToken; // Update the access_token variable with the new token
+            return this.refreshAccessToken().then((newAccessToken) => {
+              access_token = newAccessToken;
               console.log(newAccessToken)
               return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
                 headers: {
@@ -397,7 +397,6 @@ export default class extends Controller {
       });
   }
 
-
   getTopTracks() {
     console.log("This is getTopTracks Stimulus");
 
@@ -413,7 +412,9 @@ export default class extends Controller {
     .then((response) => {
       if (!response.ok) {
         if (response.status === 401 || response.status === 403) {
-          return this.refreshAccessToken().then(() => {
+          return this.refreshAccessToken().then((newAccessToken) => {
+            access_token = newAccessToken;
+            console.log(newAccessToken)
             return fetch("https://api.spotify.com/v1/me/top/tracks?limit=5", {
               headers: {
                 "Content-Type": "application/json",
