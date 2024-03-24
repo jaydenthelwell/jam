@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   has_many :top_genres, dependent: :destroy
   has_many :top_tracks, dependent: :destroy
+  has_many :spotify_top_genres, dependent: :destroy
+  has_many :top_artists, dependent: :destroy
   has_one :profile, dependent: :destroy
 
   has_many_attached :photos

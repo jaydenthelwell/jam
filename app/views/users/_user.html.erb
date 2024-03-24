@@ -117,54 +117,26 @@
         </div>
       </div>
       <section class="spotify-auth mt-2" data-controller="spotify-auth">
-          <div class="spotify-connect-auth" data-spotify-auth-target="auth">
-            <div class="flex-items card-extended">
-              <h4 class="spotify-data-titles">My Top Genres</h4>
-              <div class="profile-top-genres-list genres-list">
-                <% if user.top_genres.any? %>
-                    <ul>
-                    <% user.top_genres.each do |genre| %>
-                    <% unless genre.genre.blank? %>
-                        <li><%= genre.genre.capitalize %></li>
-                      <% end %>
-                    <% end %>
-                    </ul>
-                <% elsif %>
-                  <div class="my-spotify top-genres flex-items" data-action="click->spotify-auth#getTopGenres">
-                    <div class="top-genres-container top-music-container">
-                    </div>
-                  </div>
-                <% else %>
-                  <div><p>Please connect your spotify account to Jam in order to see your top genres.
-                    If you dont have Spotify, add your top genres.
-                  </p></div>
-                <% end %>
-              </div>
-            </div>
-          </div>
-          <div
-            class="spotify-env"
-            data-client-id="<%= ENV["client_id"] %>"
-            data-client-secret="<%= ENV["client_secret"] %>">
-          </div>
-          <div data-spotify-auth-target="genres"></div>
-            <div class="spotify-user-data spotify">
-              <div class="spotify-connect-auth top-genres mt-2">
-                <div class="spotify-data mt-3">
-                  <h4 class="flex-items spotify-data-titles">My Top Artists</h4>
-                  <div class="my-spotify top-artists flex-items" data-action="click->spotify-auth#getTopArtists">
-                    <div class="top-artists-container top-music-container">
-                    </div>
-                  </div>
-                <h4 class="flex-items spotify-data-titles">My Top Tracks</h4>
-                <div class="my-spotify top-tracks flex-items" data-action="click->spotify-auth#getTopTracks">
-                  <div class="top-tracks-container top-music-container">
-                  </div>
-                </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <h3>Top Genres</h3>
+        <ul>
+          <% user.spotify_top_genres.each do |genre| %>
+            <li><%= genre.genre.capitalize %></li>
+          <% end %>
+        </ul>
+
+        <h3>Top Artists</h3>
+        <ul>
+          <% user.top_artists.each do |artist| %>
+            <li><%= artist.name %></li>
+          <% end %>
+        </ul>
+
+        <h3>Top Tracks</h3>
+        <ul>
+          <% user.top_tracks.each do |track| %>
+            <li><%= track.name %> by <%= track.artist %></li>
+          <% end %>
+        </ul>
       </section>
     </div>
   </div>
