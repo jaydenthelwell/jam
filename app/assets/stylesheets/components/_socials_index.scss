@@ -51,17 +51,11 @@
 }
 
 .post-button {
-  position: absolute;
   margin-top: 10px;
-    text-decoration: none;
-    font-family: 'raleway';
-    font-size: 20px;
-    color: black;
-    background: #d372ff;;
-    box-shadow: 6px 6px 0 black;
-  transform: skewX(-15deg);
-  transform: translate(-50%, -50%);
-  top: 90%;
-  left: 50%;
-  z-index: 10;
+  text-decoration: none;
+  font-family: 'raleway';
+  font-size: 20px;
+  color: black;
+  background: #d372ff;
+  box-shadow: 6px 6px 0 black;
 }

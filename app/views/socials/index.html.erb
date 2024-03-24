@@ -24,7 +24,7 @@
                 <%= cl_image_tag social.user.photos[0].key, class: 'recipient-img' %>
                 <h3 class="social-name" style="margin-top: 20px; margin-left: 10px;"><%= social.user.name %></h3>
               </div>
-              <%= cl_image_tag social.photo.key, height: 845, width: 400, crop: :fill %>
+              <%= cl_image_tag social.photo.key, height: 950, width: 450, crop: :fill %>
               <% if social.user == current_user %>
                 <%= link_to social_path(social), data: {turbo_method: :delete, turbo_confirm: "Are you sure to delete this post?"} do %>
                   <i class="fa-solid fa-trash"></i>
@@ -32,6 +32,11 @@
               <% end %>
             </div>
           <% end %>
+          <div class="d-flex justify-content-center">
+            <%= link_to new_user_social_path(current_user) do %>
+              <button class="post-button">Add a pic</button>
+            <% end %>
+          </div>
         <% end %>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -42,7 +47,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
-      <div>
+      <div class="d-flex justify-content-center">
         <%= link_to new_user_social_path(current_user) do %>
           <button class="post-button">Add a pic</button>
         <% end %>
