@@ -162,21 +162,6 @@
                   </div>
                 </div>
                 </div>
-                <div>
-                  <h4 class="flex-items spotify-data-titles">Can't see your spotify data?</h4>
-                  <div
-                  class="my-spotify btn my-2 flex-items"
-                  data-action="click->spotify-auth#linkToSpotify">You may need to reconnect to spotify, click here.
-                  </div>
-                </div>
-                <h4 class="flex-items spotify-data-titles">Update My Genres</h4>
-                <div class="btn my-2 flex-items my-spotify" data-action="click->spotify-auth#getTopGenres">Consider updating your genres to give others an up-to-date glimpse of what you're currently listening to. This will enhance the accuracy of the music matching process, making it more effective in connecting you with like-minded individuals who share your musical preferences.</div>
-                  <div class="profile-top-genres-list mt-2 d-none">
-                    <% user.top_genres.each do |genre| %>
-                      <ul><li><%= genre.genre %></li></ul>
-                    <% end %>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

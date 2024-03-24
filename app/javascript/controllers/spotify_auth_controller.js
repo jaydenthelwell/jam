@@ -465,58 +465,87 @@ export default class extends Controller {
       });
   }
 
-  async fetchValidDeviceId(access_token) {
+  async fetchValidDeviceId(access_token, trackId) {
     try {
-        const response = await fetch("https://api.spotify.com/v1/me/player/devices", {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + access_token,
-            },
-        });
-
-        const data = await response.json();
-        console.log("Spotify devices:", data);
-
-        const smartPhoneDevice = data.devices.find(device => device.type === "Smartphone" && device.is_active);
-        if (!smartPhoneDevice) {
-            throw new Error("No valid smartphone device found.");
+      const response = await fetch(
+        "https://api.spotify.com/v1/me/player/devices",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + access_token,
+          },
         }
+      );
 
-        return smartPhoneDevice.id;
+      if (!response.ok) {
+        throw new Error("Error fetching device ID: " + response.statusText);
+      }
+
+      const data = await response.json();
+      console.log("Spotify devices:", data);
+
+      const smartPhoneDevice = data.devices.find(
+        (device) => device.type === "Smartphone"
+      );
+
+      if (smartPhoneDevice) {
+        const smartPhoneId = smartPhoneDevice.id;
+        console.log("Smartphone ID:", smartPhoneId);
+        localStorage.setItem("device", smartPhoneId);
+        return smartPhoneId;
+      } else {
+        console.log("No valid smartphone device found.");
+        throw new Error("No valid smartphone device found.");
+      }
     } catch (error) {
-        console.error("Error fetching device ID:", error);
-        throw error;
+      console.error("Error fetching device ID:", error);
+      throw error;
     }
   }
 
-  async playMusic(trackId, access_token, deviceId) {
+
+  async fetchValidDeviceId(access_token, trackId) {
     try {
-        const playUrl = "https://api.spotify.com/v1/me/player/play";
-        const body = {
-            uris: [`spotify:track:${trackId}`],
-            device_id: deviceId,
-        };
-
-        const response = await fetch(playUrl, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + access_token,
-            },
-            body: JSON.stringify(body),
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to play track: " + response.statusText);
+      const response = await fetch(
+        "https://api.spotify.com/v1/me/player/devices",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + access_token,
+          },
         }
+      );
 
-        const data = await response.json();
-        console.log("Track played successfully:", data);
+      if (!response.ok) {
+        throw new Error("Error fetching device ID: " + response.statusText);
+      }
+
+      const data = await response.json();
+      console.log("Spotify devices:", data);
+
+      // Find the smartphone device
+      const smartPhoneDevice = data.devices.find(
+        (device) => device.type === "Smartphone"
+      );
+
+      if (smartPhoneDevice) {
+        const smartPhoneId = smartPhoneDevice.id;
+        console.log("Smartphone ID:", smartPhoneId);
+        localStorage.setItem("device", smartPhoneId);
+
+        await this.playTrack(trackId, smartPhoneId, access_token);
+
+        return smartPhoneId;
+      } else {
+        console.log("No valid smartphone device found.");
+        throw new Error("No valid smartphone device found.");
+      }
     } catch (error) {
-        console.error("Error playing track:", error);
-        throw error;
+      console.error("Error fetching device ID:", error);
+      throw error;
     }
   }
+
 
 
 
