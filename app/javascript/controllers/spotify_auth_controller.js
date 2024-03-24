@@ -194,7 +194,6 @@ export default class extends Controller {
     });
   }
 
-
   linkToSpotify(e) {
     e.preventDefault();
     console.log("This is linkToSpotify");
@@ -500,6 +499,9 @@ export default class extends Controller {
         return smartPhoneId;
       } else {
         console.log("No valid smartphone device found.");
+        // Handle the absence of a smartphone device here
+        // You can log a message or prompt the user to connect a device
+        // You may also implement a fallback mechanism
         throw new Error("No valid smartphone device found.");
       }
     } catch (error) {
@@ -507,6 +509,7 @@ export default class extends Controller {
       throw error;
     }
   }
+
 
 
 
