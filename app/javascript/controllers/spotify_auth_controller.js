@@ -492,46 +492,6 @@ export default class extends Controller {
         const smartPhoneId = smartPhoneDevice.id;
         console.log("Smartphone ID:", smartPhoneId);
         localStorage.setItem("device", smartPhoneId);
-        return smartPhoneId;
-      } else {
-        console.log("No valid smartphone device found.");
-        throw new Error("No valid smartphone device found.");
-      }
-    } catch (error) {
-      console.error("Error fetching device ID:", error);
-      throw error;
-    }
-  }
-
-
-  async fetchValidDeviceId(access_token, trackId) {
-    try {
-      const response = await fetch(
-        "https://api.spotify.com/v1/me/player/devices",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + access_token,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error fetching device ID: " + response.statusText);
-      }
-
-      const data = await response.json();
-      console.log("Spotify devices:", data);
-
-      // Find the smartphone device
-      const smartPhoneDevice = data.devices.find(
-        (device) => device.type === "Smartphone"
-      );
-
-      if (smartPhoneDevice) {
-        const smartPhoneId = smartPhoneDevice.id;
-        console.log("Smartphone ID:", smartPhoneId);
-        localStorage.setItem("device", smartPhoneId);
 
         await this.playTrack(trackId, smartPhoneId, access_token);
 
