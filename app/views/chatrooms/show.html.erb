@@ -3,16 +3,15 @@
     data-controller="chatroom-subscription"
     data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id%>"
     data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
-
+    <div class="chat-user">
+      <span class="name"> <%= @other_user.name %>
+      </span>
+    </div>
     <div class="d-flex chatbar back-btn align-items-center">
-      <span><%= link_to chatrooms_path do%>
+      <span style="z-index: 20;"><%= link_to chatrooms_path do %>
         <i class="fa-solid fa-chevron-left back-icon" style="color: #000000;"></i>
       <% end %>
       </span>
-      <div class="chat-user">
-        <span class="name"> <%= @other_user.name %>
-        </span>
-      </div>
     </div>
     <div class="chat-profile">
       <%= link_to "Chat", "#", class: ("a-colour") %>

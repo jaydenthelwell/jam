@@ -209,9 +209,8 @@ export default class extends Controller {
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": Rails.csrfToken(),
-          // You might need to include other headers, like authorization headers
         },
-        body: JSON.stringify({ genre: genre }), // Assuming your genre data is an object
+        body: JSON.stringify({ genre: genre }),
       })
 
       if (!response.ok) {

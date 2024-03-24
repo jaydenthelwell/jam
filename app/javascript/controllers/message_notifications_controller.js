@@ -49,10 +49,8 @@ export default class extends Controller {
 
     // console.log(tempHtml);
 
-    const username = tempHtml.querySelector("strong").innerText;
-    // console.log(username);
-
-    const messageContent = tempHtml.querySelector("p").innerText;
+    const usernameElement = tempHtml.querySelector("strong");
+    const username = usernameElement ? usernameElement.innerText : "Unknown User";
     // console.log(messageContent);
 
     // console.log(id);

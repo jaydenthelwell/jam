@@ -7,7 +7,7 @@ export default class extends Controller {
   static targets = ["messages"]
 
   connect() {
-    console.log("hello")
+    console.log("hello from chatroom_subscription_controller")
     this.channel = createConsumer().subscriptions.create(
       { channel: "ChatroomChannel", id: this.chatroomIdValue },
       { received: data => this.#insertMessageAndScrollDown(data) }
@@ -25,9 +25,7 @@ export default class extends Controller {
 
   #insertMessageAndScrollDown(data) {
     const currentUserIsSender = this.currentUserIdValue === data.sender_id
-    // Creating the whole message from the `data.message` String
     const messageElement = this.#buildMessageElement(currentUserIsSender, data.message)
-    // Inserting the `message` in the DOM
     this.messagesTarget.insertAdjacentHTML("beforeend", messageElement)
     this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
   }
