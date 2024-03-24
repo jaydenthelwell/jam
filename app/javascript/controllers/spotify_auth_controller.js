@@ -153,7 +153,7 @@ export default class extends Controller {
 
     if (access_token_expiry && parseInt(access_token_expiry) < current_time) {
       console.log("Access token has expired. Need to refresh.");
-      return fetchAccessToken(code);
+      return this.#fetchAccessToken(code);
     }
 
     const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
