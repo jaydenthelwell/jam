@@ -151,9 +151,9 @@ export default class extends Controller {
     const access_token_expiry = localStorage.getItem("access_token_expiry");
     const current_time = Math.floor(Date.now() / 1000);
 
-    if (access_token_expiry && current_time < access_token_expiry) {
-      console.log("Access token is still valid. No need to refresh.");
-      return Promise.resolve();
+    if (access_token_expiry && parseInt(access_token_expiry) < current_time) {
+      console.log("Access token has expired. Need to refresh.");
+      return this.refreshAccessToken();
     }
 
     const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
