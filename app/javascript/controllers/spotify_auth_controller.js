@@ -328,70 +328,74 @@ export default class extends Controller {
     });
   }
 
-  getTopGenres() {
-    console.log("Fetching top genres...");
+    getTopGenres() {
+      console.log("Fetching top genres...");
 
-    let access_token = localStorage.getItem("access_token");
-    console.log("Access Token:", access_token);
+      let access_token = localStorage.getItem("access_token");
+      console.log("Access Token:", access_token);
 
-    fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
-      headers: {
-        Authorization: "Bearer " + access_token,
-      },
-    })
-    .then((response) => {
-      if (!response.ok) {
-        if (response.status === 401 || response.status === 403) {
-          return this.refreshAccessToken().then(() => {
-            return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("access_token"),
-              },
+      fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
+        headers: {
+          Authorization: "Bearer " + access_token,
+        },
+      })
+      .then((response) => {
+        console.log("Remaining requests:", response.headers.get('X-RateLimit-Remaining'));
+        console.log("Reset time:", new Date(parseInt(response.headers.get('X-RateLimit-Reset')) * 1000));
+        if (!response.ok) {
+          if (response.status === 401 || response.status === 403) {
+            return this.refreshAccessToken().then((newAccessToken) => { // Updated to pass new access token
+              access_token = newAccessToken; // Update the access_token variable with the new token
+              return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
+                headers: {
+                  Authorization: "Bearer " + access_token,
+                },
+              });
             });
+          } else {
+            throw new Error("Error fetching top genres: " + response.statusText);
+          }
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Received data from Spotify API:", data);
+
+        if (data.items) {
+          let genres = [];
+
+          data.items.forEach((artist) => {
+            genres = genres.concat(artist.genres);
           });
+
+          let topFiveGenres = this.#topNMostFrequentElements(genres, 5);
+
+          console.log("Top 5 genres:", topFiveGenres);
+
+          if (topFiveGenres.length >= 5) {
+            console.log("Updating top genres in HTML...");
+
+            let topGenresContainer = document.querySelector(".top-genres-container");
+            topGenresContainer.innerHTML = "";
+
+            topFiveGenres.forEach((genre) => {
+              let genreElement = document.createElement("div");
+              genreElement.textContent = genre;
+              topGenresContainer.appendChild(genreElement);
+            });
+
+            console.log("Genres updated successfully.");
+          }
         } else {
-          throw new Error("Error fetching top genres: " + response.statusText);
+          console.log("No data received from the Spotify API.");
         }
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log("Received data from Spotify API:", data);
-
-      if (data.items) {
-        let genres = [];
-
-        data.items.forEach((artist) => {
-          genres = genres.concat(artist.genres);
-        });
-
-        let topFiveGenres = this.#topNMostFrequentElements(genres, 5);
-
-        console.log("Top 5 genres:", topFiveGenres);
-
-        if (topFiveGenres.length >= 5) {
-          console.log("Updating top genres in HTML...");
-
-          let topGenresContainer = document.querySelector(".top-genres-container");
-          topGenresContainer.innerHTML = "";
-
-          topFiveGenres.forEach((genre) => {
-            let genreElement = document.createElement("div");
-            genreElement.textContent = genre;
-            topGenresContainer.appendChild(genreElement);
-          });
-
-          console.log("Genres updated successfully.");
-        }
-      } else {
-        console.log("No data received from the Spotify API.");
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching top genres:", error);
+      })
+      .catch((error) => {
+        console.error("Error fetching top genres:", error);
         this.handleUnauthorizedError(error);
-    });
+      });
   }
+
 
   getTopTracks() {
     console.log("This is getTopTracks Stimulus");
