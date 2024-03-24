@@ -340,12 +340,11 @@ export default class extends Controller {
         },
       })
       .then((response) => {
-        console.log("Remaining requests:", response.headers.get('X-RateLimit-Remaining'));
-        console.log("Reset time:", new Date(parseInt(response.headers.get('X-RateLimit-Reset')) * 1000));
         if (!response.ok) {
           if (response.status === 401 || response.status === 403) {
             return this.refreshAccessToken().then((newAccessToken) => { // Updated to pass new access token
               access_token = newAccessToken; // Update the access_token variable with the new token
+              console.log(newAccessToken)
               return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
                 headers: {
                   Authorization: "Bearer " + access_token,
