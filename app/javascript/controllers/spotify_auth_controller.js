@@ -203,42 +203,6 @@ export default class extends Controller {
 
 
 
-  playTrack(e) {
-    console.log("This is playTrack Stimulus");
-
-    const trackId = e.currentTarget.dataset.trackId;
-    console.log(trackId);
-
-    let access_token = localStorage.getItem("access_token");
-    console.log("Access Token:", access_token);
-    this.fetchValidDeviceId(access_token, trackId);
-  }
-
-  pauseTrack() {
-    console.log("This is pauseTrack Stimulus");
-
-    let access_token = localStorage.getItem("access_token");
-    console.log("Access Token:", access_token);
-    let deviceId = localStorage.getItem("device");
-    console.log(deviceId);
-
-    const pauseUrl = "https://api.spotify.com/v1/me/player/pause";
-    // const pauseUrl = `https://api.spotify.com/v1/me/player/pause/${deviceId}`;
-
-    fetch(pauseUrl, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + access_token,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => {
-        // Handle error
-      });
-  }
-
   async saveTopGenres(genre) {
     try {
       const response = await fetch("/top_genres", {
@@ -448,73 +412,43 @@ export default class extends Controller {
 
 
 
-  async fetchValidDeviceId(access_token, trackId) {
-    const playUrl = "https://api.spotify.com/v1/me/player";
-    let body;
+  async playTrack(e) {
+    console.log("This is playTrack Stimulus");
 
-    while (true) {
-      try {
-        const response = await fetch(
-          "https://api.spotify.com/v1/me/player/devices",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + access_token,
-            },
-          }
-        );
-
-        const data = await response.json();
-        console.log("This is fetching Spotify device");
-        console.log(data);
-
-        const smartPhoneDevice = data.devices.find(
-          (device) => device.type === "Smartphone"
-        );
-
-        // if (smartPhoneDevice && smartPhoneDevice.is_active) {
-        if (smartPhoneDevice) {
-          const smartPhoneId = smartPhoneDevice.id;
-          console.log(smartPhoneId);
-          localStorage.setItem("device", smartPhoneId);
-
-          // const playUrl = "https://api.spotify.com/v1/me/player";
-          body = {
-            device_ids: [smartPhoneId],
-            play: true,
-          };
-
-          // Perform the 'play' action or any other relevant action here.
-          // For example, you can use another fetch to play music on the device.
-
-          break; // Exit the loop if a valid device ID is found.
-        } else {
-          console.log("No valid smartphone device found. Retrying...");
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
-
-      // Wait for a short duration before trying again.
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 5 seconds
-    }
-
-    this.playMusicAsync(playUrl, access_token, body);
-
+    const trackId = e.currentTarget.dataset.trackId;
     console.log(trackId);
 
-    const playTrackUrl = "https://api.spotify.com/v1/me/player/play";
-    const bodyTrack = {
-      uris: [`spotify:track:${trackId}`],
-    };
+    try {
+        let access_token = localStorage.getItem("access_token");
+        console.log("Access Token:", access_token);
 
-    fetch(playTrackUrl, {
+        const deviceId = await this.fetchValidDeviceId(access_token);
+        console.log("Device ID:", deviceId);
+
+        await this.playMusic(trackId, access_token, deviceId);
+    } catch (error) {
+        console.error("Error playing track:", error);
+        // Handle error
+    }
+  }
+
+  pauseTrack() {
+    console.log("This is pauseTrack Stimulus");
+
+    let access_token = localStorage.getItem("access_token");
+    console.log("Access Token:", access_token);
+    let deviceId = localStorage.getItem("device");
+    console.log(deviceId);
+
+    const pauseUrl = "https://api.spotify.com/v1/me/player/pause";
+    // const pauseUrl = `https://api.spotify.com/v1/me/player/pause/${deviceId}`;
+
+    fetch(pauseUrl, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + access_token,
       },
-      body: JSON.stringify(bodyTrack),
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
@@ -523,29 +457,58 @@ export default class extends Controller {
       });
   }
 
-  async playMusicAsync(playUrl, access_token, body) {
+  async fetchValidDeviceId(access_token) {
     try {
-      const response = await fetch(playUrl, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + access_token,
-        },
-        body: JSON.stringify(body),
-      });
+        const response = await fetch("https://api.spotify.com/v1/me/player/devices", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + access_token,
+            },
+        });
 
-      if (!response.ok) {
-        throw new Error("Request failed with status: " + response.status);
-      }
+        const data = await response.json();
+        console.log("Spotify devices:", data);
 
-      const data = await response.json();
-      console.log(data);
+        const smartPhoneDevice = data.devices.find(device => device.type === "Smartphone" && device.is_active);
+        if (!smartPhoneDevice) {
+            throw new Error("No valid smartphone device found.");
+        }
+
+        return smartPhoneDevice.id;
     } catch (error) {
-      // Handle error
-      // console.error(error);
+        console.error("Error fetching device ID:", error);
+        throw error;
     }
   }
 
+  async playMusic(trackId, access_token, deviceId) {
+    try {
+        const playUrl = "https://api.spotify.com/v1/me/player/play";
+        const body = {
+            uris: [`spotify:track:${trackId}`],
+            device_id: deviceId,
+        };
+
+        const response = await fetch(playUrl, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + access_token,
+            },
+            body: JSON.stringify(body),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to play track: " + response.statusText);
+        }
+
+        const data = await response.json();
+        console.log("Track played successfully:", data);
+    } catch (error) {
+        console.error("Error playing track:", error);
+        throw error;
+    }
+  }
 
 
 
