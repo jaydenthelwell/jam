@@ -398,10 +398,17 @@ export default class extends Controller {
       topTracks.innerHTML = "";
 
       data.items.forEach((track) => {
-        topTracks.insertAdjacentHTML(
-          "beforeend",
-          `<p><a href="${track.external_urls.spotify}" target="_blank">${track.name}</a></p>`
-        );
+        const trackLink = document.createElement("a");
+        trackLink.href = track.external_urls.spotify;
+        trackLink.target = "_blank";
+        trackLink.textContent = track.name;
+        trackLink.addEventListener("click", (event) => {
+          event.preventDefault(); // Prevent the default link behavior
+          this.playTrack(event); // Call the playTrack method passing the event
+        });
+        const trackContainer = document.createElement("div");
+        trackContainer.appendChild(trackLink);
+        topTracks.appendChild(trackContainer);
       });
     })
     .catch((error) => {
@@ -409,6 +416,7 @@ export default class extends Controller {
       this.handleUnauthorizedError(error);
     });
   }
+
 
 
 
