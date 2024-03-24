@@ -176,8 +176,7 @@
       data-action="click->spotify-auth#linkToSpotify"
       <%# click->spotify-auth#submitForm MAYBE ADD TO THE ABOVE LISTENERS REMEMBER TO UNCOMMENT IN THE SPOTIFY-AUTH AS WELL %>
     ><img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_White.png" alt="Spotify connect" style="width:150px;border-radius:5px;"></div>
-</div>
-
+    </div>
       <div class="top-genres mt-5 d-none" data-spotify-auth-target="genres">
         <h5>My Top 5 Genres</h5>
         <div
@@ -191,8 +190,8 @@
         </div>
       </div>
       <div class="mt-5 p-2" style="background-color: #b99cfc;
-    color: black;
-    box-shadow: 5px 10px; text-align:center;" data-controller="toggle-genre">
+        color: black;
+        box-shadow: 5px 10px; text-align:center;" data-controller="toggle-genre">
         <strong><h5>Don't have a Spotify account?</h5></strong>
         <button class="btn btn-light mt-2" style="font-family: raleway; font-weight: 900; margin: 20px;" data-action="click->toggle-genre#toggleForm">Select your favorite genres</button>
         <div data-toggle-genre-target="genreForm" class="d-none" style="font-family:raleway;">
@@ -207,6 +206,5 @@
           <% end %>
         </div>
       </div>
-
     </section>
 </div>

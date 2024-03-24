@@ -63,7 +63,7 @@ export default class extends Controller {
     localStorage.setItem("redirect_uri", redirect_uri);
 
     // Application requests authorization
-    let scope = "user-top-read user-follow-read user-read-playback-state user-modify-playback-state user-library-read";
+    let scope = 'user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-recently-played user-top-read';
 
     let params = new URLSearchParams({
       response_type: "code",
@@ -277,8 +277,7 @@ export default class extends Controller {
     }
 
     return error;
-}
-
+  }
 
   getTopArtists() {
     console.log("This is getTopArtists Stimulus");
@@ -301,7 +300,7 @@ export default class extends Controller {
             return fetch("https://api.spotify.com/v1/me/top/artists?limit=5", {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + newAccessToken, // Use the new access token here
+                Authorization: "Bearer " + newAccessToken,
               },
             });
           });
@@ -312,6 +311,7 @@ export default class extends Controller {
       return response.json();
     })
     .then((data) => {
+
       console.log(data);
 
       const topArtists = document.querySelector(".top-artists-container");
@@ -417,7 +417,7 @@ export default class extends Controller {
             return fetch("https://api.spotify.com/v1/me/top/tracks?limit=5", {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + newAccessToken, // Use the new access token here
+                Authorization: "Bearer " + newAccessToken,
               },
             });
           });
@@ -444,7 +444,7 @@ export default class extends Controller {
       console.error("Error fetching top tracks:", error);
       this.handleUnauthorizedError(error);
     });
-}
+  }
 
 
 
