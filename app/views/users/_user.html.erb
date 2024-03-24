@@ -123,20 +123,6 @@
             <li><%= genre.genre.capitalize %></li>
           <% end %>
         </ul>
-
-        <h3>Top Artists</h3>
-        <ul>
-          <% user.top_artists.each do |artist| %>
-            <li><%= artist.name %></li>
-          <% end %>
-        </ul>
-
-        <h3>Top Tracks</h3>
-        <ul>
-          <% user.top_tracks.each do |track| %>
-            <li><%= track.name %> by <%= track.artist %></li>
-          <% end %>
-        </ul>
       </section>
     </div>
   </div>

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:like, :dislike]
 
   def index
-    @users = current_user.users_with_same_genres.includes(:spotify_top_genres, :top_artists, :top_tracks)
+    @users = current_user.users_with_same_genres
     # @users = User.where
 
     @users = @users.reject do |user|
