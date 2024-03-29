@@ -11,14 +11,19 @@
   top: 3%;
   left: 25px;
   z-index: 10;
-  color: rgb(0, 0, 0);
-  font-family: 'raleway';
-  text-shadow: 2px 2px #d372ff;
+  color: white;
+
   .recipient-img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   }
+}
+
+.carousel-indicators {
+  bottom: 14%;
+  display: flex;
+  justify-content: center;
 }
 
 .image {
@@ -51,7 +56,9 @@
 }
 
 .post-button {
-  margin-top: 10px;
+  position: absolute;
+  bottom: 10%;
+  left: 38%;
   text-decoration: none;
   font-family: 'raleway';
   font-size: 20px;

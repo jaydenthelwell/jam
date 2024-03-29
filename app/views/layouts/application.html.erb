@@ -43,5 +43,6 @@
     <%# <script src="script.js"></script> %>
     <div data-controller="message-notifications"></div>
     <%= yield %>
+    <%= render 'shared/footer' unless (controller_name == 'pages' && action_name == "home") || (controller_name == 'sessions' && action_name == "new") || (controller_name == "chatrooms" && action_name == "show") || (controller_name == "socials" && action_name == "index")%>
   </body>
 </html>
