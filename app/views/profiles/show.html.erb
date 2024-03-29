@@ -18,9 +18,6 @@
     <div class="users-profile-photo">
       <%= cl_image_tag @profile.user.photos.first.key, class: "d-block" if @profile.user.photos.present? %>
     </div>
-    <div>
-      <%= image_tag("play_bar.png", alt: "Play bar", class: "user-profile-play-bar") %>
-    </div>
     <div class="user-profile-prompts">
       <div class="flex-items card-extended">
         <h4 class="prompt">A little about me...</h4>

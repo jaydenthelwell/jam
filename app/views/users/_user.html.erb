@@ -27,7 +27,7 @@
       <p class="location"><%= user.location.capitalize %></p>
     </div>
     <div>
-      <%= image_tag("play_bar.png", alt: "Play bar", class: "play-bar") %>
+      <%# <%= image_tag("play_bar.png", alt: "Play bar", class: "play-bar") %>
       <div class="flex-container">
         <div>
           <form action="/users/<%= user.id %>/dislike" method="post">
