@@ -70,32 +70,7 @@
             </div>
           <% end %>
         </div>
-        <div class="flex-items card-extended">
-          <h6 class="prompt">Top Genres</h6>
-          <div class="profile-top-genres-list genres-list">
-            <% @profile.user.top_genres.each do |genre| %>
-            <% unless genre.genre.blank? %>
-              <ul><li><%= genre.genre.capitalize %></li></ul>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      <div class="flex-items card-extended">
-        <div class="top-tracks mt-5 spotify-user-data" data-controller="spotify-auth">
-          <h5>Top 5 Tracks</h5>
-          <div class="btn btn-success my-2">
-            See Tracks
-          </div>
-            <% @profile.user.top_tracks.each do |track| %>
-            <p>
-              <div class="d-flex">
-                <div data-action="click->spotify-auth#playTrack" data-track-id="<%= track.spotify_ref %>" class="btn btn-primary"><%= track.track %></div>
-                <div data-action="click->spotify-auth#pauseTrack" class="btn btn-danger mx-3">Stop</div>
-              </div>
-            </p>
-          <% end %>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>
