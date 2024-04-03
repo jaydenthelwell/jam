@@ -1,11 +1,15 @@
 .card {
   background-color: rgba(255, 255, 255, 0.7);
-  bottom: 154%;
+  bottom: 182%;
   left: 5%;
   width: 90%;
   height: 32%;
   border-radius: 17px;
   position: relative;
+}
+
+.overflow-background {
+  overflow-x: hidden;
 }
 
 .profile-image-wrapper {
@@ -148,15 +152,13 @@ button {
 
 .prompts-container {
   background-color: rgba(255, 255, 255, 0.7);
-  bottom: 146%;
+  bottom: 175%;
   left: 6%;
   width: 90%;
   padding: 15px;
-  height: 100%;
+  height: 127%;
   border-radius: 17px;
   position: relative;
-  /* max-height: 100vh; */
-  /* overflow-y: scroll; */
 }
 
 .user-prompts {
