@@ -1,12 +1,11 @@
 .card {
   background-color: rgba(255, 255, 255, 0.7);
-  bottom: 127%;
+  bottom: 154%;
   left: 5%;
   width: 90%;
   height: 32%;
   border-radius: 17px;
   position: relative;
-  overflow-y: auto;
 }
 
 .profile-image-wrapper {
@@ -53,7 +52,7 @@ button {
 }
 
 .background__wrapper_user {
-  overflow: hidden;
+  // overflow: hidden;
   position: relative;
   top: 0;
   left: 0;
@@ -149,15 +148,15 @@ button {
 
 .prompts-container {
   background-color: rgba(255, 255, 255, 0.7);
-  bottom: 120%;
+  bottom: 146%;
   left: 6%;
   width: 90%;
   padding: 15px;
   height: 100%;
   border-radius: 17px;
   position: relative;
-  max-height: 100vh;
-  overflow-y: scroll;
+  /* max-height: 100vh; */
+  /* overflow-y: scroll; */
 }
 
 .user-prompts {
@@ -279,4 +278,17 @@ button {
     font-size: 30px;
     text-align: center;
   }
+}
+
+
+.background-index {
+  position: relative;
+  top: -35px;
+  left: -30px;
+  width: 120%;
+  height: 323vh;
+  background-image: url("https://i.imgur.com/KeTQDre.png");
+  background-size: cover;
+  background-position: center;
+  filter: url("#turbulence");
 }
