@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     member do
       post :like
       post :dislike
+      delete :destroy
     end
   end
 

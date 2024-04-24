@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_many :top_tracks, dependent: :destroy
   has_one :profile, dependent: :destroy
 
-  has_many_attached :photos
+  has_many_attached :photos, dependent: :destroy
 
   def dislike(user_id)
     swiper_relationships.create(swipee_id: user_id, like: false)

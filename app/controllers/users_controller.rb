@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:like, :dislike]
+  before_action :set_user, only: [:like, :dislike, :destroy]
 
   def index
     @users = current_user.users_with_same_genres
@@ -105,6 +105,21 @@ class UsersController < ApplicationController
 
   # we rank all the other users based on their points towards the current user
   # we show all the other users based on the above ranking
+
+  def destroy
+    @user = User.find(params[:id])
+    puts User.find(params[:id])
+    if @user.destroy
+      flash[:notice] = "User was successfully deleted."
+    else
+      flash[:alert] = "Failed to delete user."
+    end
+  rescue ActiveRecord::InvalidForeignKey => e
+    flash[:alert] = "Cannot delete user due to associated records."
+  ensure
+    redirect_to root_path
+  end
+
 
   private
 

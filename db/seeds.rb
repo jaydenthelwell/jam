@@ -162,7 +162,7 @@ end
 
 puts "Creating Users ..."
 
-10.times do
+20.times do
   user = User.new(
     name: Faker::Name.first_name,
     email: Faker::Internet.email,
@@ -175,7 +175,7 @@ puts "Creating Users ..."
     all_time_favorite: Faker::Music::Prince.song,
     go_to_karaoke: Faker::Music::RockBand.song
   )
-  3.times do
+  5.times do
     file = URI.open(PICTURES.sample)
     user.photos.attach(io: file, filename: "banana.png", content_type: "image/png")
     user.save!

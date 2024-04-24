@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_07_103013) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -130,11 +130,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_103013) do
   add_foreign_key "chatrooms", "swipes"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "messages", "users", on_delete: :cascade
   add_foreign_key "photos", "socials"
   add_foreign_key "profiles", "users"
+  add_foreign_key "profiles", "users", on_delete: :cascade
   add_foreign_key "socials", "users"
+  add_foreign_key "socials", "users", on_delete: :cascade
   add_foreign_key "swipes", "users", column: "swipee_id"
+  add_foreign_key "swipes", "users", column: "swipee_id", on_delete: :cascade
   add_foreign_key "swipes", "users", column: "swiper_id"
+  add_foreign_key "swipes", "users", column: "swiper_id", on_delete: :cascade
   add_foreign_key "top_genres", "users"
+  add_foreign_key "top_genres", "users", on_delete: :cascade
   add_foreign_key "top_tracks", "users"
+  add_foreign_key "top_tracks", "users", on_delete: :cascade
 end
