@@ -1,5 +1,5 @@
 [build]
-  command = "bundle install --deployment && bundle exec rake assets:precompile"
+  command = "export RUBY_VERSION=3.2.2 && bundle install && bundle exec rake assets:precompile"
   publish = "public"
 
 [[plugins]]
