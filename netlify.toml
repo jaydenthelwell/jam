@@ -1,5 +1,5 @@
 [build]
-  command = "export PG_CONFIG=$(which pg_config) && bundle install && bundle exec rake assets:precompile"
+  command = "bundle install --deployment && bundle exec rake assets:precompile"
   publish = "public"
 
 [[plugins]]

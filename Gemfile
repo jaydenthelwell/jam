@@ -5,7 +5,6 @@ gem 'sqlite3'
 
 ruby "3.2.2"
 
-
 gem "devise"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -18,7 +17,7 @@ gem "sprockets-rails"
 # gem "pg", "~> 1.1"
 
 group :production do
-  gem 'pg'
+  gem 'pg', '< 1.5.6'
   gem 'redis', '~> 4.0'
 end
 # Use the Puma web server [https://github.com/puma/puma]
