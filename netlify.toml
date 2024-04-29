@@ -1,5 +1,5 @@
 [build]
-  command = "apt-get update && apt-get install -y libpq-dev && bundle exec rake assets:precompile"
+  command = "bundle config build.pg --with-pg-config=/usr/pgsql-12/bin/pg_config && bundle install && bundle exec rake assets:precompile"
   publish = "public"
 
 [[plugins]]
