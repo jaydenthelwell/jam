@@ -1,0 +1,11 @@
+[build]
+  command = "bundle exec rake assets:precompile"
+  publish = "public"
+
+[[plugins]]
+  package = "netlify-plugin-apt"
+
+  [plugins.inputs]
+  packages = [
+    "libpq-dev"
+  ]
