@@ -1,5 +1,5 @@
 [build]
-  command = "bundle exec rake assets:precompile"
+  command = "apt-get update && apt-get install -y libpq-dev && bundle exec rake assets:precompile"
   publish = "public"
 
 [[plugins]]
