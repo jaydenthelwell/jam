@@ -17,7 +17,7 @@ gem "sprockets-rails"
 # gem "pg", "~> 1.1"
 
 group :production do
-  gem 'pg', '< 1.5.2'
+  gem 'pg', '< 1.4.6'
   gem 'redis', '~> 4.0'
 end
 # Use the Puma web server [https://github.com/puma/puma]
