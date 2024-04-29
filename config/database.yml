@@ -89,7 +89,7 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  database: <%= ENV['HEROKU_POSTGRESQL_JADE_URL'] %>
+  database: <%= ENV['ELEPHANT_DATABASE_URL'] %>
 
 development:
   adapter: sqlite3
