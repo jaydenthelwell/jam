@@ -5,4 +5,8 @@ class RegistrationsController < Devise::RegistrationsController
     Profile.create(user: current_user)
     '/top_genres/new'
   end
+
+  def sign_up_params
+    params.require(:user).permit(:name, :date_of_birth, :location, :email, :password, :password_confirmation)
+  end
 end
