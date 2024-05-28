@@ -9,6 +9,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def new
+    @user = User.new(gender: "Male") # Set a default gender or retrieve it from somewhere else
+  end
+
   private
 
   def sign_up_params
