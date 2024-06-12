@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   def create
-    @user = User.new(user_params)
+    @user = User.new(sign_up_params)
     if @user.save
       # Handle successful user creation (e.g., redirect to a confirmation page)
     else
