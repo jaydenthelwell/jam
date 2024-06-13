@@ -1,0 +1,28 @@
+current directory: /Users/jaydenthelwell/jam2/jam/''/gems/rbs-3.5.1/ext/rbs_extension
+/Users/jaydenthelwell/.rbenv/versions/3.2.2/bin/ruby extconf.rb
+/Users/jaydenthelwell/.rbenv/versions/3.2.2/bin/ruby: warning: Ruby was built without YJIT support. You may need to install rustc to build Ruby with YJIT.
+checking for whether -std=gnu99 is accepted as CFLAGS... yes
+creating Makefile
+
+current directory: /Users/jaydenthelwell/jam2/jam/''/gems/rbs-3.5.1/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20240613-4988-al2lze sitelibdir\=./.gem.20240613-4988-al2lze clean
+
+current directory: /Users/jaydenthelwell/jam2/jam/''/gems/rbs-3.5.1/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20240613-4988-al2lze sitelibdir\=./.gem.20240613-4988-al2lze
+compiling constants.c
+compiling lexer.c
+compiling lexstate.c
+compiling location.c
+compiling main.c
+compiling parser.c
+compiling parserstate.c
+compiling ruby_objs.c
+compiling unescape.c
+linking shared-object rbs_extension.bundle
+
+current directory: /Users/jaydenthelwell/jam2/jam/''/gems/rbs-3.5.1/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20240613-4988-al2lze sitelibdir\=./.gem.20240613-4988-al2lze install
+/usr/local/bin/ginstall -c -m 0755 rbs_extension.bundle ./.gem.20240613-4988-al2lze
+
+current directory: /Users/jaydenthelwell/jam2/jam/''/gems/rbs-3.5.1/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20240613-4988-al2lze sitelibdir\=./.gem.20240613-4988-al2lze clean
