@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   validates :name, presence: true
   validates :gender, presence: true
+  validates :location, presence: true
   has_many_attached :photos, dependent: :destroy
 
   def dislike(user_id)
