@@ -13,7 +13,7 @@ class TopGenresController < ApplicationController
     @top_genre = TopGenre.new(top_genre_params)
     @top_genre.user = current_user
     if @top_genre.save
-      redirect_to profile_path(current_user)
+      redirect_to profile_path(@user.profile)
     else
       flash[:error] = "There was an issue with saving your top genres."
       render :new
