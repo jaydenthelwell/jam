@@ -84,18 +84,9 @@ test:
 #   database: jam_production
 #   username: jam
 #   password: <%= ENV["JAM_DATABASE_PASSWORD"] %>
-
 production:
   <<: *default
-  adapter: postgresql
-  encoding: unicode
-  database: yczasjhg
-  pool: 5
-  username: yczasjhg
-  password: kogiD0QIKhiF2EPgszasbDNezrpgAdss
-  host: rogue.db.elephantsql.com
-  port: 5432
-  sslmode: require
+  url: <%= ENV['DATABASE_URL'] %>
 
 development:
   adapter: sqlite3
