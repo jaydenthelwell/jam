@@ -120,7 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
     t.string "on_repeat"
     t.string "all_time_favorite"
     t.string "go_to_karaoke"
-    t.date "date_of_birth"
+    t.date "_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -86,6 +86,8 @@ test:
 #   password: <%= ENV["JAM_DATABASE_PASSWORD"] %>
 production:
   <<: *default
+  adapter: postgresql
+  encoding: unicode
   url: <%= ENV['DATABASE_URL'] %>
 
 development:
