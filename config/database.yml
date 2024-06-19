@@ -84,16 +84,12 @@ test:
 #   database: jam_production
 #   username: jam
 #   password: <%= ENV["JAM_DATABASE_PASSWORD"] %>
-production:
-  <<: *default
-  adapter: postgresql
-  encoding: unicode
-  url: <%= ENV['DATABASE_URL'] %>
+
 
 development:
   adapter: sqlite3
   database: db/development.sqlite3
-  pool: 5
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 test:
@@ -101,3 +97,9 @@ test:
   database: db/test.sqlite3
   pool: 5
   timeout: 5000
+
+production:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  url: <%= ENV['DATABASE_URL'] %>
