@@ -169,7 +169,7 @@ puts "Creating Users ..."
     password: "123456",
     location: Faker::Address.city,
     description: Faker::Hipster.sentence,
-    date_of_birth: Faker::Date.between(from: '1900-09-23', to: '2005-08-28'),
+    _birth: Faker::Date.between(from: '1900-09-23', to: '2005-08-28'),
     gender: ["male", "female", "other"].sample,
     on_repeat: Faker::Music::PearlJam.song,
     all_time_favorite: Faker::Music::Prince.song,
