@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_19_121452) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,7 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
   end
 
   create_table "chatrooms", force: :cascade do |t|
-    t.integer "swipe_id", null: false
+    t.bigint "swipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["swipe_id"], name: "index_chatrooms_on_swipe_id"
@@ -48,8 +52,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
 
   create_table "messages", force: :cascade do |t|
     t.string "content"
-    t.integer "chatroom_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "chatroom_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
@@ -57,29 +61,29 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.integer "social_id", null: false
+    t.bigint "social_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["social_id"], name: "index_photos_on_social_id"
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "socials", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_socials_on_user_id"
   end
 
   create_table "swipes", force: :cascade do |t|
-    t.integer "swiper_id"
-    t.integer "swipee_id"
+    t.bigint "swiper_id"
+    t.bigint "swipee_id"
     t.boolean "like"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -90,7 +94,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
 
   create_table "top_genres", force: :cascade do |t|
     t.string "genre"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_top_genres_on_user_id"
@@ -98,7 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
 
   create_table "top_tracks", force: :cascade do |t|
     t.string "track"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "spotify_ref"
@@ -114,13 +118,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.string "location"
     t.text "description"
-    t.string "gender"
     t.string "on_repeat"
     t.string "all_time_favorite"
     t.string "go_to_karaoke"
     t.date "_birth"
+    t.string "location"
+    t.string "gender"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -130,18 +134,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_143547) do
   add_foreign_key "chatrooms", "swipes"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
-  add_foreign_key "messages", "users", on_delete: :cascade
   add_foreign_key "photos", "socials"
   add_foreign_key "profiles", "users"
-  add_foreign_key "profiles", "users", on_delete: :cascade
   add_foreign_key "socials", "users"
-  add_foreign_key "socials", "users", on_delete: :cascade
   add_foreign_key "swipes", "users", column: "swipee_id"
-  add_foreign_key "swipes", "users", column: "swipee_id", on_delete: :cascade
   add_foreign_key "swipes", "users", column: "swiper_id"
-  add_foreign_key "swipes", "users", column: "swiper_id", on_delete: :cascade
   add_foreign_key "top_genres", "users"
-  add_foreign_key "top_genres", "users", on_delete: :cascade
   add_foreign_key "top_tracks", "users"
-  add_foreign_key "top_tracks", "users", on_delete: :cascade
 end
