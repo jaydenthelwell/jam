@@ -15,21 +15,29 @@
 # gem "pg"
 #
 default: &default
-  adapter: postgresql
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  adapter: postgresql  # Specify the adapter for PostgreSQL
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>  # Number of database connections in the pool
+  timeout: 5000  # Connection timeout in milliseconds
 
 development:
-  url: <%= ENV['DATABASE_URL'] %>
+  <<: *default  # Inherit default settings
+  url: <%= ENV['DATABASE_URL'] %>  # Use DATABASE_URL env variable (make sure it's set)
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 test:
+  adapter: sqlite3  # Use SQLite for testing (unless you're using PostgreSQL for tests too)
   database: db/test.sqlite3
   pool: 5
   timeout: 5000
 
 production:
+  <<: *default
+  database: <%= ENV['DATABASE_URL'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
   url: <%= ENV['DATABASE_URL'] %>
-  pool: 5
+  port: <%= ENV['DB_PORT'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000

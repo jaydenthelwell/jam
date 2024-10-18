@@ -51,3 +51,5 @@ pickle-email-*.html
 
 .env
 .powenv
+
+/config/master.key
