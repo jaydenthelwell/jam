@@ -55,7 +55,7 @@ export default class extends Controller {
     console.log("client_secret:", client_secret);
 
     // Your redirect uri
-    let redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
+    let redirect_uri = "https://jam-with-me.fly.dev/profile";
     console.log("redirect_uri:", redirect_uri);
 
     localStorage.setItem("client_id", client_id);
@@ -112,7 +112,7 @@ export default class extends Controller {
   #fetchAccessToken(code) {
     const client_id = "3cb7538518ab456b9caf81d7a965a2c6";
     const client_secret = "5567c114cf644cb4a0dee55b8faf5a38";
-    const redirect_uri = "https://jam-portfolio-6bb344866d62.herokuapp.com/profile";
+    const redirect_uri = "https://jam-with-me.fly.dev/profile";
 
     const body = new URLSearchParams();
     body.append('grant_type', 'authorization_code');
